@@ -23,6 +23,8 @@ The back-end for this app was built using Node, Express, Mongoose, and MongoDB a
 ## Lessons Learned:
 I have really become familar with MVC architecture and navigating the backend. I have also learned that there are so many ways to authenticate your applications and they all have their pros and cons. It was a challenge to try to keep the authentication simple while still being secure.
 
+Also noticed that I believe my virtual computer was corrupting my .git files occasionally. Requiring me to force push, deleting previous commits unfortunately. Tried creating new branches, pull requests, etc. Looking forward to fixing the underlying issue or figuring out how to properly fix the corrupted file.
+
 - - - -
 
 ## Other Work:
