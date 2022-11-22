@@ -127,22 +127,23 @@ module.exports = {
       updateRating: async (req, res) => {
         console.log(req.params.id)
         console.log("Trying to update ratings")
-        let average = req.body.rating.reduce((a,b)=>a+b)/req.body.rating.length
-        let averageRound = average.toFixed(2)
-        console.log(averageRound)
+        console.log(req.body.ovRating, req.body.worthRating, req.body.sizeRating, req.body.tasteRating, req.body.ambRating,)
+        
         
         try {
           await Post.findByIdAndUpdate(
             { _id: req.params.id},
             {
-              $push: { rating: req.body.rating.splice(-1) },
-              $addToSet: { ratedBy: req.body.userID},
-              $set: {ratingAvg: averageRound}
+              $push: { ovRating: req.body.ovRating, worthRating: req.body.worthRating, sizeRating: req.body.sizeRating, tasteRating: req.body.tasteRating, ambRating: req.body.ambRating   },
+              
+              $addToSet: { ratedBy: req.body.userRated},
+              $set: {ovRatingAvg: req.body.ovAverage, worthRatingAvg: req.body.worthAverage, sizeRatingAvg: req.body.sizeAverage, ambRatingAvg: req.body.ambAverage, tasteRatingAvg: req.body.tasteAverage},
+              
             }
           );
         } catch (err) {
           console.log(err);
-          res.redirect(`/feed`)
+          // res.redirect(`/feed`)
         }
       },
 

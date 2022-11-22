@@ -97,25 +97,6 @@ export default function DashboardText(){
 		}    
     }
 
-    //test start
-    
-   
-    
-    // async function handleClick(index, postid){
-    //     console.log(postid)
-        
-        
-    //     setDataHH(dataHH.map(item => item._id === postid ? {
-    //         ...item,
-    //         rating: [...item.rating, index],
-    //     } : item))
-    //     console.log(dataHH[0].rating)
-    //     console.log(dataHH.map(item => item._id === postid))
-    //     console.log(dataHH)
-         
-    // }
-
-    //test end
 
     if (isLoading) {
         return (<div>
@@ -152,7 +133,7 @@ export default function DashboardText(){
                         <button action={`${item._id}`} type="submit" onClick={handleRmFavorite}>Remove From Favorites</button>
 
                     </div>
-                    <span>({item.ratingAvg})</span>
+                    <span>({item.ovRatingAvg})</span>
                         <div className="star-rating">
                         {[...Array(4)].map((star, index) => {
                         index += 1;
@@ -160,7 +141,7 @@ export default function DashboardText(){
                             <button
                             type="button"
                             key={index}
-                            className={item.ratingAvg <= index-1 ? "text-gray-300" : "on"}
+                            className={item.ovRatingAvg <= index-1 ? "text-gray-300" : "on"}
                             >
                             <span className="star">&#9733;</span>
                             </button>

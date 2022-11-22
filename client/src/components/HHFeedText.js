@@ -97,7 +97,7 @@ export default function HHFeedText(){
     if (isLoading) {
         return <div>Loading....</div>
     }
-
+    
     if (isLoading == false) return (
 
         <div>
@@ -127,7 +127,7 @@ export default function HHFeedText(){
                             <button action={`${item._id}`} type="submit" onClick={handleAddToFavorite}>Add To Favorites</button>
                             }
                         </div>
-                        <span>({item.ratingAvg})</span>
+                        <span>({item.ovRatingAvg})</span>
                         <div className="star-rating">
                         {[...Array(4)].map((star, index) => {
                         index += 1;
@@ -135,7 +135,7 @@ export default function HHFeedText(){
                             <button
                             type="button"
                             key={index}
-                            className={item.ratingAvg <= index-1 ? "text-gray-300" : "on"}
+                            className={item.ovRatingAvg <= index-1 ? "text-gray-300" : "on"}
                             >
                             <span className="star">&#9733;</span>
                             </button>

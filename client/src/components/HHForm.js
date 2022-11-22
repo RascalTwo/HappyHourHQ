@@ -14,7 +14,6 @@ export default function HHForm() {
             endTime: "", 
             address: "", 
             website: "https://",
-            rating: 0,
             monday: false, 
             tuesday: false,
             wednesday: false,
