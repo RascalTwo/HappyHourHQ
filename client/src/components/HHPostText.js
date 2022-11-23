@@ -222,6 +222,13 @@ export default function HHPostText(props){
         setReview(true)
     }
 
+    function handleTime(time){
+        let splitTime = time.split(":")
+        if (Number(splitTime[0]) > 12){return `${Number(splitTime[0] - 12)}:${splitTime[1]} PM`} else {
+            return `splitTime[0] AM`
+        }
+    }
+
     if (isLoading) {
         return (<div>
                     <div>Loading....</div>
@@ -240,8 +247,7 @@ export default function HHPostText(props){
                     <div className="flex-col">
                         <div>{dataHH.name}</div>
                         <div className="flex">
-                            <div>{dataHH.startTime}  -  </div>
-                            <div>{dataHH.endTime}</div>
+                        <div>{handleTime(dataHH.startTime)} - {handleTime(dataHH.endTime)}</div>
                         </div>
                         <div className="flex space-x-1">
                             {dataHH.monday && <div>M</div>}

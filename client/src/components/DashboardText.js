@@ -62,10 +62,7 @@ export default function DashboardText(){
     }, [dataLoaded, update])
 
    
-    // console.log(dataHH)
-    // console.log(userData)
-    
-    // console.log(userData.favoritePosts)
+   
     
 
     const handleRmFavorite = async event => {
@@ -97,6 +94,16 @@ export default function DashboardText(){
 		}    
     }
 
+    // test time here
+
+    function handleTime(time){
+        let splitTime = time.split(":")
+        if (Number(splitTime[0]) > 12){return `${Number(splitTime[0] - 12)}:${splitTime[1]} PM`} else {
+            return `splitTime[0] AM`
+        }
+    }
+
+   
 
     if (isLoading) {
         return (<div>
@@ -111,13 +118,12 @@ export default function DashboardText(){
         <div>
             
             {dataHH.map((item, index) => 
-            
+                
                 <div className="flex border-black border rounded" key={index}>
                     <div className="flex-col">
                         <div>{item.name}</div>
                         <div className="flex">
-                            <div>{item.startTime}  -  </div>
-                            <div>{item.endTime}</div>
+                            <div>{handleTime(item.startTime)} - {handleTime(item.endTime)}</div>
                         </div>
                         <div className="flex space-x-1">
                             {item.monday && <div>M</div>}

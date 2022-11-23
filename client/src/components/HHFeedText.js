@@ -94,6 +94,13 @@ export default function HHFeedText(){
 		}    
     }
 
+    function handleTime(time){
+        let splitTime = time.split(":")
+        if (Number(splitTime[0]) > 12){return `${Number(splitTime[0] - 12)}:${splitTime[1]} PM`} else {
+            return `splitTime[0] AM`
+        }
+    }
+
     if (isLoading) {
         return <div>Loading....</div>
     }
@@ -107,8 +114,7 @@ export default function HHFeedText(){
                     <div className="flex-col">
                         <div>{item.name}</div>
                         <div className="flex">
-                            <div>{item.startTime}  -  </div>
-                            <div>{item.endTime}</div>
+                        <div>{handleTime(item.startTime)} - {handleTime(item.endTime)}</div>
                         </div>
                         <div className="flex space-x-1">
                             {item.monday && <div>M</div>}
