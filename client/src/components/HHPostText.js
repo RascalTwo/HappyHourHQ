@@ -2,6 +2,7 @@ import React, { useDebugValue } from "react";
 import { Link, useNavigate, } from 'react-router-dom';
 import axios from 'axios';
 import useAuth from '../auth/useAuth';
+import CloudinaryUploadWidget from "./CloudinaryUploadWidget";
 
 
 export default function HHPostText(props){
@@ -360,7 +361,7 @@ export default function HHPostText(props){
                         })}
                     </div>
                     </div>
-                    
+                    <CloudinaryUploadWidget />
                     {/* ADD REVIEW */}
                    {review === false ? <div></div> :  
                    <div>
