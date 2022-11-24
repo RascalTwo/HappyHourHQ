@@ -226,7 +226,7 @@ export default function HHPostText(props){
     function handleTime(time){
         let splitTime = time.split(":")
         if (Number(splitTime[0]) > 12){return `${Number(splitTime[0] - 12)}:${splitTime[1]} PM`} else {
-            return `splitTime[0] AM`
+            return `${splitTime[0]}:${splitTime[1]} AM`
         }
     }
 
@@ -454,8 +454,9 @@ export default function HHPostText(props){
                             })}
                         </div>        
                         <button onClick={handleReviewSubmit}>Submit Review</button>        
-                    <div><Link to ={`/feed`}>Return to feed</Link></div>
+                    
                 </div> }
+                <div><Link to ={`/feed`}>Return to feed</Link></div>
                 </div>
         
         </div>

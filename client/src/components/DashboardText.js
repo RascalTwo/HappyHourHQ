@@ -17,7 +17,7 @@ export default function DashboardText(){
     const [update, setUpdate] = React.useState(0)
     
     console.log(process.env.NODE_ENV)
-    console.log(process.env.REACT_APP_CLOUD_NAME)
+
 
   
     const [userData, setUserData] = React.useState([{}])
@@ -100,7 +100,7 @@ export default function DashboardText(){
     function handleTime(time){
         let splitTime = time.split(":")
         if (Number(splitTime[0]) > 12){return `${Number(splitTime[0] - 12)}:${splitTime[1]} PM`} else {
-            return `splitTime[0] AM`
+            return `${splitTime[0]}:${splitTime[1]} AM`
         }
     }
 

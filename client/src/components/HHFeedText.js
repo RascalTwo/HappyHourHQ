@@ -97,7 +97,7 @@ export default function HHFeedText(){
     function handleTime(time){
         let splitTime = time.split(":")
         if (Number(splitTime[0]) > 12){return `${Number(splitTime[0] - 12)}:${splitTime[1]} PM`} else {
-            return `splitTime[0] AM`
+            return `${splitTime[0]}:${splitTime[1]} AM`
         }
     }
 
