@@ -9,6 +9,7 @@ const HHSchema = new mongoose.Schema({
 		zipcode: {type: Number},
 		state: {type: String},
 		website: {type: String},
+		phone: {type: String},
         monday: {type: Boolean},
 		tuesday: {type: Boolean},
 		wednesday: {type: Boolean},

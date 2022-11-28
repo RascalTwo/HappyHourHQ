@@ -2,6 +2,8 @@ import React from "react"
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../auth/useAuth';
+import 'react-phone-number-input/style.css';
+import PhoneInput from 'react-phone-number-input'
 
 export default function HHForm() {
     const { user } = useAuth();
@@ -16,6 +18,7 @@ export default function HHForm() {
             zipcode: "",
             state: "", 
             website: "https://",
+            phone: "",
             monday: false, 
             tuesday: false,
             wednesday: false,
@@ -27,6 +30,16 @@ export default function HHForm() {
             
         }
     )
+
+    function handlePhoneChange(value){
+        setFormData(prevFormData => {
+            return {
+                ...prevFormData,
+                phone: value,
+            }
+        })
+        console.log(formData.phone)
+    }
 
     function handleChange(event){
         const {name, value, type, checked} = event.target
@@ -51,6 +64,7 @@ export default function HHForm() {
                     zipcode: formData.zipcode,
                     state: formData.state,
                     website: formData.website,
+                    phone: formData.phone,
                     startTime: formData.startTime,
                     endTime: formData.endTime,
                     monday: formData.monday,
@@ -163,6 +177,12 @@ export default function HHForm() {
                 name="website"
                 value={formData.website}
             />
+            <label htmlFor="phone">Phone Number</label>
+            <PhoneInput 
+            placeholder="Enter Phone Number"
+            defaultCountry="US"
+            onChange={handlePhoneChange}
+            value={formData.phone}/>
             <label htmlFor="startTime">Start Time</label>
             <input className="border rounded border-black"
                 type="time"

@@ -5,6 +5,7 @@ import useAuth from '../auth/useAuth';
 import CloudinaryUploadWidget from "./CloudinaryUploadWidget";
 
 
+
 export default function HHPostText(props){
     const { user } = useAuth();
     const [dataHH, setDataHH] = React.useState([{}])
@@ -362,6 +363,7 @@ export default function HHPostText(props){
                     </div>
                     </div>
                     <CloudinaryUploadWidget name={props.postID.id}/>
+                    
                     <div><img src={dataHH.images[0]}/></div>
                     {/* ADD REVIEW */}
                    {review === false ? <div></div> :  
