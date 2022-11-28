@@ -20,6 +20,7 @@ router.get("/getUserData", postsController.getUserData)
 
 router.put("/addFavorite/:id", postsController.addFavorite)
 router.put("/updateRating/:id", postsController.updateRating)
+router.put("/addImage/:id", postsController.addImage)
 
 router.delete("/rmFavorite/:id", postsController.rmFavorite)
 

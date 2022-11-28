@@ -29,6 +29,8 @@ const HHSchema = new mongoose.Schema({
 		tasteRating:{type: Array},
 		tasteRatingAvg:{type: Number},
 		ratedBy: {type: Array},
+		images: {type: Array},
+		
 		
 		
 });

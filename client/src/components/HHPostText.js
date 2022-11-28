@@ -361,7 +361,8 @@ export default function HHPostText(props){
                         })}
                     </div>
                     </div>
-                    <CloudinaryUploadWidget />
+                    <CloudinaryUploadWidget name={props.postID.id}/>
+                    <div><img src={dataHH.images[0]}/></div>
                     {/* ADD REVIEW */}
                    {review === false ? <div></div> :  
                    <div>

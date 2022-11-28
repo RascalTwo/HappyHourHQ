@@ -147,6 +147,21 @@ module.exports = {
           // res.redirect(`/feed`)
         }
       },
+
+      addImage: async (req, res) => {
+        console.log("Trying to update image")
+        try {
+          await Post.findByIdAndUpdate(
+            { _id: req.params.id},
+            {
+              $addToSet: { images: req.body.image}, 
+            }
+          );
+        } catch (err) {
+          console.log(err);
+          // res.redirect(`/feed`)
+        }
+      },
       
 
 }
