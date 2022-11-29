@@ -3,14 +3,17 @@ import useAuth from '../auth/useAuth';
 import Header from '../components/Header';
 import { NavLink } from 'react-router-dom';
 import HHFeedText from '../components/HHFeedText';
+import Footer from '../components/Footer';
 
 function Dashboard() {
 	const { user } = useAuth();
 
 	return (
-		<div>
+		<div className='flex flex-col min-h-screen'>
 			<Header />
+			<div className='flex-grow'>
             <HHFeedText />
+			</div>
 			<div className='flex flex-col p-10 items-center gap-5'>
 				<h2>This is the Feed page. (Private)</h2>
 				<div className='flex flex-col'>
@@ -19,6 +22,7 @@ function Dashboard() {
 					
 				</div>
 			</div>
+			<Footer />
 		</div>
 	);
 }

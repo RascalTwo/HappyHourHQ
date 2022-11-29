@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import useAuth from '../auth/useAuth';
 import axios from 'axios';
 import Header from "../components/Header";
+import Footer from '../components/Footer';
 
 function Login() {
 	let navigate = useNavigate();
@@ -56,9 +57,9 @@ function Login() {
 	};
 
 	return (
-		<div>
+		<div className='flex flex-col min-h-screen'>
 			<Header />
-			<div>
+			<div className='flex-grow'>
 				<section className='flex flex-col items-center p-10'>
 					<div className='card w-96 shadow-xl bg-neutral'>
 						<div className='card-body'>
@@ -97,6 +98,7 @@ function Login() {
 					</div>
 				</section>
 			</div>
+			<Footer />
 		</div>
 	);
 }

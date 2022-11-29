@@ -1,8 +1,14 @@
 import React from 'react';
 import axios from 'axios';
 import Header from '../components/Header';
+import { useNavigate } from 'react-router-dom';
+import Footer from '../components/Footer';
+
 
 function SignUp() {
+	let navigate = useNavigate();
+	
+
 	const [msg, setMsg] = React.useState({
 		text: '',
 		success: false,
@@ -44,6 +50,8 @@ function SignUp() {
 				text: response.data.message.msgBody,
 				success: true,
 			});
+			
+			setTimeout(() => navigate('/login'), 1500)
 		} catch (err) {
 			setMsg({
 				text: err.response.data.message.msgBody,
@@ -54,9 +62,9 @@ function SignUp() {
 	};
 
 	return (
-		<div>
+		<div className='flex flex-col min-h-screen'>
 			<Header />
-			<div>
+			<div className='flex-grow'>
 				<section className='flex flex-col items-center p-10'>
 					<div className='card w-96 shadow-xl bg-neutral'>
 						<div className='card-body'>
@@ -107,6 +115,7 @@ function SignUp() {
 					</div>
 				</section>
 			</div>
+			<Footer />
 		</div>
 	);
 }
