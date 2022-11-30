@@ -3,6 +3,7 @@ import { Link, useNavigate, } from 'react-router-dom';
 import axios from 'axios';
 import useAuth from '../auth/useAuth';
 import CloudinaryUploadWidget from "./CloudinaryUploadWidget";
+import { formatPhoneNumber } from 'react-phone-number-input'
 
 
 
@@ -231,6 +232,8 @@ export default function HHPostText(props){
         }
     }
 
+   
+
     if (isLoading) {
         return (<div>
                     <div>Loading....</div>
@@ -245,219 +248,250 @@ export default function HHPostText(props){
             
            
             
-                <div className="flex border-black border rounded">
-                    <div className="flex-col">
-                        <div>{dataHH.name}</div>
-                        <div className="flex">
-                        <div>{handleTime(dataHH.startTime)} - {handleTime(dataHH.endTime)}</div>
-                        </div>
-                        <div className="flex space-x-1">
-                            {dataHH.monday && <div>M</div>}
-                            {dataHH.tuesday && <div>T</div>}
-                            {dataHH.wednesday && <div>W</div>}
-                            {dataHH.thursday && <div>Th</div>}
-                            {dataHH.friday && <div>F</div>}
-                            {dataHH.saturday && <div>Sa</div>}
-                            {dataHH.sunday && <div>Su</div>}
-                        </div>
-                        <div><a href={dataHH.website}>Website & Menu</a></div>
-                        {
+                
+                    
+                        {/* NAME */}
+                        <div className="flex justify-center text-xl">{dataHH.name}</div>
+                        
+                        {/* ADD REVIEW BUTTON. ONLY IF NO USER REVIEW */}
+                        <div className="flex justify-around text-sm">
+                            { !dataHH.ratedBy.includes(user._id) ? <button onClick={handleToggleReview} >Add Review</button> : <div></div>}
+                            
+                            {/* ADD || REMOVE FAVORITE */}
+                            {
                             userData.favoritePosts.includes(dataHH._id) ?
-                            <button action={`${dataHH._id}`} type="submit" onClick={handleRmFavorite}>Remove From Favorites</button>
+                            <button action={`${dataHH._id}`} type="submit" onClick={handleRmFavorite} >Remove Favorite</button>
                              : 
-                            <button action={`${dataHH._id}`} type="submit" onClick={handleAddToFavorite}>Add To Favorites</button>
+                            <button action={`${dataHH._id}`} type="submit" onClick={handleAddToFavorite}>Add Favorite</button>
                         }   
-                        
-
-                    </div>
+                        </div>
                     
-                    <div>
-                        
-                    { dataHH.ratedBy.includes(user._id) ? <div></div> : <button onClick={handleToggleReview}>Add Review</button>}
-                       
-                    </div>
-                    {/* DISPLAY REVIEWS */}
-                    <div>
-                        
-                        <div className="star-rating">
-                        <span>({dataHH.ovRatingAvg})</span>
-                        Overall
-                        {[...Array(4)].map((star, index) => {
-                        index += 1;
-                        return (
-                            <button
-                            type="button"
-                            key={index}
-                            className={dataHH.ovRatingAvg == null || Math.round(dataHH.ovRatingAvg) <= index-1? "text-gray-300" : "on"}
-                            >
-                            <span className="star">&#9733;</span>
-                            </button>
-                        );
-                        })}
-                        <span>Total Reviews: = {dataHH.ratedBy.length}</span>
-                    </div>
-                    
-                    <div className="star-rating">
-                    <span>({dataHH.tasteRatingAvg})</span>
-                        Taste
-                        {[...Array(4)].map((star, index) => {
-                        index += 1;
-                        return (
-                            <button
-                            type="button"
-                            key={index}
-                            className={dataHH.tasteRatingAvg == null || Math.round(dataHH.tasteRatingAvg) <= index-1 ? "text-gray-300" : "on"}
-                            >
-                            <span className="star">&#9733;</span>
-                            </button>
-                        );
-                        })}
-                    </div>
-                    <div className="star-rating">
-                    <span>({dataHH.ambRatingAvg})</span>
-                        Ambiance
-                        {[...Array(4)].map((star, index) => {
-                        index += 1;
-                        return (
-                            <button
-                            type="button"
-                            key={index}
-                            className={dataHH.ambRatingAvg == null ||Math.round(dataHH.ambRatingAvg) <= index-1 ? "text-gray-300" : "on"}
-                            >
-                            <span className="star">&#9733;</span>
-                            </button>
-                        );
-                        })}
-                    </div>
-                    <div className="star-rating">
-                    <span>({dataHH.worthRatingAvg})</span>
-                        Worth It
-                        {[...Array(4)].map((star, index) => {
-                        index += 1;
-                        return (
-                            <button
-                            type="button"
-                            key={index}
-                            className={dataHH.worthRatingAvg == null ||Math.round(dataHH.worthRatingAvg) <= index-1 ? "text-gray-300" : "on"}
-                            >
-                            <span className="star">&#9733;</span>
-                            </button>
-                        );
-                        })}
-                    </div>
-                    <div className="star-rating">
-                    <span>({dataHH.sizeRatingAvg})</span>
-                        Portions
-                        {[...Array(4)].map((star, index) => {
-                        index += 1;
-                        return (
-                            <button
-                            type="button"
-                            key={index}
-                            className={dataHH.sizeRatingAvg == null ||Math.round(dataHH.sizeRatingAvg) <= index-1 ? "text-gray-300" : "on"}
-                            >
-                            <span className="star">&#9733;</span>
-                            </button>
-                        );
-                        })}
-                    </div>
-                    </div>
-                    <CloudinaryUploadWidget name={props.postID.id}/>
-                    
-                    <div><img src={dataHH.images[0]}/></div>
-                    {/* ADD REVIEW */}
-                   {review === false ? <div></div> :  
-                   <div>
-                    <span>Review Here!</span>
-                        <label htmlFor="worth">Worth It</label>
-                        <div className="star-rating">
-                            {[...Array(4)].map((star, index) => {
-                            index += 1;
-                            return (
-                                <button
-                                type="button"
-                                key={index}
-    
-                                className={ratingData.worthRating <= index-1 ? "text-gray-300" : "on"}
-                                onClick={() => handleWorthRatingClick(index, dataHH._id)}
-                                name="worth"
+            <div className="flex border-black border rounded flex-col items-center">
+                    {/* DISPLAY REVIEWS & IMAGE*/}
+                    <div className="flex border-black border rounded justify-around w-3/5 min-h-0 p-6 flex-wrap my-6">
+                        <div className="flex flex-wrap flex-col border-black border rounded w-80 h-64 mx-3 my-3">
+                            <span className="flex">HH Reviews</span>  
+                            <div className="star-rating flex">
                                 
-                                >
-                                <span className="star">&#9733;</span>
-                                </button>
-                            );
-                            })}
+                                <span>({dataHH.ovRatingAvg})</span>
+                                Overall
+                                {[...Array(4)].map((star, index) => {
+                                index += 1;
+                                return (
+                                    <button
+                                    type="button"
+                                    key={index}
+                                    className={dataHH.ovRatingAvg == null || Math.round(dataHH.ovRatingAvg) <= index-1? "text-gray-300" : "on"}
+                                    >
+                                    <span className="star">&#9733;</span>
+                                    </button>
+                                );
+                                })}
+                                <span>({dataHH.ratedBy.length})</span>
+                            </div>
+                            
+                            <div className="star-rating flex">
+                            <span>({dataHH.tasteRatingAvg})</span>
+                                Taste
+                                {[...Array(4)].map((star, index) => {
+                                index += 1;
+                                return (
+                                    <button
+                                    type="button"
+                                    key={index}
+                                    className={dataHH.tasteRatingAvg == null || Math.round(dataHH.tasteRatingAvg) <= index-1 ? "text-gray-300" : "on"}
+                                    >
+                                    <span className="star">&#9733;</span>
+                                    </button>
+                                );
+                                })}
+                            </div>
+                            <div className="star-rating flex">
+                            <span>({dataHH.ambRatingAvg})</span>
+                                Ambiance
+                                {[...Array(4)].map((star, index) => {
+                                index += 1;
+                                return (
+                                    <button
+                                    type="button"
+                                    key={index}
+                                    className={dataHH.ambRatingAvg == null ||Math.round(dataHH.ambRatingAvg) <= index-1 ? "text-gray-300" : "on"}
+                                    >
+                                    <span className="star">&#9733;</span>
+                                    </button>
+                                );
+                                })}
+                            </div>
+                            <div className="star-rating flex">
+                            <span>({dataHH.worthRatingAvg})</span>
+                                Worth It
+                                {[...Array(4)].map((star, index) => {
+                                index += 1;
+                                return (
+                                    <button
+                                    type="button"
+                                    key={index}
+                                    className={dataHH.worthRatingAvg == null ||Math.round(dataHH.worthRatingAvg) <= index-1 ? "text-gray-300" : "on"}
+                                    >
+                                    <span className="star">&#9733;</span>
+                                    </button>
+                                );
+                                })}
+                            </div>
+                            <div className="star-rating flex">
+                            <span>({dataHH.sizeRatingAvg})</span>
+                                Portions
+                                {[...Array(4)].map((star, index) => {
+                                index += 1;
+                                return (
+                                    <button
+                                    type="button"
+                                    key={index}
+                                    className={dataHH.sizeRatingAvg == null ||Math.round(dataHH.sizeRatingAvg) <= index-1 ? "text-gray-300" : "on"}
+                                    >
+                                    <span className="star">&#9733;</span>
+                                    </button>
+                                );
+                                })}
+                            </div>
                         </div>
-                        <label htmlFor="size">Portion Size</label>
-                        <div className="star-rating">
-                            {[...Array(4)].map((star, index) => {
-                            index += 1;
-                            return (
-                                <button
-                                type="button"
-                                key={index}
-                                className={ratingData.sizeRating <= index-1 ? "text-gray-300" : "on"}
-                                onClick={() => handleSizeRatingClick(index, dataHH._id)}
-                                name="size"
-                                >
-                                <span className="star">&#9733;</span>
-                                </button>
-                            );
-                            })}
+                        {dataHH.images[0] != undefined ? <div className="flex w-80 h-64 mx-3 my-3 border-black border rounded">
+                            <img src={dataHH.images[0]} className="object-contain"/>
+                        </div>  : <div className="flex items-center border-black border rounded my-16 my-3 p-1 ">Add Photo with Review</div>}
+                        
+                    </div>
+                    {/* CONTACT INFO */}
+                    <div className="flex flex-wrap w-2/5 justify-around my-2">
+                        
+                        <div className="flex flex-col border-black border rounded py-2 px-4 my-2 mx-1">
+                            <div className="flex justify-center pb-2">Hours</div>
+                            {dataHH.monday && <div>Monday: {handleTime(dataHH.startTime)} - {handleTime(dataHH.endTime)}</div>}
+                            {dataHH.tuesday && <div>Tuesday: {handleTime(dataHH.startTime)} - {handleTime(dataHH.endTime)}</div>}
+                            {dataHH.wednesday && <div>Wednesday: {handleTime(dataHH.startTime)} - {handleTime(dataHH.endTime)}</div>}
+                            {dataHH.thursday && <div>Thursday: {handleTime(dataHH.startTime)} - {handleTime(dataHH.endTime)}</div>}
+                            {dataHH.friday && <div>Friday: {handleTime(dataHH.startTime)} - {handleTime(dataHH.endTime)}</div>}
+                            {dataHH.saturday && <div>Saturday: {handleTime(dataHH.startTime)} - {handleTime(dataHH.endTime)}</div>}
+                            {dataHH.sunday && <div>Sunday: {handleTime(dataHH.startTime)} - {handleTime(dataHH.endTime)}</div>}
                         </div>
-                        <label htmlFor="ambiance">Ambiance</label>
-                        <div className="star-rating">
-                            {[...Array(4)].map((star, index) => {
-                            index += 1;
-                            return (
-                                <button
-                                type="button"
-                                key={index}
-                                className={ratingData.ambRating <= index-1 ? "text-gray-300" : "on"}
-                                onClick={() => handleAmbRatingClick(index, dataHH._id)}
-                                name="ambiance"
-                                >
-                                <span className="star">&#9733;</span>
-                                </button>
-                            );
-                            })}
+                        <div className="flex flex-col border-black border rounded py-2 px-4 my-2 w-44">
+                            <span>Contact Info:</span>
+                            <div>{dataHH.address}, <br />{dataHH.state} {dataHH.zipcode}</div>
+                            <div><a href={dataHH.website}>Website & Menu</a></div>
+                            <div>{formatPhoneNumber(dataHH.phone)}</div>
                         </div>
-                        <label htmlFor="taste">Taste</label>
-                        <div className="star-rating">
-                            {[...Array(4)].map((star, index) => {
-                            index += 1;
-                            return (
-                                <button
-                                type="button"
-                                key={index}
-                                className={ratingData.tasteRating <= index-1 ? "text-gray-300" : "on"}
-                                onClick={() => handleTasteRatingClick(index, dataHH._id)}
-                                name="taste"
-                                >
-                                <span className="star">&#9733;</span>
-                                </button>
-                            );
-                            })}
-                        </div>
-                        <label htmlFor="overall">Overall</label>
-                        <div className="star-rating">
-                            {[...Array(4)].map((star, index) => {
-                            index += 1;
-                            return (
-                                <button
-                                type="button"
-                                key={index}
-                                className={ratingData.ovRating <= index-1 ? "text-gray-300" : "on"}
-                                onClick={() => handleOvRatingClick(index, dataHH._id)}
-                                name="overall"
-                                >
-                                <span className="star">&#9733;</span>
-                                </button>
-                            );
-                            })}
-                        </div>        
-                        <button onClick={handleReviewSubmit}>Submit Review</button>        
+                    </div>
                     
+                    
+                    
+                    {/* ADD REVIEW */}
+                   {review !== false &&  
+                   <div className="flex flex-col border-red-400 border rounded w-2/5 ">
+                        <div className="flex justify-center">
+                            <span>Review Here!</span>
+                        </div>
+                        
+                        <div className="flex flex-col border-black border rounded ">
+                            <div className="flex justify-center flex-wrap">
+                                <div className="flex flex-col border-black border rounded mx-1 p-1 w-24 items-center">
+                                    <label htmlFor="worth">Worth It</label>
+                                    <div className="star-rating">
+                                        {[...Array(4)].map((star, index) => {
+                                        index += 1;
+                                        return (
+                                            <button
+                                            type="button"
+                                            key={index}
+                
+                                            className={ratingData.worthRating <= index-1 ? "text-gray-300" : "on"}
+                                            onClick={() => handleWorthRatingClick(index, dataHH._id)}
+                                            name="worth"
+                                            
+                                            >
+                                            <span className="star">&#9733;</span>
+                                            </button>
+                                        );
+                                        })}
+                                    </div>
+                                    <label htmlFor="size">Portion Size</label>
+                                    <div className="star-rating">
+                                        {[...Array(4)].map((star, index) => {
+                                        index += 1;
+                                        return (
+                                            <button
+                                            type="button"
+                                            key={index}
+                                            className={ratingData.sizeRating <= index-1 ? "text-gray-300" : "on"}
+                                            onClick={() => handleSizeRatingClick(index, dataHH._id)}
+                                            name="size"
+                                            >
+                                            <span className="star">&#9733;</span>
+                                            </button>
+                                        );
+                                        })}
+                                    </div>
+                                </div>
+                                <div className="flex flex-col border-black border rounded p-1 mx-1 w-24 items-center">
+                                    <label htmlFor="ambiance">Ambiance</label>
+                                    <div className="star-rating">
+                                        {[...Array(4)].map((star, index) => {
+                                        index += 1;
+                                        return (
+                                            <button
+                                            type="button"
+                                            key={index}
+                                            className={ratingData.ambRating <= index-1 ? "text-gray-300" : "on"}
+                                            onClick={() => handleAmbRatingClick(index, dataHH._id)}
+                                            name="ambiance"
+                                            >
+                                            <span className="star">&#9733;</span>
+                                            </button>
+                                        );
+                                        })}
+                                    </div>
+                                    <label htmlFor="taste">Taste</label>
+                                    <div className="star-rating">
+                                        {[...Array(4)].map((star, index) => {
+                                        index += 1;
+                                        return (
+                                            <button
+                                            type="button"
+                                            key={index}
+                                            className={ratingData.tasteRating <= index-1 ? "text-gray-300" : "on"}
+                                            onClick={() => handleTasteRatingClick(index, dataHH._id)}
+                                            name="taste"
+                                            >
+                                            <span className="star">&#9733;</span>
+                                            </button>
+                                        );
+                                        })}
+                                    </div>
+                                </div>        
+                            </div>
+                            <div className="flex justify-center p-1 ">
+                            <div className="border-black border rounded flex flex-col items-center w-24">
+                                    <label htmlFor="overall">Overall</label>
+                                    <div className="star-rating">
+                                        {[...Array(4)].map((star, index) => {
+                                        index += 1;
+                                        return (
+                                            <button
+                                            type="button"
+                                            key={index}
+                                            className={ratingData.ovRating <= index-1 ? "text-gray-300" : "on"}
+                                            onClick={() => handleOvRatingClick(index, dataHH._id)}
+                                            name="overall"
+                                            >
+                                            <span className="star">&#9733;</span>
+                                            </button>
+                                        );
+                                        })}
+                                    </div>        
+                            </div>
+                            </div>
+                            {/* UPLOAD PHOTO */}
+                            <CloudinaryUploadWidget name={props.postID.id}/>
+                        </div>
+                        <button onClick={handleReviewSubmit}>Submit Review</button>
                 </div> }
                 <div><Link to ={`/feed`}>Return to feed</Link></div>
                 </div>
