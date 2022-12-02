@@ -13,12 +13,6 @@ function Navigation() {
 			{!authed && <NavLink to='/login'><button>Login</button></NavLink>}
 			<NavLink to='/addhappyhour'>Add Happy Hour</NavLink>
 			<NavLink to='/feed'>Feed</NavLink>
-			
-			{authed && (
-				<button type='button' onClick={handleLogout}>
-					Sign Out
-				</button>
-			)}
 		</nav>
 	);
 }
