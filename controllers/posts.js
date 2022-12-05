@@ -34,7 +34,11 @@ module.exports = {
             ratingAvg: 0
           });
           console.log("HH has been added!");
-          res.redirect('/dashboard');
+          res.status(201).json({
+            message: {
+              msgBody: 'Success! Happy Hour Created.'
+            }
+          });
         } catch (err) {
           console.log(err);
         }

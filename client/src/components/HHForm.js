@@ -9,6 +9,11 @@ export default function HHForm() {
     const { user } = useAuth();
     let navigate = useNavigate();
 
+    const [msg, setMsg] = React.useState({
+        text: '',
+        success: false,
+    })
+
     const [formData, setFormData] = React.useState(
         {
             name: "", 
@@ -81,7 +86,11 @@ export default function HHForm() {
 				url: 'http://localhost:5000/createHH',
 				withCredentials: true,
 			});
-			navigate('/dashboard');
+            setMsg({
+                text: response.data.message.msgBody,
+                success: true,
+            })
+			setTimeout(() => navigate('/feed'), 1500)
 		} catch (err) {
 			console.log(err);
 			
@@ -311,6 +320,7 @@ export default function HHForm() {
             <button className="btn btn-primary">Submit</button>
             
         </form>
+        <div className="text-success text-center">{msg ? msg.text : ""}</div>
         </div>
     </div>
    

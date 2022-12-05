@@ -4,7 +4,6 @@ import axios from 'axios';
 import useAuth from '../auth/useAuth';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar as faStarActive } from '@fortawesome/free-solid-svg-icons'
-
 import { formatPhoneNumber } from 'react-phone-number-input'
 
 
@@ -152,23 +151,18 @@ export default function DashboardText(){
                             {item.sunday && <div>Su</div>}
                         </div>
                         
-                        <button action={`${item._id}`} type="submit" onClick={handleRmFavorite}>Remove Favorites <FontAwesomeIcon icon={faStarActive} /></button>
-                            
+                        <button action={`${item._id}`} type="submit" onClick={handleRmFavorite}>Remove Favorites <FontAwesomeIcon icon={faStarActive} /></button>    
                     </div>
                     <div className="flex flex-col border border-black rounded px-4 w-48 min-h-min mx-1">
-                        
                         <span>Contact Info:</span>
                         <div>{item.address}, <br />{item.city} {item.state} {item.zipcode}</div>
                         <div><a href={item.website}>Website & Menu</a></div>
-                        <div>{formatPhoneNumber(item.phone)}</div>
-                            
+                        <div>{formatPhoneNumber(item.phone)}</div>  
                     </div>
-                        
                             {console.log(item.images)}
                             {item.images.length > 0 ? <div className="flex w-48 h-48 mx-1 border-black border rounded">
                             <img src={item.images[0]} className="object-contain"/>
                             </div>  : <div className="flex w-48 h-48 items-center justify-center mx-1 border-black border rounded">No Photo Yet</div>}
-                        
                     </div>
                     
                         

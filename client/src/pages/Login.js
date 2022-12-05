@@ -46,7 +46,7 @@ function Login() {
 				success: true,
 			});
 			handleLogin(response.data.user);
-			navigate('/dashboard');
+			setTimeout(() => navigate('/dashboard'), 1500)
 		} catch (err) {
 			console.log(err);
 			setMsg({
