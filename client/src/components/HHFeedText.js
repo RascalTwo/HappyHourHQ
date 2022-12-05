@@ -2,7 +2,10 @@ import React, { useDebugValue } from "react";
 import { useNavigate, } from 'react-router-dom';
 import axios from 'axios';
 import useAuth from '../auth/useAuth';
-
+import { formatPhoneNumber } from 'react-phone-number-input'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStar as faStarActive } from '@fortawesome/free-solid-svg-icons'
+import { faStar as faStarInactive } from '@fortawesome/free-regular-svg-icons'
 
 export default function HHFeedText(){
     const { user } = useAuth();
@@ -109,13 +112,27 @@ export default function HHFeedText(){
 
         <div>
             {dataHH.map((item, index) => 
-            
-                <div className="flex border-black border rounded" key={index}>
-                    <div className="flex-col">
-                        <div>{item.name}</div>
-                        <div className="flex">
-                        <div>{handleTime(item.startTime)} - {handleTime(item.endTime)}</div>
+            <div className="flex bg-gray-200 justify-center py-2">
+                <div className="flex justify-around bg-yellow-50 flex-wrap border-black border rounded w-4/6 my-2" key={index}>
+                    <div className="flex-col px-4 mx-1 border-black border w-48 min-h-min rounded">
+                        <div className="text-lg font-bold">{item.name}</div>
+                        <div className="star-rating">
+                            <span>{item.ovRatingAvg}</span>
+                            {[...Array(4)].map((star, index) => {
+                            index += 1;
+                            return (
+                                <button
+                                type="button"
+                                key={index}
+                                className={item.ovRatingAvg <= index-1 ? "text-gray-300" : "on"}
+                                >
+                                <span className="star">&#9733;</span>
+                                </button>
+                            );
+                            })}
+                            <span className="text-sm text-black text-opacity-50">({item.ratedBy.length})</span>
                         </div>
+                        <div>{handleTime(item.startTime)} - {handleTime(item.endTime)}</div>
                         <div className="flex space-x-1">
                             {item.monday && <div>M</div>}
                             {item.tuesday && <div>T</div>}
@@ -125,34 +142,36 @@ export default function HHFeedText(){
                             {item.saturday && <div>Sa</div>}
                             {item.sunday && <div>Su</div>}
                         </div>
-                        <div><a href={item.website}>Website & Menu</a></div>
-                            {
+                        {
                             userData.favoritePosts.includes(item._id) ?
-                            <button action={`${item._id}`} type="submit" onClick={handleRmFavorite}>Remove From Favorites</button>
+                            <div><button action={`${item._id}`} type="submit" onClick={handleRmFavorite}>Remove Favorites <FontAwesomeIcon icon={faStarActive} /></button></div>
                              : 
-                            <button action={`${item._id}`} type="submit" onClick={handleAddToFavorite}>Add To Favorites</button>
+                            <div><button action={`${item._id}`} type="submit" onClick={handleAddToFavorite}>Add To Favorites <FontAwesomeIcon icon={faStarInactive} /></button></div>
                             }
-                        </div>
-                        <span>({item.ovRatingAvg})</span>
-                        <div className="star-rating">
-                        {[...Array(4)].map((star, index) => {
-                        index += 1;
-                        return (
-                            <button
-                            type="button"
-                            key={index}
-                            className={item.ovRatingAvg <= index-1 ? "text-gray-300" : "on"}
-                            >
-                            <span className="star">&#9733;</span>
-                            </button>
-                        );
-                        })}
                     </div>
-                    <span>Total Reviews = {item.ratedBy.length}</span>
+                    <div className="flex flex-col border border-black rounded px-4 w-40 min-h-min mx-1">
+                        
+                        <span>Contact Info:</span>
+                        <div>{item.address}, <br />{item.state} {item.zipcode}</div>
+                        <div><a href={item.website}>Website & Menu</a></div>
+                        <div>{formatPhoneNumber(item.phone)}</div>
+                            
+                    </div>
+                        
+                            {console.log(item.images)}
+                            {item.images != undefined ? <div className="flex w-48 h-48 mx-1 border-black border rounded">
+                            <img src={item.images[0]} className="object-contain"/>
+                            </div>  : <div className="flex w-48 h-48 items-center justify-center mx-1 border-black border rounded">No Photo Yet</div>}
+                        
+                    </div>
+                    
+                        
                         
                         
                 </div>
+                
         )}
         </div>
+        
     )
 }
