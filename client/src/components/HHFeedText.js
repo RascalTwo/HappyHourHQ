@@ -1,5 +1,5 @@
 import React, { useDebugValue } from "react";
-import { useNavigate, } from 'react-router-dom';
+import { Link, useNavigate, } from 'react-router-dom';
 import axios from 'axios';
 import useAuth from '../auth/useAuth';
 import { formatPhoneNumber } from 'react-phone-number-input'
@@ -104,6 +104,10 @@ export default function HHFeedText(){
         }
     }
 
+    function handleHHClick(){
+
+    }
+
     if (isLoading) {
         return <div>Loading....</div>
     }
@@ -112,10 +116,11 @@ export default function HHFeedText(){
 
         <div>
             {dataHH.map((item, index) => 
-            <div className="flex bg-gray-200 justify-center py-2">
-                <div className="flex justify-around bg-yellow-50 flex-wrap border-black border rounded w-4/6 my-2" key={index}>
+            
+            <div className="flex justify-center py-2" >
+                <div className="flex justify-around bg-gray-50 flex-wrap border-black border rounded w-4/6 my-2" key={index}>
                     <div className="flex-col px-4 mx-1 border-black border w-48 min-h-min rounded">
-                        <div className="text-lg font-bold">{item.name}</div>
+                    <Link to ={`/HHPost/${item._id}`}><div className="text-lg font-bold">{item.name}</div></Link> 
                         <div className="star-rating">
                             <span>{item.ovRatingAvg}</span>
                             {[...Array(4)].map((star, index) => {
@@ -124,7 +129,7 @@ export default function HHFeedText(){
                                 <button
                                 type="button"
                                 key={index}
-                                className={item.ovRatingAvg <= index-1 ? "text-gray-300" : "on"}
+                                className={item.ovRatingAvg <= index-1 || item.ovRatingAvg == undefined ? "text-gray-300" : "on"}
                                 >
                                 <span className="star">&#9733;</span>
                                 </button>
@@ -149,17 +154,17 @@ export default function HHFeedText(){
                             <div><button action={`${item._id}`} type="submit" onClick={handleAddToFavorite}>Add To Favorites <FontAwesomeIcon icon={faStarInactive} /></button></div>
                             }
                     </div>
-                    <div className="flex flex-col border border-black rounded px-4 w-40 min-h-min mx-1">
+                    <div className="flex flex-col border border-black rounded px-4 w-48 min-h-min mx-1">
                         
                         <span>Contact Info:</span>
-                        <div>{item.address}, <br />{item.state} {item.zipcode}</div>
+                        <div>{item.address}, <br />{item.city} {item.state} {item.zipcode}</div>
                         <div><a href={item.website}>Website & Menu</a></div>
                         <div>{formatPhoneNumber(item.phone)}</div>
                             
                     </div>
                         
                             {console.log(item.images)}
-                            {item.images != undefined ? <div className="flex w-48 h-48 mx-1 border-black border rounded">
+                            {item.images.length > 0 ? <div className="flex w-48 h-48 mx-1 border-black border rounded">
                             <img src={item.images[0]} className="object-contain"/>
                             </div>  : <div className="flex w-48 h-48 items-center justify-center mx-1 border-black border rounded">No Photo Yet</div>}
                         
@@ -169,9 +174,10 @@ export default function HHFeedText(){
                         
                         
                 </div>
-                
+              
         )}
         </div>
+        
         
     )
 }

@@ -7,6 +7,7 @@ const HHSchema = new mongoose.Schema({
         endTime: {type: String},  
 		address: {type: String},
 		zipcode: {type: Number},
+		city: {type: String},
 		state: {type: String},
 		website: {type: String},
 		phone: {type: String},

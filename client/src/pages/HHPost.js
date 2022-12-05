@@ -12,20 +12,12 @@ function Dashboard() {
     const params = useParams();
     console.log(params)
 	return (
-		<div className='flex flex-col min-h-screen'>
+		<div className='flex flex-col min-h-screen bg-gray-200'>
 			<Header />
 			<div className='flex-grow'>
 				<HHPostText postID = {params}/>
 			</div>
-			<div className='flex flex-col p-10 items-center gap-5'>
-				
-				<div className='flex flex-col'>
-					<span>Logged in as {user.userName}</span>
-					
-                    
-					
-				</div>
-			</div>
+			
 			<Footer />
 		</div>
 	);

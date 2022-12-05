@@ -10,7 +10,7 @@ function Dashboard() {
 	const { user } = useAuth();
 
 	return (
-		<div className='flex flex-col h-screen'>
+		<div className='flex flex-col h-screen bg-gray-200'>
 			<Header />
 			<div className='flex-grow'>
 				<DashboardText />

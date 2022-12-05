@@ -2,8 +2,10 @@ import React, { useDebugValue } from "react";
 import { Link, useNavigate, } from 'react-router-dom';
 import axios from 'axios';
 import useAuth from '../auth/useAuth';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStar as faStarActive } from '@fortawesome/free-solid-svg-icons'
 
-
+import { formatPhoneNumber } from 'react-phone-number-input'
 
 
 export default function DashboardText(){
@@ -119,13 +121,27 @@ export default function DashboardText(){
         <div>
             
             {dataHH.map((item, index) => 
-                
-                <div className="flex border-black border rounded" key={index}>
-                    <div className="flex-col">
-                        <div>{item.name}</div>
-                        <div className="flex">
-                            <div>{handleTime(item.startTime)} - {handleTime(item.endTime)}</div>
+               <div className="flex justify-center py-2" > 
+                <div className="flex justify-around bg-gray-50 flex-wrap border-black border rounded w-4/6 my-2" key={index}>
+                    <div className="flex-col px-4 mx-1 border-black border w-48 min-h-min rounded">
+                    <Link to ={`/HHPost/${item._id}`}><div className="text-lg font-bold">{item.name}</div></Link>
+                        <div className="star-rating">
+                            <span>{item.ovRatingAvg}</span>
+                            {[...Array(4)].map((star, index) => {
+                            index += 1;
+                            return (
+                                <button
+                                type="button"
+                                key={index}
+                                className={item.ovRatingAvg <= index-1 || item.ovRatingAvg == undefined ? "text-gray-300" : "on"}
+                                >
+                                <span className="star">&#9733;</span>
+                                </button>
+                            );
+                            })}
+                            <span className="text-sm text-black text-opacity-50">({item.ratedBy.length})</span>
                         </div>
+                        <div>{handleTime(item.startTime)} - {handleTime(item.endTime)}</div>
                         <div className="flex space-x-1">
                             {item.monday && <div>M</div>}
                             {item.tuesday && <div>T</div>}
@@ -135,28 +151,29 @@ export default function DashboardText(){
                             {item.saturday && <div>Sa</div>}
                             {item.sunday && <div>Su</div>}
                         </div>
-                        <div><a href={item.website}>Website & Menu</a></div>
+                        
+                        <button action={`${item._id}`} type="submit" onClick={handleRmFavorite}>Remove Favorites <FontAwesomeIcon icon={faStarActive} /></button>
                             
-                        <button action={`${item._id}`} type="submit" onClick={handleRmFavorite}>Remove From Favorites</button>
-
                     </div>
-                    <span>({item.ovRatingAvg})</span>
-                        <div className="star-rating">
-                        {[...Array(4)].map((star, index) => {
-                        index += 1;
-                        return (
-                            <button
-                            type="button"
-                            key={index}
-                            className={item.ovRatingAvg <= index-1 ? "text-gray-300" : "on"}
-                            >
-                            <span className="star">&#9733;</span>
-                            </button>
-                        );
-                        })}
+                    <div className="flex flex-col border border-black rounded px-4 w-48 min-h-min mx-1">
+                        
+                        <span>Contact Info:</span>
+                        <div>{item.address}, <br />{item.city} {item.state} {item.zipcode}</div>
+                        <div><a href={item.website}>Website & Menu</a></div>
+                        <div>{formatPhoneNumber(item.phone)}</div>
+                            
                     </div>
-                    <span>Total Reviews = {item.ratedBy.length}</span>
-                    <div><Link to ={`/HHPost/${item._id}`}>Link Here</Link></div>
+                        
+                            {console.log(item.images)}
+                            {item.images.length > 0 ? <div className="flex w-48 h-48 mx-1 border-black border rounded">
+                            <img src={item.images[0]} className="object-contain"/>
+                            </div>  : <div className="flex w-48 h-48 items-center justify-center mx-1 border-black border rounded">No Photo Yet</div>}
+                        
+                    </div>
+                    
+                        
+                        
+                        
                 </div>
         )}
         </div>

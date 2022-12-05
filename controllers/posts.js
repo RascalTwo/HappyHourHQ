@@ -19,6 +19,7 @@ module.exports = {
             website: req.body.website,
             zipcode: req.body.zipcode,
             state: req.body.state,
+            city: req.body.city,
             phone: req.body.phone,
             user: req.user.id,
             monday: req.body.monday,

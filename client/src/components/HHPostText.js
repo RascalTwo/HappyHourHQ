@@ -266,14 +266,14 @@ export default function HHPostText(props){
                         }   
                         </div>
                     
-            <div className="flex border-black border rounded flex-col items-center">
+            <div className="flex flex-col items-center">
                     {/* DISPLAY REVIEWS & IMAGE*/}
-                    <div className="flex border-black border rounded justify-around w-3/5 min-h-0 p-6 flex-wrap my-6">
-                        <div className="flex flex-wrap flex-col border-black border rounded w-80 h-64 mx-3 my-3">
+                    <div className="flex border-black border rounded justify-around w-3/5 min-h-0 p-6 flex-wrap my-6 bg-gray-50">
+                        <div className="flex flex-wrap flex-col border-black border rounded w-64 h-64 mx-3 my-3">
                             <span className="flex">HH Reviews</span>  
-                            <div className="star-rating flex">
+                            <div className="star-rating flex items-center">
                                 
-                                <span>({dataHH.ovRatingAvg})</span>
+                                <span>{dataHH.ovRatingAvg}</span>
                                 Overall
                                 {[...Array(4)].map((star, index) => {
                                 index += 1;
@@ -287,11 +287,11 @@ export default function HHPostText(props){
                                     </button>
                                 );
                                 })}
-                                <span>({dataHH.ratedBy.length})</span>
+                                <span className="text-sm text-black text-opacity-50">({dataHH.ratedBy.length})</span>
                             </div>
                             
-                            <div className="star-rating flex">
-                            <span>({dataHH.tasteRatingAvg})</span>
+                            <div className="star-rating flex items-center">
+                            <span>{dataHH.tasteRatingAvg}</span>
                                 Taste
                                 {[...Array(4)].map((star, index) => {
                                 index += 1;
@@ -306,8 +306,8 @@ export default function HHPostText(props){
                                 );
                                 })}
                             </div>
-                            <div className="star-rating flex">
-                            <span>({dataHH.ambRatingAvg})</span>
+                            <div className="star-rating flex items-center">
+                            <span>{dataHH.ambRatingAvg}</span>
                                 Ambiance
                                 {[...Array(4)].map((star, index) => {
                                 index += 1;
@@ -322,8 +322,8 @@ export default function HHPostText(props){
                                 );
                                 })}
                             </div>
-                            <div className="star-rating flex">
-                            <span>({dataHH.worthRatingAvg})</span>
+                            <div className="star-rating flex items-center">
+                            <span>{dataHH.worthRatingAvg}</span>
                                 Worth It
                                 {[...Array(4)].map((star, index) => {
                                 index += 1;
@@ -338,8 +338,8 @@ export default function HHPostText(props){
                                 );
                                 })}
                             </div>
-                            <div className="star-rating flex">
-                            <span>({dataHH.sizeRatingAvg})</span>
+                            <div className="star-rating flex items-center">
+                            <span>{dataHH.sizeRatingAvg}</span>
                                 Portions
                                 {[...Array(4)].map((star, index) => {
                                 index += 1;
@@ -355,15 +355,15 @@ export default function HHPostText(props){
                                 })}
                             </div>
                         </div>
-                        {dataHH.images[0] != undefined ? <div className="flex w-80 h-64 mx-3 my-3 border-black border rounded">
+                        {dataHH.images[0] != undefined ? <div className="flex w-64 h-64 mx-3 my-3 border-black border rounded">
                             <img src={dataHH.images[0]} className="object-contain"/>
-                        </div>  : <div className="flex items-center border-black border rounded my-16 my-3 p-1 ">Add Photo with Review</div>}
+                        </div>  : <div className="flex items-center justify-center border-black border rounded w-64 h-64 my-3 p-1 ">No Photo Yet</div>}
                         
                     </div>
                     {/* CONTACT INFO */}
                     <div className="flex flex-wrap w-2/5 justify-around my-2">
                         
-                        <div className="flex flex-col border-black border rounded py-2 px-4 my-2 mx-1">
+                        <div className="flex flex-col border-black border rounded py-2 px-4 my-2 mx-1 bg-gray-50">
                             <div className="flex justify-center pb-2">Hours</div>
                             {dataHH.monday && <div>Monday: {handleTime(dataHH.startTime)} - {handleTime(dataHH.endTime)}</div>}
                             {dataHH.tuesday && <div>Tuesday: {handleTime(dataHH.startTime)} - {handleTime(dataHH.endTime)}</div>}
@@ -373,9 +373,9 @@ export default function HHPostText(props){
                             {dataHH.saturday && <div>Saturday: {handleTime(dataHH.startTime)} - {handleTime(dataHH.endTime)}</div>}
                             {dataHH.sunday && <div>Sunday: {handleTime(dataHH.startTime)} - {handleTime(dataHH.endTime)}</div>}
                         </div>
-                        <div className="flex flex-col border-black border rounded py-2 px-4 my-2 w-44">
+                        <div className="flex flex-col border-black border rounded py-2 px-4 my-2 w-44 bg-gray-50">
                             <span>Contact Info:</span>
-                            <div>{dataHH.address}, <br />{dataHH.state} {dataHH.zipcode}</div>
+                            <div>{dataHH.address}, <br />{dataHH.city} {dataHH.state} {dataHH.zipcode}</div>
                             <div><a href={dataHH.website}>Website & Menu</a></div>
                             <div>{formatPhoneNumber(dataHH.phone)}</div>
                         </div>
@@ -385,14 +385,14 @@ export default function HHPostText(props){
                     
                     {/* ADD REVIEW */}
                    {review !== false &&  
-                   <div className="flex flex-col border-red-400 border rounded w-2/5 ">
+                   <div className="flex flex-col border-black border rounded w-2/5 bg-gray-50">
                         <div className="flex justify-center">
                             <span>Review Here!</span>
                         </div>
                         
-                        <div className="flex flex-col border-black border rounded ">
+                        <div className="flex flex-col">
                             <div className="flex justify-center flex-wrap">
-                                <div className="flex flex-col border-black border rounded mx-1 p-1 w-24 items-center">
+                                <div className="flex flex-col mx-1 p-1 w-24 items-center">
                                     <label htmlFor="worth">Worth It</label>
                                     <div className="star-rating">
                                         {[...Array(4)].map((star, index) => {
@@ -430,7 +430,7 @@ export default function HHPostText(props){
                                         })}
                                     </div>
                                 </div>
-                                <div className="flex flex-col border-black border rounded p-1 mx-1 w-24 items-center">
+                                <div className="flex flex-col p-1 mx-1 w-24 items-center">
                                     <label htmlFor="ambiance">Ambiance</label>
                                     <div className="star-rating">
                                         {[...Array(4)].map((star, index) => {
@@ -468,7 +468,7 @@ export default function HHPostText(props){
                                 </div>        
                             </div>
                             <div className="flex justify-center p-1 ">
-                            <div className="border-black border rounded flex flex-col items-center w-24">
+                            <div className="flex flex-col items-center w-24">
                                     <label htmlFor="overall">Overall</label>
                                     <div className="star-rating">
                                         {[...Array(4)].map((star, index) => {
@@ -493,7 +493,7 @@ export default function HHPostText(props){
                         </div>
                         <button onClick={handleReviewSubmit}>Submit Review</button>
                 </div> }
-                <div><Link to ={`/feed`}>Return to feed</Link></div>
+                <div className="bg-gray-50 p-1 rounded"><Link to ={`/feed`}>Return to feed</Link></div>
                 </div>
         
         </div>

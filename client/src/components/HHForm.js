@@ -16,7 +16,8 @@ export default function HHForm() {
             endTime: "", 
             address: "",
             zipcode: "",
-            state: "", 
+            state: "",
+            city: "", 
             website: "https://",
             phone: "",
             monday: false, 
@@ -63,6 +64,7 @@ export default function HHForm() {
                     address: formData.address,
                     zipcode: formData.zipcode,
                     state: formData.state,
+                    city: formData.city,
                     website: formData.website,
                     phone: formData.phone,
                     startTime: formData.startTime,
@@ -161,6 +163,13 @@ export default function HHForm() {
                 <option value="WV">West Virginia</option>
                 <option value="WY">Wyoming</option>
 		    </select>
+            <input className="border rounded border-black"
+                type="text"
+                placeholder="City"
+                onChange={handleChange}
+                name="city"
+                value={formData.city}
+            />
             <input className="border rounded border-black"
                 type="text"
                 placeholder="Zipcode"
