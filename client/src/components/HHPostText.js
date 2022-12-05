@@ -245,28 +245,23 @@ export default function HHPostText(props){
 
         
             <div>
-            
-           
-            
-                
-                    
-                        {/* NAME */}
-                        <div className="flex justify-center text-xl">{dataHH.name}</div>
+                {/* NAME */}
+                <div className="flex justify-center text-xl">{dataHH.name}</div>
                         
-                        {/* ADD REVIEW BUTTON. ONLY IF NO USER REVIEW */}
-                        <div className="flex justify-around text-sm">
-                            { !dataHH.ratedBy.includes(user._id) ? <button onClick={handleToggleReview} >Add Review</button> : <div></div>}
+                {/* ADD REVIEW BUTTON. ONLY IF NO USER REVIEW */}
+                <div className="flex justify-around text-sm">
+                { !dataHH.ratedBy.includes(user._id) ? <button onClick={handleToggleReview} >Add Review</button> : <div></div>}
                             
-                            {/* ADD || REMOVE FAVORITE */}
-                            {
-                            userData.favoritePosts.includes(dataHH._id) ?
-                            <button action={`${dataHH._id}`} type="submit" onClick={handleRmFavorite} >Remove Favorite</button>
-                             : 
-                            <button action={`${dataHH._id}`} type="submit" onClick={handleAddToFavorite}>Add Favorite</button>
-                        }   
-                        </div>
+                {/* ADD || REMOVE FAVORITE */}
+                 {
+                 userData.favoritePosts.includes(dataHH._id) ?
+                <button action={`${dataHH._id}`} type="submit" onClick={handleRmFavorite} >Remove Favorite</button>
+                 : 
+                <button action={`${dataHH._id}`} type="submit" onClick={handleAddToFavorite}>Add Favorite</button>
+                }   
+                </div>
                     
-            <div className="flex flex-col items-center">
+                <div className="flex flex-col items-center">
                     {/* DISPLAY REVIEWS & IMAGE*/}
                     <div className="flex border-black border rounded justify-around w-3/5 min-h-0 p-6 flex-wrap my-6 bg-gray-50">
                         <div className="flex flex-wrap flex-col border-black border rounded w-64 h-64 mx-3 my-3">
