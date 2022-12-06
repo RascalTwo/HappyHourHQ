@@ -8,7 +8,7 @@ const postsController = require("../controllers/posts");
 
 router.post('/login', authController.postLogin);
 router.post('/signup', authController.postSignup)
-router.post("/createHH", postsController.createHH)
+router.post("/createHH", postsController.createHH, ensureAuth)
 router.post("/getFavoritePosts", postsController.getFavoritePosts)
 
 

@@ -7,7 +7,7 @@ import Footer from '../components/Footer';
 export default function AddHappyHour(){
     const { user } = useAuth();
     return (
-        <div className='flex flex-col min-h-screen'>
+        <div className='flex flex-col min-h-screen bg-gray-200'>
             <Header /> 
             <div className='flex-grow'>
             <HHForm />

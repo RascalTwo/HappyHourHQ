@@ -35,13 +35,13 @@ export default function Header() {
 								</div>
 								</label>
 								<ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-neutral rounded-box w-52">
-								<li>
+								{/* <li>
 									<a className="justify-between">
 									Profile
 									<span className="badge">New</span>
 									</a>
-								</li>
-								<li><a>Settings</a></li>
+								</li> */}
+								{/* <li><a>Settings</a></li> */}
 								<li><button type='button' onClick={handleLogout}>Sign Out</button></li>
 								</ul>
 							</div>
