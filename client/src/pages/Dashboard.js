@@ -15,13 +15,7 @@ function Dashboard() {
 			<div className='flex-grow'>
 				<DashboardText />
 			</div>
-			<div className='flex flex-col p-10 items-center gap-5'>
-				<h2>This is the Dashboard page. (Private)</h2>
-				<div className='flex flex-col'>
-					<span>Logged in as {user.userName}</span>
-					<span>ID: {user._id}</span>
-				</div>
-			</div>
+			
 			<Footer />
 		</div>
 	);
