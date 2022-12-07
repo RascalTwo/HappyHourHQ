@@ -1,18 +1,22 @@
 import React from 'react';
 import Header from '../components/Header';
+
 import useAuth from '../auth/useAuth';
 import Footer from '../components/Footer';
 import { Link } from 'react-router-dom';
+
+
 function Home() {
 	const { authed } = useAuth();
 
 	return (
+		
 		<div className='flex flex-col min-h-screen bg-gray-200'>
 			<Header />
 			<div className='flex-grow'>
 				
-				<div className="relative z-20 my-24 flex items-center bg-gray-200 dark:bg-gray-800">
-					<div className="container relative flex flex-col items-center justify-between px-6 py-8 mx-auto">
+				<div className=" z-20 my-24 flex items-center bg-gray-200 dark:bg-gray-800">
+					<div className="container  flex flex-col items-center justify-between px-6 py-8 mx-auto">
 						<div className="flex flex-col">
 							<h1 className="w-full text-4xl font-light text-center text-gray-800 uppercase sm:text-5xl dark:text-white">
 								The Website To Find Happy Hours Near You!
@@ -34,6 +38,7 @@ function Home() {
 				</div>
 
 			</div>
+			
 			<Footer />
 		</div>
 	);
