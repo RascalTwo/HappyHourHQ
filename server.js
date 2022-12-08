@@ -43,6 +43,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/', mainRoutes);
+app.use(express.static('./client/build'))
 
 app.listen(process.env.PORT, () => {
 	console.log('Server is running, you better catch it!');
