@@ -1,6 +1,5 @@
 import React from 'react';
 import Header from '../components/Header';
-
 import useAuth from '../auth/useAuth';
 import Footer from '../components/Footer';
 import { Link } from 'react-router-dom';
