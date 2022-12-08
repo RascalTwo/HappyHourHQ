@@ -7,7 +7,7 @@ const MongoStore = require('connect-mongo')(session);
 const logger = require('morgan');
 const connectDB = require('./config/database');
 const mainRoutes = require('./routes/main');
-
+const path = require('path')
 const cors = require('cors');
 
 require('dotenv').config({ path: './config/.env' });
@@ -38,8 +38,8 @@ app.use(
 	})
 );
 
-app.get('*', (req, res) => {
-	res.sendFile('./client/build/index.html')
+app.get('/', (req, res) => {
+	res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
   });
 
 // Passport middleware
@@ -50,5 +50,5 @@ app.use('/', mainRoutes);
 app.use(express.static('./client/build'))
 
 app.listen(process.env.PORT, () => {
-	console.log('Server is running, you better catch it!');
+	console.log(`Server is running on Port ${process.env.PORT} you better catch it!`);
 });
