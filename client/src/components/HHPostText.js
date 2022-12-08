@@ -1,5 +1,5 @@
-import React, { useDebugValue } from "react";
-import { Link, useNavigate, } from 'react-router-dom';
+import React from "react";
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import useAuth from '../auth/useAuth';
 import CloudinaryUploadWidget from "./CloudinaryUploadWidget";
@@ -52,7 +52,7 @@ export default function HHPostText(props){
             setDataHH(data)
             setLoading(false)
         }
-        if (dataLoaded != 0){
+        if (dataLoaded !== 0){
             getHHData()
         }  
                 
@@ -80,7 +80,7 @@ export default function HHPostText(props){
                     url: `http://localhost:5000/updateRating/${props.postID.id}`,
                     
                 }) 
-                const data = response.json()
+                
                 
                 
             } catch (err) {
@@ -89,7 +89,7 @@ export default function HHPostText(props){
             
             
         }
-        if (update != 0){
+        if (update !== 0){
             updateRatings()
             setRefresh(prevValue => prevValue + 1)
         }  
@@ -99,21 +99,21 @@ export default function HHPostText(props){
     
     console.log(dataHH)
 
-    function handleClick(index){
+    // function handleClick(index){
      
-        setDataHH(prevValue => ({
-            ...prevValue,
-            rating: [...prevValue.rating, index],
-        }),
-        )
+    //     setDataHH(prevValue => ({
+    //         ...prevValue,
+    //         rating: [...prevValue.rating, index],
+    //     }),
+    //     )
 
-        setUpdate(prevValue => prevValue + 1)
+    //     setUpdate(prevValue => prevValue + 1)
         
         
-        console.log(dataHH.ratingAvg)
-        console.log(dataHH)
+    //     console.log(dataHH.ratingAvg)
+    //     console.log(dataHH)
          
-    }
+    // }
     
     const handleRmFavorite = async event => {
         event.preventDefault()
@@ -354,7 +354,7 @@ export default function HHPostText(props){
                             </div>
                         </div>
                         {dataHH.images[0] != undefined ? <div className="flex w-64 h-64 mx-3 my-3 border-black border rounded">
-                            <img src={dataHH.images[0]} className="object-contain"/>
+                            <img src={dataHH.images[0]} className="object-contain" alt="Picture of happy hour"/>
                         </div>  : <div className="flex items-center justify-center border-black border rounded w-64 h-64 my-3 p-1 ">No Photo Yet</div>}
                         
                     </div>
