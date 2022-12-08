@@ -15,7 +15,7 @@ require('dotenv').config({ path: './config/.env' });
 app.use(
 	cors({
 		credentials: true,
-		origin: ['http://localhost:3000', "https://happy-hour-hq.onrender.com"]
+		origin: 'http://localhost:3000'
 	})
 );
 
@@ -37,6 +37,10 @@ app.use(
 		store: new MongoStore({ mongooseConnection: mongoose.connection }),
 	})
 );
+
+app.get('*', (req, res) => {
+	res.sendFile('./client/build/index.html')
+  });
 
 // Passport middleware
 app.use(passport.initialize());
