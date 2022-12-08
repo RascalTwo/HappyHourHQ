@@ -37,18 +37,20 @@ app.use(
 		store: new MongoStore({ mongooseConnection: mongoose.connection }),
 	})
 );
+app.use(express.static(path.join(__dirname, 'client', "build")))
 
-app.get('/', (req, res) => {
-	res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
-  });
+
 
 // Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/', mainRoutes);
-app.use(express.static('./client/build'))
 
+app.get('/*', (req, res) => {
+	res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
+  });
+  
 app.listen(process.env.PORT, () => {
 	console.log(`Server is running on Port ${process.env.PORT} you better catch it!`);
 });
