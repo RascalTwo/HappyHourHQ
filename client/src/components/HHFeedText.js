@@ -20,7 +20,7 @@ export default function HHFeedText(){
     React.useEffect(() => {
         async function getHHData(){
             
-            const res = await fetch("http://localhost:5000/getHHData")
+            const res = await fetch("/getHHData")
             const data = await res.json()
             setDataHH(data)
             
@@ -34,7 +34,7 @@ export default function HHFeedText(){
     React.useEffect(() => {
         async function getUserData(){
             
-            const res = await fetch("http://localhost:5000/getUserData", {credentials: 'include'})
+            const res = await fetch("/getUserData", {credentials: 'include'})
             const data = await res.json()
             setUserData(data)
             setLoading(false)
@@ -64,7 +64,7 @@ export default function HHFeedText(){
                 data: {
                     post: button.getAttribute('action'),
                 },
-                url: `http://localhost:5000/addFavorite/${user._id}`
+                url: `/addFavorite/${user._id}`
             }) 
         } catch (err) {
 			console.log(err);
@@ -89,7 +89,7 @@ export default function HHFeedText(){
                 data: {
                     post: button.getAttribute('action'),
                 },
-                url: `http://localhost:5000/rmFavorite/${user._id}`   
+                url: `/rmFavorite/${user._id}`   
             })   
             
         } catch (err) {

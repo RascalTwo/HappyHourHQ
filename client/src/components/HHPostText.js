@@ -1,12 +1,9 @@
-import React from "react";
-import { Link } from 'react-router-dom';
+import React, { useDebugValue } from "react";
+import { Link, useNavigate, } from 'react-router-dom';
 import axios from 'axios';
 import useAuth from '../auth/useAuth';
 import CloudinaryUploadWidget from "./CloudinaryUploadWidget";
 import { formatPhoneNumber } from 'react-phone-number-input'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar as faStarActive } from '@fortawesome/free-solid-svg-icons'
-import { faStar as faStarInactive } from '@fortawesome/free-regular-svg-icons'
 
 
 
@@ -35,7 +32,7 @@ export default function HHPostText(props){
     React.useEffect(() => {
         async function getUserData(){
             
-            const res = await fetch("http://localhost:5000/getUserData", {credentials: 'include'})
+            const res = await fetch("/getUserData", {credentials: 'include'})
             const data = await res.json()
             setUserData(data)
             setDataLoaded(prevValue => prevValue + 1)
@@ -47,12 +44,12 @@ export default function HHPostText(props){
     React.useEffect(() => {
         async function getHHData(){
             console.log('getting data')
-            const res = await fetch(`http://localhost:5000/getHHPost/${props.postID.id}`)
+            const res = await fetch(`/getHHPost/${props.postID.id}`)
             const data = await res.json()
             setDataHH(data)
             setLoading(false)
         }
-        if (dataLoaded !== 0){
+        if (dataLoaded != 0){
             getHHData()
         }  
                 
@@ -77,10 +74,10 @@ export default function HHPostText(props){
                         ambAverage: (dataHH.ambRating.reduce((a,b)=>a+b)/dataHH.ambRating.length).toFixed(2),
                         tasteAverage: (dataHH.tasteRating.reduce((a,b)=>a+b)/dataHH.tasteRating.length).toFixed(2),
                     },
-                    url: `http://localhost:5000/updateRating/${props.postID.id}`,
+                    url: `/updateRating/${props.postID.id}`,
                     
                 }) 
-                
+                const data = response.json()
                 
                 
             } catch (err) {
@@ -89,7 +86,7 @@ export default function HHPostText(props){
             
             
         }
-        if (update !== 0){
+        if (update != 0){
             updateRatings()
             setRefresh(prevValue => prevValue + 1)
         }  
@@ -99,21 +96,21 @@ export default function HHPostText(props){
     
     console.log(dataHH)
 
-    // function handleClick(index){
+    function handleClick(index){
      
-    //     setDataHH(prevValue => ({
-    //         ...prevValue,
-    //         rating: [...prevValue.rating, index],
-    //     }),
-    //     )
+        setDataHH(prevValue => ({
+            ...prevValue,
+            rating: [...prevValue.rating, index],
+        }),
+        )
 
-    //     setUpdate(prevValue => prevValue + 1)
+        setUpdate(prevValue => prevValue + 1)
         
         
-    //     console.log(dataHH.ratingAvg)
-    //     console.log(dataHH)
+        console.log(dataHH.ratingAvg)
+        console.log(dataHH)
          
-    // }
+    }
     
     const handleRmFavorite = async event => {
         event.preventDefault()
@@ -133,7 +130,7 @@ export default function HHPostText(props){
                 data: {
                     post: button.getAttribute('action'),
                 },
-                url: `http://localhost:5000/rmFavorite/${user._id}`,
+                url: `/rmFavorite/${user._id}`,
                  
             })   
             
@@ -160,7 +157,7 @@ export default function HHPostText(props){
                 data: {
                     post: button.getAttribute('action'),
                 },
-                url: `http://localhost:5000/addFavorite/${user._id}`
+                url: `/addFavorite/${user._id}`
             }) 
         } catch (err) {
 			console.log(err);
@@ -248,30 +245,35 @@ export default function HHPostText(props){
 
         
             <div>
-                {/* NAME */}
-                <h1 className="flex justify-center text-4xl font-medium mt-3">{dataHH.name}</h1>
-                        
-                {/* ADD REVIEW BUTTON. ONLY IF NO USER REVIEW */}
-                <div className="flex justify-around text-sm">
-                { !dataHH.ratedBy.includes(user._id) ? <button onClick={handleToggleReview} className="px-4 py-2 text-gray-800 uppercase bg-transparent border-2 border-gray-800 dark:text-white hover:bg-gray-800 hover:text-white text-md">Add Review</button> : <div></div>}
-                            
-                {/* ADD || REMOVE FAVORITE */}
-                 {
-                 userData.favoritePosts.includes(dataHH._id) ?
-                <button action={`${dataHH._id}`} type="submit" onClick={handleRmFavorite} className="px-4 py-2 text-gray-800 uppercase bg-transparent border-2 border-gray-800 dark:text-white hover:bg-gray-800 hover:text-white text-md">Remove Favorite <FontAwesomeIcon icon={faStarActive}/></button>
-                 : 
-                <button action={`${dataHH._id}`} type="submit" onClick={handleAddToFavorite} className="px-4 py-2 text-gray-800 uppercase bg-transparent border-2 border-gray-800 dark:text-white hover:bg-gray-800 hover:text-white text-md">Add Favorite <FontAwesomeIcon icon={faStarInactive}/></button>
-                }   
-                </div>
+            
+           
+            
+                
                     
-                <div className="flex card flex-col items-center">
+                        {/* NAME */}
+                        <div className="flex justify-center text-xl">{dataHH.name}</div>
+                        
+                        {/* ADD REVIEW BUTTON. ONLY IF NO USER REVIEW */}
+                        <div className="flex justify-around text-sm">
+                            { !dataHH.ratedBy.includes(user._id) ? <button onClick={handleToggleReview} >Add Review</button> : <div></div>}
+                            
+                            {/* ADD || REMOVE FAVORITE */}
+                            {
+                            userData.favoritePosts.includes(dataHH._id) ?
+                            <button action={`${dataHH._id}`} type="submit" onClick={handleRmFavorite} >Remove Favorite</button>
+                             : 
+                            <button action={`${dataHH._id}`} type="submit" onClick={handleAddToFavorite}>Add Favorite</button>
+                        }   
+                        </div>
+                    
+            <div className="flex border-black border rounded flex-col items-center">
                     {/* DISPLAY REVIEWS & IMAGE*/}
-                    <div className="flex bg-neutral justify-around rounded-2xl w-3/5 min-h-0 p-6 flex-wrap mt-6 text-white">
-                        <div className="flex flex-wrap flex-col w-64 h-64 mx-3 my-3">
-                            <h2 className="flex text-white">HH Reviews</h2>  
-                            <div className="star-rating flex items-center">
+                    <div className="flex border-black border rounded justify-around w-3/5 min-h-0 p-6 flex-wrap my-6">
+                        <div className="flex flex-wrap flex-col border-black border rounded w-80 h-64 mx-3 my-3">
+                            <span className="flex">HH Reviews</span>  
+                            <div className="star-rating flex">
                                 
-                                <span>{dataHH.ovRatingAvg}</span>
+                                <span>({dataHH.ovRatingAvg})</span>
                                 Overall
                                 {[...Array(4)].map((star, index) => {
                                 index += 1;
@@ -279,17 +281,17 @@ export default function HHPostText(props){
                                     <button
                                     type="button"
                                     key={index}
-                                    className={dataHH.ovRatingAvg == null || Math.round(dataHH.ovRatingAvg) <= index-1? "text-gray-300" : "text-green-400"}
+                                    className={dataHH.ovRatingAvg == null || Math.round(dataHH.ovRatingAvg) <= index-1? "text-gray-300" : "on"}
                                     >
                                     <span className="star">&#9733;</span>
                                     </button>
                                 );
                                 })}
-                                <span className="text-sm text-white text-opacity-50">({dataHH.ratedBy.length})</span>
+                                <span>({dataHH.ratedBy.length})</span>
                             </div>
                             
-                            <div className="star-rating flex items-center">
-                            <span>{dataHH.tasteRatingAvg}</span>
+                            <div className="star-rating flex">
+                            <span>({dataHH.tasteRatingAvg})</span>
                                 Taste
                                 {[...Array(4)].map((star, index) => {
                                 index += 1;
@@ -297,15 +299,15 @@ export default function HHPostText(props){
                                     <button
                                     type="button"
                                     key={index}
-                                    className={dataHH.tasteRatingAvg == null || Math.round(dataHH.tasteRatingAvg) <= index-1 ? "text-gray-300" : "text-green-400"}
+                                    className={dataHH.tasteRatingAvg == null || Math.round(dataHH.tasteRatingAvg) <= index-1 ? "text-gray-300" : "on"}
                                     >
                                     <span className="star">&#9733;</span>
                                     </button>
                                 );
                                 })}
                             </div>
-                            <div className="star-rating flex items-center">
-                            <span>{dataHH.ambRatingAvg}</span>
+                            <div className="star-rating flex">
+                            <span>({dataHH.ambRatingAvg})</span>
                                 Ambiance
                                 {[...Array(4)].map((star, index) => {
                                 index += 1;
@@ -313,15 +315,15 @@ export default function HHPostText(props){
                                     <button
                                     type="button"
                                     key={index}
-                                    className={dataHH.ambRatingAvg == null ||Math.round(dataHH.ambRatingAvg) <= index-1 ? "text-gray-300" : "text-green-400"}
+                                    className={dataHH.ambRatingAvg == null ||Math.round(dataHH.ambRatingAvg) <= index-1 ? "text-gray-300" : "on"}
                                     >
                                     <span className="star">&#9733;</span>
                                     </button>
                                 );
                                 })}
                             </div>
-                            <div className="star-rating flex items-center">
-                            <span>{dataHH.worthRatingAvg}</span>
+                            <div className="star-rating flex">
+                            <span>({dataHH.worthRatingAvg})</span>
                                 Worth It
                                 {[...Array(4)].map((star, index) => {
                                 index += 1;
@@ -329,15 +331,15 @@ export default function HHPostText(props){
                                     <button
                                     type="button"
                                     key={index}
-                                    className={dataHH.worthRatingAvg == null ||Math.round(dataHH.worthRatingAvg) <= index-1 ? "text-gray-300" : "text-green-400"}
+                                    className={dataHH.worthRatingAvg == null ||Math.round(dataHH.worthRatingAvg) <= index-1 ? "text-gray-300" : "on"}
                                     >
                                     <span className="star">&#9733;</span>
                                     </button>
                                 );
                                 })}
                             </div>
-                            <div className="star-rating flex items-center">
-                            <span>{dataHH.sizeRatingAvg}</span>
+                            <div className="star-rating flex">
+                            <span>({dataHH.sizeRatingAvg})</span>
                                 Portions
                                 {[...Array(4)].map((star, index) => {
                                 index += 1;
@@ -345,7 +347,7 @@ export default function HHPostText(props){
                                     <button
                                     type="button"
                                     key={index}
-                                    className={dataHH.sizeRatingAvg == null ||Math.round(dataHH.sizeRatingAvg) <= index-1 ? "text-gray-300" : "text-green-400"}
+                                    className={dataHH.sizeRatingAvg == null ||Math.round(dataHH.sizeRatingAvg) <= index-1 ? "text-gray-300" : "on"}
                                     >
                                     <span className="star">&#9733;</span>
                                     </button>
@@ -353,16 +355,16 @@ export default function HHPostText(props){
                                 })}
                             </div>
                         </div>
-                        {dataHH.images[0] != undefined ? <div className="flex w-64 h-64 mx-3 my-3 border-black border rounded">
-                            <img src={dataHH.images[0]} className="object-contain" alt="Picture of happy hour"/>
-                        </div>  : <div className="flex items-center justify-center border-black border rounded w-64 h-64 my-3 p-1 ">No Photo Yet</div>}
+                        {dataHH.images[0] != undefined ? <div className="flex w-80 h-64 mx-3 my-3 border-black border rounded">
+                            <img src={dataHH.images[0]} className="object-contain"/>
+                        </div>  : <div className="flex items-center border-black border rounded my-16 my-3 p-1 ">Add Photo with Review</div>}
                         
                     </div>
                     {/* CONTACT INFO */}
-                    <div className="flex flex-wrap w-3/5 justify-center gap-2 my-2">
+                    <div className="flex flex-wrap w-2/5 justify-around my-2">
                         
-                        <div className="flex flex-col card bg-neutral text-white py-2 px-4 my-2 mx-1 bg-gray-50">
-                            <div className="flex justify-center w-64 pb-2">Hours</div>
+                        <div className="flex flex-col border-black border rounded py-2 px-4 my-2 mx-1">
+                            <div className="flex justify-center pb-2">Hours</div>
                             {dataHH.monday && <div>Monday: {handleTime(dataHH.startTime)} - {handleTime(dataHH.endTime)}</div>}
                             {dataHH.tuesday && <div>Tuesday: {handleTime(dataHH.startTime)} - {handleTime(dataHH.endTime)}</div>}
                             {dataHH.wednesday && <div>Wednesday: {handleTime(dataHH.startTime)} - {handleTime(dataHH.endTime)}</div>}
@@ -371,9 +373,9 @@ export default function HHPostText(props){
                             {dataHH.saturday && <div>Saturday: {handleTime(dataHH.startTime)} - {handleTime(dataHH.endTime)}</div>}
                             {dataHH.sunday && <div>Sunday: {handleTime(dataHH.startTime)} - {handleTime(dataHH.endTime)}</div>}
                         </div>
-                        <div className="flex flex-col card bg-neutral text-white py-2 px-4 my-2 w-64 bg-gray-50">
-                            <span className="self-center pb-2">Contact Info:</span>
-                            <div>{dataHH.address}, <br />{dataHH.city} {dataHH.state} {dataHH.zipcode}</div>
+                        <div className="flex flex-col border-black border rounded py-2 px-4 my-2 w-44">
+                            <span>Contact Info:</span>
+                            <div>{dataHH.address}, <br />{dataHH.state} {dataHH.zipcode}</div>
                             <div><a href={dataHH.website}>Website & Menu</a></div>
                             <div>{formatPhoneNumber(dataHH.phone)}</div>
                         </div>
@@ -383,14 +385,15 @@ export default function HHPostText(props){
                     
                     {/* ADD REVIEW */}
                    {review !== false &&  
-                   <div className="flex flex-col w-2/5 card shadow-xl bg-neutral p-6">
- 
-                        <h2 className="card-title self-center mb-4 text-white">Review Here!</h2>
-                     
-                        <div className="flex flex-col">
+                   <div className="flex flex-col border-red-400 border rounded w-2/5 ">
+                        <div className="flex justify-center">
+                            <span>Review Here!</span>
+                        </div>
+                        
+                        <div className="flex flex-col border-black border rounded ">
                             <div className="flex justify-center flex-wrap">
-                                <div className="flex flex-col mx-1 p-1 w-24 items-center">
-                                    <label htmlFor="worth" className="text-white">Worth It</label>
+                                <div className="flex flex-col border-black border rounded mx-1 p-1 w-24 items-center">
+                                    <label htmlFor="worth">Worth It</label>
                                     <div className="star-rating">
                                         {[...Array(4)].map((star, index) => {
                                         index += 1;
@@ -399,7 +402,7 @@ export default function HHPostText(props){
                                             type="button"
                                             key={index}
                 
-                                            className={ratingData.worthRating <= index-1 ? "text-gray-300" : "text-green-400"}
+                                            className={ratingData.worthRating <= index-1 ? "text-gray-300" : "on"}
                                             onClick={() => handleWorthRatingClick(index, dataHH._id)}
                                             name="worth"
                                             
@@ -409,7 +412,7 @@ export default function HHPostText(props){
                                         );
                                         })}
                                     </div>
-                                    <label htmlFor="size" className="text-white">Portion Size</label>
+                                    <label htmlFor="size">Portion Size</label>
                                     <div className="star-rating">
                                         {[...Array(4)].map((star, index) => {
                                         index += 1;
@@ -417,7 +420,7 @@ export default function HHPostText(props){
                                             <button
                                             type="button"
                                             key={index}
-                                            className={ratingData.sizeRating <= index-1 ? "text-gray-300" : "text-green-400"}
+                                            className={ratingData.sizeRating <= index-1 ? "text-gray-300" : "on"}
                                             onClick={() => handleSizeRatingClick(index, dataHH._id)}
                                             name="size"
                                             >
@@ -427,8 +430,8 @@ export default function HHPostText(props){
                                         })}
                                     </div>
                                 </div>
-                                <div className="flex flex-col p-1 mx-1 w-24 items-center">
-                                    <label htmlFor="ambiance" className="text-white">Ambiance</label>
+                                <div className="flex flex-col border-black border rounded p-1 mx-1 w-24 items-center">
+                                    <label htmlFor="ambiance">Ambiance</label>
                                     <div className="star-rating">
                                         {[...Array(4)].map((star, index) => {
                                         index += 1;
@@ -436,7 +439,7 @@ export default function HHPostText(props){
                                             <button
                                             type="button"
                                             key={index}
-                                            className={ratingData.ambRating <= index-1 ? "text-gray-300" : "text-green-400"}
+                                            className={ratingData.ambRating <= index-1 ? "text-gray-300" : "on"}
                                             onClick={() => handleAmbRatingClick(index, dataHH._id)}
                                             name="ambiance"
                                             >
@@ -445,7 +448,7 @@ export default function HHPostText(props){
                                         );
                                         })}
                                     </div>
-                                    <label htmlFor="taste" className="text-white">Taste</label>
+                                    <label htmlFor="taste">Taste</label>
                                     <div className="star-rating">
                                         {[...Array(4)].map((star, index) => {
                                         index += 1;
@@ -453,7 +456,7 @@ export default function HHPostText(props){
                                             <button
                                             type="button"
                                             key={index}
-                                            className={ratingData.tasteRating <= index-1 ? "text-gray-300" : "text-green-400"}
+                                            className={ratingData.tasteRating <= index-1 ? "text-gray-300" : "on"}
                                             onClick={() => handleTasteRatingClick(index, dataHH._id)}
                                             name="taste"
                                             >
@@ -465,8 +468,8 @@ export default function HHPostText(props){
                                 </div>        
                             </div>
                             <div className="flex justify-center p-1 ">
-                            <div className="flex flex-col items-center w-24">
-                                    <label htmlFor="overall" className="text-white">Overall</label>
+                            <div className="border-black border rounded flex flex-col items-center w-24">
+                                    <label htmlFor="overall">Overall</label>
                                     <div className="star-rating">
                                         {[...Array(4)].map((star, index) => {
                                         index += 1;
@@ -474,7 +477,7 @@ export default function HHPostText(props){
                                             <button
                                             type="button"
                                             key={index}
-                                            className={ratingData.ovRating <= index-1 ? "text-gray-300" : "text-green-400"}
+                                            className={ratingData.ovRating <= index-1 ? "text-gray-300" : "on"}
                                             onClick={() => handleOvRatingClick(index, dataHH._id)}
                                             name="overall"
                                             >
@@ -488,12 +491,9 @@ export default function HHPostText(props){
                             {/* UPLOAD PHOTO */}
                             <CloudinaryUploadWidget name={props.postID.id}/>
                         </div>
-                        <button onClick={handleReviewSubmit} className="btn btn-primary self-center">Submit Review</button>
+                        <button onClick={handleReviewSubmit}>Submit Review</button>
                 </div> }
-                <div className="flex flex-wrap gap-4 m-2 justify-center">
-                    <div className="px-4 py-2 text-gray-800 uppercase bg-transparent border-2 border-gray-800 dark:text-white hover:bg-gray-800 hover:text-white text-md"><Link to ={`/feed`}>Feed</Link></div>
-                    <div className="px-4 py-2 text-gray-800 uppercase bg-transparent border-2 border-gray-800 dark:text-white hover:bg-gray-800 hover:text-white text-md"><Link to ={`/feed`}>Dashboard</Link></div>
-                </div>
+                <div><Link to ={`/feed`}>Return to feed</Link></div>
                 </div>
         
         </div>

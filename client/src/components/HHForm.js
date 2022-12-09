@@ -83,7 +83,7 @@ export default function HHForm() {
                     sunday: formData.sunday,
                     user: formData.user,
 				},
-				url: 'http://localhost:5000/createHH',
+				url: '/createHH',
 				withCredentials: true,
 			});
             setMsg({

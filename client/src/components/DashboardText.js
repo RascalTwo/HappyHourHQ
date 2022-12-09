@@ -25,7 +25,7 @@ export default function DashboardText(){
     React.useEffect(() => {
         async function getUserData(){
             
-            const res = await fetch("http://localhost:5000/getUserData", {credentials: 'include'})
+            const res = await fetch("/getUserData", {credentials: 'include'})
             const data = await res.json()
             setUserData(data)
             
@@ -45,7 +45,7 @@ export default function DashboardText(){
                     data: {
                         favArray: userData.favoritePosts
                     },
-                    url: `http://localhost:5000/getFavoritePosts/`
+                    url: `/getFavoritePosts`
                 }) 
                 const data = await response.data
                 setDataHH(data)
@@ -89,7 +89,7 @@ export default function DashboardText(){
                 data: {
                     post: button.getAttribute('action'),
                 },
-                url: `http://localhost:5000/rmFavorite/${user._id}`   
+                url: `/rmFavorite/${user._id}`   
             })   
             
         } catch (err) {

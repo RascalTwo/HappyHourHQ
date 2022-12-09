@@ -20,7 +20,7 @@ class CloudinaryUploadWidget extends Component {
               data: {
                   image: data.secure_url,
               },
-              url: `http://localhost:5000/addImage/${postID}`
+              url: `/addImage/${postID}`
           }) 
       } catch (err) {
     console.log(err);
