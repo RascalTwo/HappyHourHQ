@@ -42,12 +42,19 @@ export default function HHPostText(props){
        
     }, [])
     React.useEffect(() => {
-        async function getHHData(){
+        
+        function getHHData(){
             console.log('getting data')
-            const res = await fetch(`/getHHPost/${props.postID.id}`)
-            const data = await res.json()
-            setDataHH(data)
-            setLoading(false)
+            fetch(`/getHHPost/${props.postID.id}`)
+            .then((response) => response.json())
+            .then((data) => {
+                // API REQUEST ENDS UP HERE IF/WHEN FETCH DATA IS RETURNED
+                setDataHH(data)
+                console.log("data fetched?")
+                setLoading(false)
+            }); 
+            
+            
         }
         if (dataLoaded !== 0){
             getHHData()

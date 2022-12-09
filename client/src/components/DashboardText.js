@@ -23,18 +23,17 @@ export default function DashboardText(){
   
     const [userData, setUserData] = React.useState([{}])
     React.useEffect(() => {
-        async function getUserData(){
+        function getUserData(){
             
-            const res = await fetch("/getUserData", {credentials: 'include'})
-            const data = await res.json()
-            setUserData(data)
-            
-            setDataLoaded(prevValue => prevValue + 1)
-            
+            fetch("/getUserData", {credentials: 'include'})
+            .then((response) => response.json())
+            .then((data) => {
+                // API REQUEST ENDS UP HERE IF/WHEN FETCH DATA IS RETURNED
+                setUserData(data)
+                setDataLoaded(prevValue => prevValue + 1)
+            }); 
         }
-        getUserData() 
-        
-                
+        getUserData()         
     }, [])
 
     React.useEffect(() => {

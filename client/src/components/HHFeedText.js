@@ -17,36 +17,45 @@ export default function HHFeedText(){
     const [isLoading, setLoading] = React.useState(true);
     
     
+    // React.useEffect(() => {
+    //     async function getHHData(){
+            
+    //         const res = await fetch("/getHHData")
+    //         const data = await res.json()
+    //         setDataHH(data)
+            
+    //     }
+    //     getHHData()  
+                
+    // }, [])
+
     React.useEffect(() => {
-        async function getHHData(){
-            
-            const res = await fetch("/getHHData")
-            const data = await res.json()
-            setDataHH(data)
-            
+        function getHHData(){
+            console.log("fetching data")
+            fetch('/getHHData')
+                .then((response) => response.json())
+                .then((data) => {
+                // API REQUEST ENDS UP HERE IF/WHEN FETCH DATA IS RETURNED
+                setDataHH(data)
+                getUserData()
+                console.log("data fetched?")
+            }); 
         }
         getHHData()  
                 
     }, [])
-
-  
     
-    React.useEffect(() => {
-        async function getUserData(){
-            
-            const res = await fetch("/getUserData", {credentials: 'include'})
-            const data = await res.json()
+   
+    function getUserData(){
+        fetch('/getUserData', {credentials: 'include'})
+            .then((response) => response.json())
+            .then((data) => {
+            // API REQUEST ENDS UP HERE IF/WHEN FETCH DATA IS RETURNED
             setUserData(data)
             setLoading(false)
-        }
-        getUserData()  
-                
-    }, [])
-    
-    console.log(user._id)
-    console.log(dataHH)
-    console.log(userData)
-    
+        }); 
+    }
+         
     const handleAddToFavorite = async event => {
         event.preventDefault();
         const button = event.currentTarget;
@@ -136,6 +145,7 @@ export default function HHFeedText(){
                             );
                             })}
                             <span className="text-sm text-black text-opacity-50">({item.ratedBy.length})</span>
+                            
                         </div>
                         <div>{handleTime(item.startTime)} - {handleTime(item.endTime)}</div>
                         <div className="flex space-x-1">
