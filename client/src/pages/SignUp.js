@@ -66,7 +66,7 @@ function SignUp() {
 			<Header />
 			<div className='flex-grow'>
 				<section className='flex flex-col items-center p-10'>
-					<div className='card w-96 shadow-xl bg-neutral'>
+					<div className='rounded-2xl w-96 shadow-xl bg-neutral'>
 						<div className='card-body'>
 							<h1 className='card-title self-center mb-4 text-white'>SignUp</h1>
 							<form onSubmit={handleSubmit} className='flex flex-col gap-2'>

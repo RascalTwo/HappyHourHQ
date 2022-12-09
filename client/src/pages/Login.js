@@ -61,8 +61,8 @@ function Login() {
 		<div className='flex flex-col min-h-screen bg-gray-300'>
 			<Header />
 			<div className='flex-grow'>
-				<section className='flex flex-col items-center p-10'>
-					<div className='card w-96 shadow-xl bg-neutral'>
+				<section className='flex flex-col items-center p-10 '>
+					<div className=' rounded-2xl w-96 shadow-xl bg-neutral'>
 						<div className='card-body'>
 							<h1 className='card-title self-center mb-4 text-white'>
 								Welcome back!

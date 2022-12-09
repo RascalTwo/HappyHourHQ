@@ -22,16 +22,16 @@ const solutions = [
   {
     name: 'Dashboard',
     description: 'Get a better understanding of where your traffic is coming from.',
-    href: '#',
+    href: '/dashboard',
     icon: ChartBarIcon,
   },
   {
     name: 'Feed',
     description: 'Speak directly to your customers in a more meaningful way.',
-    href: '#',
+    href: "/feed",
     icon: CursorArrowRaysIcon,
   },
-  { name: 'Add Happy Hour', description: "Your customers' data will be safe and secure.", href: '#', icon: ShieldCheckIcon },
+  { name: 'Add Happy Hour', description: "Your customers' data will be safe and secure.", href: '/addHappyHour', icon: ShieldCheckIcon },
 //   {
 //     name: 'Integrations',
 //     description: "Connect with third-party tools that you're already using.",
@@ -568,11 +568,10 @@ export default function Header() {
                                     {solutions.map((item) => (
                                       <a
                                         key={item.name}
-                                        href={item.href}
                                         className="-m-3 flex items-center rounded-md p-3 hover:bg-gray-50"
                                       >
                                         <item.icon className="h-6 w-6 flex-shrink-0 text-indigo-600" aria-hidden="true" />
-                                        <span className="ml-3 text-base font-medium text-gray-900">{item.name}</span>
+                                        <Link to={item.href}><span className="ml-3 text-base font-medium text-gray-900">{item.name}</span></Link>
                                       </a>
                                     ))}
                                   </nav>

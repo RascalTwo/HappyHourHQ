@@ -260,7 +260,7 @@ export default function HHPostText(props){
                 }   
                 </div>
 
-                <div className="flex card flex-col items-center">
+                <div className="flex  flex-col items-center">
                     {/* DISPLAY REVIEWS & IMAGE*/}
                     <div className="flex bg-neutral justify-around rounded-2xl w-3/5 min-h-0 p-6 flex-wrap mt-6 text-white">
                         <div className="flex flex-wrap flex-col w-64 h-64 mx-3 my-3">
@@ -357,7 +357,7 @@ export default function HHPostText(props){
                     {/* CONTACT INFO */}
                     <div className="flex flex-wrap w-3/5 justify-center gap-2 my-2">
 
-                        <div className="flex flex-col card bg-neutral text-white py-2 px-4 my-2 mx-1 bg-gray-50">
+                        <div className="flex flex-col rounded-2xl bg-neutral text-white py-2 px-4 my-2 mx-1 bg-gray-50">
                             <div className="flex justify-center w-64 pb-2">Hours</div>
                             {dataHH.monday && <div>Monday: {handleTime(dataHH.startTime)} - {handleTime(dataHH.endTime)}</div>}
                             {dataHH.tuesday && <div>Tuesday: {handleTime(dataHH.startTime)} - {handleTime(dataHH.endTime)}</div>}
@@ -367,7 +367,7 @@ export default function HHPostText(props){
                             {dataHH.saturday && <div>Saturday: {handleTime(dataHH.startTime)} - {handleTime(dataHH.endTime)}</div>}
                             {dataHH.sunday && <div>Sunday: {handleTime(dataHH.startTime)} - {handleTime(dataHH.endTime)}</div>}
                         </div>
-                        <div className="flex flex-col card bg-neutral text-white py-2 px-4 my-2 w-64 bg-gray-50">
+                        <div className="flex flex-col rounded-2xl bg-neutral text-white py-2 px-4 my-2 w-64 bg-gray-50">
                             <span className="self-center pb-2">Contact Info:</span>
                             <div>{dataHH.address}, <br />{dataHH.city} {dataHH.state} {dataHH.zipcode}</div>
                             <div><a href={dataHH.website}>Website & Menu</a></div>
@@ -379,7 +379,7 @@ export default function HHPostText(props){
 
                     {/* ADD REVIEW */}
                    {review !== false &&  
-                   <div className="flex flex-col w-2/5 card shadow-xl bg-neutral p-6">
+                   <div className="flex flex-col rounded-2xl w-2/5 shadow-xl bg-neutral p-6">
 
                         <h2 className="card-title self-center mb-4 text-white">Review Here!</h2>
 

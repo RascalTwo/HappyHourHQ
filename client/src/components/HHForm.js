@@ -101,7 +101,7 @@ export default function HHForm() {
     return (
     
     <div className="flex flex-col items-center my-6">
-        <div className="card w-4/5 shadow-xl bg-neutral card-body">
+        <div className="rounded-2xl w-4/5 shadow-xl bg-neutral card-body">
             <h1 className='card-title self-center mb-4 text-white'>Add Happy Hour</h1>
             <form onSubmit={handleSubmit} className="flex flex-col gap-2">
           <div className="flex justify-center flex-wrap gap-16">
