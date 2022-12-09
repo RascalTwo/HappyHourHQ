@@ -47,10 +47,13 @@ app.use(passport.session());
 
 app.use('/', mainRoutes);
 
-app.get('/*', (req, res) => {
+app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
   });
-  
+  app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
+  });
+
 app.listen(process.env.PORT, () => {
 	console.log(`Server is running on Port ${process.env.PORT} you better catch it!`);
 });
