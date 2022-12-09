@@ -15,7 +15,7 @@ require('dotenv').config({ path: './config/.env' });
 app.use(
 	cors({
 		credentials: true,
-		origin: 'http://localhost:3000'
+		origin: ['http://localhost:3000', 'https://happy-hour-hq.onrender.com']
 	})
 );
 
@@ -47,10 +47,7 @@ app.use(passport.session());
 
 app.use('/', mainRoutes);
 
-app.get('/', (req, res) => {
-	res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
-  });
-  app.get('*', (req, res) => {
+app.get('/*', (req, res) => {
 	res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
   });
 
