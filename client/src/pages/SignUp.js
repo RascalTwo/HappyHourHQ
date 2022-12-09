@@ -42,7 +42,7 @@ function SignUp() {
 					confirmPassword: signUpData.confirmPassword,
 					
 				},
-				url: 'http://localhost:5000/signup',
+				url: '/signup',
 				withCredentials: true,
 			});
 			console.log('From Server:', response);
