@@ -58,7 +58,7 @@ function Login() {
 
 	return (
 	
-		<div className='flex flex-col min-h-screen bg-gray-300'>
+		<div className='flex flex-col min-h-screen bg-gray-200'>
 			<Header />
 			<div className='flex-grow'>
 				<section className='flex flex-col items-center p-10 '>
