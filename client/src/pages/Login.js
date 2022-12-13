@@ -62,8 +62,8 @@ function Login() {
 			<Header />
 			<div className='flex-grow'>
 				<section className='flex flex-col items-center p-10 '>
-					<div className=' rounded-2xl w-96 shadow-xl bg-neutral'>
-						<div className='card-body'>
+					<div className=' rounded-2xl w-96 shadow-xl bg-gray-800'>
+						<div className='flex flex-col p-8 space-y-2'>
 							<h1 className='card-title self-center mb-4 text-white'>
 								Welcome back!
 							</h1>
@@ -83,13 +83,13 @@ function Login() {
 									className='input input-bordered w-full max-w-xs'
 								/>
 								<div className='card-actions justify-center mt-4'>
-									<button className='btn btn-primary'>Log in</button>
+									<button className='flex w-full items-center justify-center bg-green-400 px-4 py-2 w-2/5 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-300'>Log in</button>
 								</div>
 							</form>
 							<div
 								className={
 									msg.success
-										? 'text-success text-center'
+										? 'text-sky-400 text-center'
 										: 'text-warning text-center'
 								}
 							>
