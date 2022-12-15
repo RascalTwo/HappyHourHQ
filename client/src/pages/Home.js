@@ -33,7 +33,7 @@ function Home() {
 								
 							</div>
 
-							<div className='flex justify-center gap-16 my-6 text-white rounded bg-emerald-100 mx-24 p-2'>
+							{/* <div className='flex justify-center gap-16 my-6 text-white rounded bg-emerald-100 mx-24 p-2'>
 								<div className='text-emerald-900 font-medium'>Color Test</div>
 								<div className='p-2 rounded bg-emerald-500'>Color Test</div>
 								<div className='text-emerald-300 font-medium'>Color Test</div>
@@ -96,7 +96,7 @@ function Home() {
 								<div className='text-gray-500 font-medium'>Color Test</div>
 								<div className='text-gray-500 font-bold bg-white p-2'>Color Test</div>
 								<div className='text-gray-700 font-bold bg-white p-2'>Color Test</div>
-							</div>
+							</div> */}
 						</div>
 					</div>
 					
