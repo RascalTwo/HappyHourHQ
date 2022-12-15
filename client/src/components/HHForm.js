@@ -101,7 +101,7 @@ export default function HHForm() {
     return (
     
     <div className="flex flex-col items-center my-6">
-        <div className="rounded-2xl w-4/5 shadow-xl bg-neutral card-body">
+        <div className="rounded-2xl w-4/5 shadow-xl bg-gray-800 flex flex-col p-8 space-y-2">
             <h1 className='card-title self-center mb-4 text-white'>Add Happy Hour</h1>
             <form onSubmit={handleSubmit} className="flex flex-col gap-2">
           <div className="flex justify-center flex-wrap gap-16">
@@ -205,13 +205,13 @@ export default function HHForm() {
                     />
                 </div>
         <div className="flex flex-col w-96 gap-2">
-            <label htmlFor="phone" className="text-white">Phone Number</label>
+            <label htmlFor="phone" className="text-white -mt-2">Phone Number</label>
             <PhoneInput 
             placeholder="Enter Phone Number"
             defaultCountry="US"
             onChange={handlePhoneChange}
             value={formData.phone}
-            className="input input-bordered w-full max-w-xs"/>
+            className="input input-bordered w-full max-w-xs "/>
             <label htmlFor="startTime" className="text-white">Start Time</label>
             <input className="input input-bordered w-full max-w-xs"
                 type="time"
@@ -231,7 +231,7 @@ export default function HHForm() {
                 step="1800"
             />
             <label htmlFor="monday" className="text-white">Days Open?</label>
-            <div className="flex space-x-5">
+            <div className="flex space-x-5 -my-2">
                 <div className="flex flex-col items-center">
                     <label htmlFor="monday" className="text-white">M</label>
                     <input
@@ -316,11 +316,11 @@ export default function HHForm() {
             
             
             <br />
-            
-            <button className="btn btn-primary">Submit</button>
-            
+        <div className="flex justify-center">
+            <button className="flex w-1/2 justify-center bg-green-400 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-300">Submit</button>
+        </div>
         </form>
-        <div className="text-success text-center">{msg ? msg.text : ""}</div>
+        <div className="text-sky-400 text-center">{msg ? msg.text : ""}</div>
         </div>
     </div>
    

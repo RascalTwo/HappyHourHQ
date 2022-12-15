@@ -1,5 +1,6 @@
-import Navigation from './Navigation';
+
 import useAuth from '../auth/useAuth';
+import Logo from '../images/logo.png';
 import { Fragment } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import {
@@ -87,22 +88,22 @@ export default function Header() {
 {/* HEADER WITHOUT AUTHENTICATION */}
 
 					{!authed && (
-						<Popover className="relative bg-white">
+						<Popover className="relative bg-gray-800">
                         <div className="mx-auto max-w-7xl px-4 sm:px-6">
-                          <div className="flex items-center justify-between border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
+                          <div className="flex items-center justify-between py-6 md:justify-start md:space-x-10">
                             <div className="flex justify-start lg:w-0 lg:flex-1">
-                              <a href="#">
+                              <Link to="/">
                                 <span className="sr-only">Your Company</span>
                                 <img
                                   className="h-8 w-auto sm:h-10"
-                                  src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                                  src={Logo}
                                   alt=""
                                 />
-                              </a>
-                              <span className='h-8 w-auto sm:h-10 flex items-center pl-2 text-base font-medium text-gray-700 sm:justify-center'>Happy Hour HQ</span>
+                              </Link>
+                              <Link to="/"><span className='h-8 w-auto sm:h-10 flex items-center pl-2 text-base font-medium text-white sm:justify-center'>Happy Hour HQ</span></Link>
                             </div>
                             <div className="-my-2 -mr-2 md:hidden">
-                              <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                              <Popover.Button className="inline-flex items-center justify-center rounded-md bg-gray-700 p-1 sm:p-2 md:p-2 text-gray-200 hover:bg-gray-200 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-400">
                                 <span className="sr-only">Open menu</span>
                                 <Bars3Icon className="h-6 w-6" aria-hidden="true" />
                               </Popover.Button>
@@ -172,7 +173,7 @@ export default function Header() {
                                   </>
                                 )}
                               </Popover> */}
-                  
+                          
                               {/* <Link to="/dashboard" className="text-base font-medium text-gray-500 hover:text-gray-900">
                                 Dashboard
                               </Link>
@@ -256,12 +257,12 @@ export default function Header() {
                               </Popover> */}
                             </Popover.Group>
                             <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
-                              <Link to="/login"className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
+                              <Link to="/login"className="whitespace-nowrap text-base font-medium text-white hover:text-gray-900">
                                 Sign in
                               </Link>
                               <Link
                                 to="/signup"
-                                className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                                className="ml-8 inline-flex items-center justify-center whitespace-nowrap bg-green-400 px-4 py-2 font-medium text-gray-700 shadow-sm hover:bg-gray-200"
                               >
                                 Sign up
                               </Link>
@@ -279,18 +280,18 @@ export default function Header() {
                           leaveTo="opacity-0 scale-95"
                         >
                           <Popover.Panel focus className="absolute inset-x-0 top-0 origin-top-right transform p-2 transition md:hidden">
-                            <div className="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
+                            <div className="divide-y-2 divide-gray-50 rounded-lg bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5">
                               <div className="px-5 pt-5 pb-6">
                                 <div className="flex items-center justify-between">
                                   <div>
                                     <img
                                       className="h-8 w-auto"
-                                      src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                                      src={Logo}
                                       alt="Your Company"
                                     />
                                   </div>
                                   <div className="-mr-2">
-                                    <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                                    <Popover.Button className="inline-flex items-center justify-center rounded-md bg-gray-700 p-1 sm:p-2 md:p-2 text-gray-200 hover:bg-gray-200 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-400">
                                       <span className="sr-only">Close menu</span>
                                       <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                                     </Popover.Button>
@@ -333,13 +334,13 @@ export default function Header() {
                                 <div>
                                   <Link to='/signup'
                                     
-                                    className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                                    className="flex w-full items-center justify-center bg-green-400 px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-300"
                                   >
                                     Sign up
                                   </Link>
-                                  <p className="mt-6 text-center text-base font-medium text-gray-500">
-                                    Existing customer?{' '}
-                                    <Link to="/login" className="text-indigo-600 hover:text-indigo-500">
+                                  <p className="mt-6 text-center text-base font-medium text-gray-400">
+                                    Already have an account? {' '}
+                                    <Link to="/login" className="text-sky-400 hover:text-gray-200">
                                       Sign in
                                     </Link>
                                   </p>
@@ -354,22 +355,24 @@ export default function Header() {
 {/* HEADER WITH AUTHENTICATION */}
                     
                     {authed && (
-						<Popover className="relative bg-white">
+						<Popover className="relative bg-gray-800">
                         <div className="mx-auto max-w-7xl px-4 sm:px-6">
-                          <div className="flex items-center justify-between border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
+                          <div className="flex items-center justify-between py-6 md:justify-start md:space-x-10">
                             <div className="flex justify-start lg:w-0 lg:flex-1">
-                              <a href="#">
+                      
+                                <Link to="/">
                                 <span className="sr-only">Your Company</span>
                                 <img
                                   className="h-8 w-auto sm:h-10"
-                                  src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                                  src={Logo}
                                   alt=""
                                 />
-                              </a>
-                              <span className='h-8 w-auto sm:h-10 flex items-center pl-2 text-base font-medium text-gray-700 sm:justify-center'>Happy Hour HQ</span>
+                                </Link>
+                           
+                              <Link to="/"><span className='h-8 w-auto sm:h-10 flex items-center pl-2 text-white font-medium text-white sm:ustify-center'>Happy Hour HQ</span></Link>
                             </div>
                             <div className="-my-2 -mr-2 md:hidden">
-                              <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                              <Popover.Button className="inline-flex items-center justify-center rounded-md bg-gray-700 p-1 sm:p-2 md:p-2 text-gray-200 hover:bg-gray-200 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-400">
                                 <span className="sr-only">Open menu</span>
                                 <Bars3Icon className="h-6 w-6" aria-hidden="true" />
                               </Popover.Button>
@@ -440,13 +443,13 @@ export default function Header() {
                                 )}
                               </Popover> */}
                   
-                              <Link to="/dashboard" className="text-base font-medium text-gray-500 hover:text-gray-900">
+                              <Link to="/dashboard" className="text-base font-medium text-gray-200 hover:text-gray-900">
                                 Dashboard
                               </Link>
-                              <Link to="/feed" className="text-base font-medium text-gray-500 hover:text-gray-900">
+                              <Link to="/feed" className="text-base font-medium text-gray-200 hover:text-gray-900">
                                 Feed
                               </Link>
-                              <Link to="/addhappyhour" className="text-base font-medium text-gray-500 hover:text-gray-900">
+                              <Link to="/addhappyhour" className="text-base font-medium text-gray-200 hover:text-gray-900">
                                 Add Happy Hour
                               </Link>
                   
@@ -528,7 +531,7 @@ export default function Header() {
                               </a> */}
                               <button onClick={handleLogout}
                                 
-                                className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                                className="ml-8 inline-flex items-center justify-center whitespace-nowrap bg-green-400 px-4 py-2 font-medium text-gray-700 shadow-sm hover:bg-gray-300"
                               >
                                 Sign Out
                               </button>
@@ -546,18 +549,18 @@ export default function Header() {
                           leaveTo="opacity-0 scale-95"
                         >
                           <Popover.Panel focus className="absolute inset-x-0 top-0 origin-top-right transform p-2 transition md:hidden">
-                            <div className="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
+                            <div className="divide-y-2 divide-gray-200 rounded-lg bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5">
                               <div className="px-5 pt-5 pb-6">
                                 <div className="flex items-center justify-between">
                                   <div>
                                     <img
                                       className="h-8 w-auto"
-                                      src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                                      src={Logo}
                                       alt="Your Company"
                                     />
                                   </div>
                                   <div className="-mr-2">
-                                    <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                                    <Popover.Button className="inline-flex items-center justify-center rounded-md bg-gray-700 p-1 sm:p-2 md:p-2 text-gray-200 hover:bg-gray-200 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-400">
                                       <span className="sr-only">Close menu</span>
                                       <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                                     </Popover.Button>
@@ -568,10 +571,10 @@ export default function Header() {
                                     {solutions.map((item) => (
                                       <a
                                         key={item.name}
-                                        className="-m-3 flex items-center rounded-md p-3 hover:bg-gray-50"
+                                        className="-m-3 flex items-center rounded-md p-3 hover:bg-gray-600"
                                       >
                                         <item.icon className="h-6 w-6 flex-shrink-0 text-indigo-600" aria-hidden="true" />
-                                        <Link to={item.href}><span className="ml-3 text-base font-medium text-gray-900">{item.name}</span></Link>
+                                        <Link to={item.href}><span className="ml-3 text-base font-medium text-gray-200">{item.name}</span></Link>
                                       </a>
                                     ))}
                                   </nav>
@@ -598,7 +601,7 @@ export default function Header() {
                                 </div> */}
                                 <div>
                                   <button type="button" onClick={handleLogout}
-                                    className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                                    className="flex w-full items-center justify-center bg-green-400 px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-300"
                                   >
                                     Sign Out
                                   </button>
