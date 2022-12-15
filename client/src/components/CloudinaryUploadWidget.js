@@ -63,9 +63,11 @@ class CloudinaryUploadWidget extends Component {
   }
 
   render() {
+    const style = this.props.style
+    const text = this.props.text
     return (
-      <button id="upload_widget" className="text-white">
-        Add Photo
+      <button id="upload_widget" className={style}>
+        {text}
       </button>
     );
   }
