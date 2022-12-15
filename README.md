@@ -21,7 +21,7 @@ The back-end for this app was built using Node, Express, Mongoose, and MongoDB a
 - [] Filters for sorting through the main feed
 - [] Improved responsiveness and mobile friendly
 - [] Incorporation of Google Maps
-- [] Reorganization of React componenets for more reusability
+- [] Reorganization of React components for more reusability
 
 ## Lessons Learned:
 I have really become familar with MVC architecture and navigating the backend. I have also learned that there are so many ways to authenticate your applications and they all have their pros and cons. It was a challenge to try to keep the authentication simple while still being secure. 
