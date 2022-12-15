@@ -8,7 +8,7 @@ import { faStar as faStarActive } from '@fortawesome/free-solid-svg-icons'
 import { faStar as faStarInactive } from '@fortawesome/free-regular-svg-icons'
 
 export default function HHFeedText(){
-    const { user } = useAuth();
+    const { user, authed } = useAuth();
     
     const navigate = useNavigate();
 
@@ -157,12 +157,13 @@ export default function HHFeedText(){
                             {item.saturday && <div>Sa</div>}
                             {item.sunday && <div>Su</div>}
                         </div>
-                        {
+                        {authed ? <div>{
                             userData.favoritePosts.includes(item._id) ?
                             <div><button action={`${item._id}`} type="submit" onClick={handleRmFavorite}>Remove Favorites <FontAwesomeIcon icon={faStarActive} /></button></div>
                              : 
                             <div><button action={`${item._id}`} type="submit" onClick={handleAddToFavorite}>Add To Favorites <FontAwesomeIcon icon={faStarInactive} /></button></div>
                             }
+                        </div> : <div><Link to="/login">Add To Favorites <FontAwesomeIcon icon={faStarInactive} /></Link></div>}
                     </div>
                     <div className="flex flex-col border border-black rounded px-4 w-48 min-h-min mx-1">
                         

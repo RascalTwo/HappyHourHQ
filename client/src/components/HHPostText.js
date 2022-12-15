@@ -12,7 +12,7 @@ import { faStar as faStarInactive } from '@fortawesome/free-regular-svg-icons'
 
 
 export default function HHPostText(props){
-    const { user } = useAuth();
+    const { user, authed } = useAuth();
     const [dataHH, setDataHH] = React.useState([{}])
     const [userData, setUserData] = React.useState([{}])
     const [dataLoaded, setDataLoaded] = React.useState(0);
@@ -260,8 +260,8 @@ export default function HHPostText(props){
                             <button action={`${dataHH._id}`} type="submit" onClick={handleRmFavorite} className="px-4 py-2 text-gray-800 uppercase bg-transparent border-2 border-gray-800 dark:text-white hover:bg-gray-800 hover:text-white text-md">Remove Favorite <FontAwesomeIcon icon={faStarActive}/></button>
                             : 
                             <button action={`${dataHH._id}`} type="submit" onClick={handleAddToFavorite} className="px-4 py-2 text-gray-800 uppercase bg-transparent border-2 border-gray-800 dark:text-white hover:bg-gray-800 hover:text-white text-md">Add Favorite <FontAwesomeIcon icon={faStarInactive}/></button>
-                            }   
-                            
+                            } 
+                        
                         </div>
                         {/* DISPLAY REVIEWS & IMAGE*/}
                         <div  className="flex bg-gray-800 justify-around rounded-2xl w-3/5 min-h-0 p-6 flex-wrap mt-3 text-white">
