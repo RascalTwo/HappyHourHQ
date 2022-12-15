@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef} from "react";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import useAuth from '../auth/useAuth';
@@ -7,6 +7,7 @@ import { formatPhoneNumber } from 'react-phone-number-input'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar as faStarActive } from '@fortawesome/free-solid-svg-icons'
 import { faStar as faStarInactive } from '@fortawesome/free-regular-svg-icons'
+
 
 
 
@@ -30,6 +31,7 @@ export default function HHPostText(props){
   
         }
     )
+    
     React.useEffect(() => {
         async function getUserData(){
 
@@ -226,6 +228,7 @@ export default function HHPostText(props){
     //Toggle
     function handleToggleReview(){
         setReview(true)
+        document.getElementById('review').scrollIntoView({behavior:'smooth'})   
     }
     function handleTime(time){
         let splitTime = time.split(":")
@@ -233,6 +236,7 @@ export default function HHPostText(props){
             return `${splitTime[0]}:${splitTime[1]} AM`
         }
     }
+    
    
     if (isLoading) {
         return (<div>
@@ -241,123 +245,125 @@ export default function HHPostText(props){
                 </div>) 
     }
     if (isLoading == false) return (
-
+        
 
             <div>
                 {/* NAME */}
                 <h1 className="flex justify-center text-4xl font-medium mt-3">{dataHH.name}</h1>
+                <div className="flex flex-col items-center">
+                    <div className="flex flex-col items-center w-full">
+                        <div className="flex justify-between pt-2 w-3/5 text-sm px-4">
+                            {/* ADD REVIEW BUTTON. ONLY IF NO USER REVIEW */}
+                            
+                            { !dataHH.ratedBy.includes(user._id) ? <button onClick={handleToggleReview} className="px-4 py-2 text-gray-800 uppercase bg-transparent border-2 border-gray-800 dark:text-white hover:bg-gray-800 hover:text-white text-md">Add Review</button> : <div></div>}
 
-                {/* ADD REVIEW BUTTON. ONLY IF NO USER REVIEW */}
-                <div className="flex justify-around text-sm">
-                { !dataHH.ratedBy.includes(user._id) ? <button onClick={handleToggleReview} className="px-4 py-2 text-gray-800 uppercase bg-transparent border-2 border-gray-800 dark:text-white hover:bg-gray-800 hover:text-white text-md">Add Review</button> : <div></div>}
-
-                {/* ADD || REMOVE FAVORITE */}
-                 {
-                 userData.favoritePosts.includes(dataHH._id) ?
-                <button action={`${dataHH._id}`} type="submit" onClick={handleRmFavorite} className="px-4 py-2 text-gray-800 uppercase bg-transparent border-2 border-gray-800 dark:text-white hover:bg-gray-800 hover:text-white text-md">Remove Favorite <FontAwesomeIcon icon={faStarActive}/></button>
-                 : 
-                <button action={`${dataHH._id}`} type="submit" onClick={handleAddToFavorite} className="px-4 py-2 text-gray-800 uppercase bg-transparent border-2 border-gray-800 dark:text-white hover:bg-gray-800 hover:text-white text-md">Add Favorite <FontAwesomeIcon icon={faStarInactive}/></button>
-                }   
-                </div>
-
-                <div className="flex  flex-col items-center">
-                    {/* DISPLAY REVIEWS & IMAGE*/}
-                    <div className="flex bg-neutral justify-around rounded-2xl w-3/5 min-h-0 p-6 flex-wrap mt-6 text-white">
-                        <div className="flex flex-wrap flex-col w-64 h-64 mx-3 my-3">
-                            <h2 className="flex text-white">HH Reviews</h2>  
-                            <div className="star-rating flex items-center">
-
-                                <span>{dataHH.ovRatingAvg}</span>
-                                Overall
-                                {[...Array(4)].map((star, index) => {
-                                index += 1;
-                                return (
-                                    <button
-                                    type="button"
-                                    key={index}
-                                    className={dataHH.ovRatingAvg == null || Math.round(dataHH.ovRatingAvg) <= index-1? "text-gray-300" : "text-green-400"}
-                                    >
-                                    <span className="star">&#9733;</span>
-                                    </button>
-                                );
-                                })}
-                                <span className="text-sm text-white text-opacity-50">({dataHH.ratedBy.length})</span>
-                            </div>
-
-                            <div className="star-rating flex items-center">
-                            <span>{dataHH.tasteRatingAvg}</span>
-                                Taste
-                                {[...Array(4)].map((star, index) => {
-                                index += 1;
-                                return (
-                                    <button
-                                    type="button"
-                                    key={index}
-                                    className={dataHH.tasteRatingAvg == null || Math.round(dataHH.tasteRatingAvg) <= index-1 ? "text-gray-300" : "text-green-400"}
-                                    >
-                                    <span className="star">&#9733;</span>
-                                    </button>
-                                );
-                                })}
-                            </div>
-                            <div className="star-rating flex items-center">
-                            <span>{dataHH.ambRatingAvg}</span>
-                                Ambiance
-                                {[...Array(4)].map((star, index) => {
-                                index += 1;
-                                return (
-                                    <button
-                                    type="button"
-                                    key={index}
-                                    className={dataHH.ambRatingAvg == null ||Math.round(dataHH.ambRatingAvg) <= index-1 ? "text-gray-300" : "text-green-400"}
-                                    >
-                                    <span className="star">&#9733;</span>
-                                    </button>
-                                );
-                                })}
-                            </div>
-                            <div className="star-rating flex items-center">
-                            <span>{dataHH.worthRatingAvg}</span>
-                                Worth It
-                                {[...Array(4)].map((star, index) => {
-                                index += 1;
-                                return (
-                                    <button
-                                    type="button"
-                                    key={index}
-                                    className={dataHH.worthRatingAvg == null ||Math.round(dataHH.worthRatingAvg) <= index-1 ? "text-gray-300" : "text-green-400"}
-                                    >
-                                    <span className="star">&#9733;</span>
-                                    </button>
-                                );
-                                })}
-                            </div>
-                            <div className="star-rating flex items-center">
-                            <span>{dataHH.sizeRatingAvg}</span>
-                                Portions
-                                {[...Array(4)].map((star, index) => {
-                                index += 1;
-                                return (
-                                    <button
-                                    type="button"
-                                    key={index}
-                                    className={dataHH.sizeRatingAvg == null ||Math.round(dataHH.sizeRatingAvg) <= index-1 ? "text-gray-300" : "text-green-400"}
-                                    >
-                                    <span className="star">&#9733;</span>
-                                    </button>
-                                );
-                                })}
-                            </div>
+                            {/* ADD || REMOVE FAVORITE */}
+                            {
+                            userData.favoritePosts.includes(dataHH._id) ?
+                            <button action={`${dataHH._id}`} type="submit" onClick={handleRmFavorite} className="px-4 py-2 text-gray-800 uppercase bg-transparent border-2 border-gray-800 dark:text-white hover:bg-gray-800 hover:text-white text-md">Remove Favorite <FontAwesomeIcon icon={faStarActive}/></button>
+                            : 
+                            <button action={`${dataHH._id}`} type="submit" onClick={handleAddToFavorite} className="px-4 py-2 text-gray-800 uppercase bg-transparent border-2 border-gray-800 dark:text-white hover:bg-gray-800 hover:text-white text-md">Add Favorite <FontAwesomeIcon icon={faStarInactive}/></button>
+                            }   
+                            
                         </div>
-                        {dataHH.images[0] != undefined ? <div className="flex w-64 h-64 mx-3 my-3 border-black border rounded">
-                            <img src={dataHH.images[0]} className="object-contain" alt="Picture of happy hour"/>
-                        </div>  : <div className="flex items-center justify-center border-black border rounded w-64 h-64 my-3 p-1 ">No Photo Yet</div>}
+                        {/* DISPLAY REVIEWS & IMAGE*/}
+                        <div  className="flex bg-gray-800 justify-around rounded-2xl w-3/5 min-h-0 p-6 flex-wrap mt-3 text-white">
+                            <div className="flex flex-wrap flex-col w-64 h-64 mx-3 my-3">
+                                <h2 className="flex text-white">HH Reviews</h2>  
+                                <div className="star-rating flex items-center">
 
+                                    <span>{dataHH.ovRatingAvg}</span>
+                                    Overall
+                                    {[...Array(4)].map((star, index) => {
+                                    index += 1;
+                                    return (
+                                        <button
+                                        type="button"
+                                        key={index}
+                                        className={dataHH.ovRatingAvg == null || Math.round(dataHH.ovRatingAvg) <= index-1? "text-gray-300" : "text-green-400"}
+                                        >
+                                        <span className="star">&#9733;</span>
+                                        </button>
+                                    );
+                                    })}
+                                    <span className="text-sm text-white text-opacity-50">({dataHH.ratedBy.length})</span>
+                                </div>
+
+                                <div className="star-rating flex items-center">
+                                <span>{dataHH.tasteRatingAvg}</span>
+                                    Taste
+                                    {[...Array(4)].map((star, index) => {
+                                    index += 1;
+                                    return (
+                                        <button
+                                        type="button"
+                                        key={index}
+                                        className={dataHH.tasteRatingAvg == null || Math.round(dataHH.tasteRatingAvg) <= index-1 ? "text-gray-300" : "text-green-400"}
+                                        >
+                                        <span className="star">&#9733;</span>
+                                        </button>
+                                    );
+                                    })}
+                                </div>
+                                <div className="star-rating flex items-center">
+                                <span>{dataHH.ambRatingAvg}</span>
+                                    Ambiance
+                                    {[...Array(4)].map((star, index) => {
+                                    index += 1;
+                                    return (
+                                        <button
+                                        type="button"
+                                        key={index}
+                                        className={dataHH.ambRatingAvg == null ||Math.round(dataHH.ambRatingAvg) <= index-1 ? "text-gray-300" : "text-green-400"}
+                                        >
+                                        <span className="star">&#9733;</span>
+                                        </button>
+                                    );
+                                    })}
+                                </div>
+                                <div className="star-rating flex items-center">
+                                <span>{dataHH.worthRatingAvg}</span>
+                                    Worth It
+                                    {[...Array(4)].map((star, index) => {
+                                    index += 1;
+                                    return (
+                                        <button
+                                        type="button"
+                                        key={index}
+                                        className={dataHH.worthRatingAvg == null ||Math.round(dataHH.worthRatingAvg) <= index-1 ? "text-gray-300" : "text-green-400"}
+                                        >
+                                        <span className="star">&#9733;</span>
+                                        </button>
+                                    );
+                                    })}
+                                </div>
+                                <div className="star-rating flex items-center">
+                                <span>{dataHH.sizeRatingAvg}</span>
+                                    Portions
+                                    {[...Array(4)].map((star, index) => {
+                                    index += 1;
+                                    return (
+                                        <button
+                                        type="button"
+                                        key={index}
+                                        className={dataHH.sizeRatingAvg == null ||Math.round(dataHH.sizeRatingAvg) <= index-1 ? "text-gray-300" : "text-green-400"}
+                                        >
+                                        <span className="star">&#9733;</span>
+                                        </button>
+                                    );
+                                    })}
+                                </div>
+                            </div>
+                            {dataHH.images[0] != undefined ? <div className="flex w-64 h-64 mx-3 my-3 border-black border rounded">
+                                <img src={dataHH.images[0]} className="object-contain" alt="Picture of happy hour"/>
+                            </div>  : <div className="flex items-center justify-center border-black border rounded w-64 h-64 my-3 p-1 "><CloudinaryUploadWidget name={props.postID.id}/></div>}
+
+                        </div>
                     </div>
                     {/* CONTACT INFO */}
                     <div className="flex flex-wrap w-3/5 justify-center gap-2 my-2">
 
-                        <div className="flex flex-col rounded-2xl bg-neutral text-white py-2 px-4 my-2 mx-1 bg-gray-50">
+                        <div className="flex flex-col rounded-2xl bg-gray-800 text-white py-2 px-4 my-2 mx-1">
                             <div className="flex justify-center w-64 pb-2">Hours</div>
                             {dataHH.monday && <div>Monday: {handleTime(dataHH.startTime)} - {handleTime(dataHH.endTime)}</div>}
                             {dataHH.tuesday && <div>Tuesday: {handleTime(dataHH.startTime)} - {handleTime(dataHH.endTime)}</div>}
@@ -367,7 +373,7 @@ export default function HHPostText(props){
                             {dataHH.saturday && <div>Saturday: {handleTime(dataHH.startTime)} - {handleTime(dataHH.endTime)}</div>}
                             {dataHH.sunday && <div>Sunday: {handleTime(dataHH.startTime)} - {handleTime(dataHH.endTime)}</div>}
                         </div>
-                        <div className="flex flex-col rounded-2xl bg-neutral text-white py-2 px-4 my-2 w-64 bg-gray-50">
+                        <div className="flex flex-col rounded-2xl bg-gray-800 text-white py-2 px-4 my-2 w-64">
                             <span className="self-center pb-2">Contact Info:</span>
                             <div>{dataHH.address}, <br />{dataHH.city} {dataHH.state} {dataHH.zipcode}</div>
                             <div><a href={dataHH.website}>Website & Menu</a></div>
@@ -379,7 +385,7 @@ export default function HHPostText(props){
 
                     {/* ADD REVIEW */}
                    {review !== false &&  
-                   <div className="flex flex-col rounded-2xl w-2/5 shadow-xl bg-neutral p-6">
+                   <div id="review" className="flex flex-col rounded-2xl w-2/5 shadow-xl bg-gray-800 p-6">
 
                         <h2 className="card-title self-center mb-4 text-white">Review Here!</h2>
 
@@ -482,9 +488,13 @@ export default function HHPostText(props){
                             </div>
                             </div>
                             {/* UPLOAD PHOTO */}
+                            <div className="flex justify-center">
                             <CloudinaryUploadWidget name={props.postID.id}/>
+                            </div>
                         </div>
-                        <button onClick={handleReviewSubmit} className="btn btn-primary self-center">Submit Review</button>
+                        
+                            <button onClick={handleReviewSubmit} className="self-center w-1/3 bg-green-400 px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-300">Submit Review</button>
+                    
                 </div> }
                 <div className="flex flex-wrap gap-4 m-2 justify-center">
                     <div className="px-4 py-2 text-gray-800 uppercase bg-transparent border-2 border-gray-800 dark:text-white hover:bg-gray-800 hover:text-white text-md"><Link to ={`/feed`}>Feed</Link></div>

@@ -6,6 +6,7 @@ class CloudinaryUploadWidget extends Component {
     const cloudName = process.env.REACT_APP_CLOUD_NAME; // replace with your own cloud name
     const uploadPreset = 'f4yqllrh'; // replace with your own upload preset
     const postID = this.props.name
+    
     // Remove the comments from the code below to add
     // additional functionality.
     // Note that these are only a few examples, to see
@@ -63,7 +64,7 @@ class CloudinaryUploadWidget extends Component {
 
   render() {
     return (
-      <button id="upload_widget" className="">
+      <button id="upload_widget" className="text-white">
         Add Photo
       </button>
     );
