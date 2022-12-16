@@ -246,27 +246,27 @@ export default function HHPostText(props){
 
             <div>
                 {/* NAME */}
-                <h1 className="flex justify-center text-4xl font-medium mt-3">{dataHH.name}</h1>
+                <h1 className="flex justify-center text-3xl text-white md:text-gray-800 md:text-4xl font-medium mt-3">{dataHH.name}</h1>
                 <div className="flex flex-col items-center">
                     <div className="flex flex-col items-center w-full">
-                        <div className="flex justify-between pt-2 w-3/5 text-sm px-4">
+                        <div className="flex justify-center md:justify-between pt-2 md:w-3/5 text-sm px-4">
                             {/* ADD REVIEW BUTTON. ONLY IF NO USER REVIEW */}
                             
-                            { !dataHH.ratedBy.includes(user._id) ? <button onClick={handleToggleReview} className="px-4 py-2 text-gray-800 uppercase bg-transparent border-2 border-gray-800 dark:text-white hover:bg-gray-800 hover:text-white text-md">Add Review</button> : <div></div>}
+                            { !dataHH.ratedBy.includes(user._id) ? <button onClick={handleToggleReview} className="md:px-4 md:py-2 md:text-gray-800 text-white uppercase bg-transparent border-2 border-gray-800 dark:text-white hover:bg-gray-800 hover:text-white text-md">Add Review</button> : <div></div>}
 
                             {/* ADD || REMOVE FAVORITE */}
                             {
                             userData.favoritePosts.includes(dataHH._id) ?
-                            <button action={`${dataHH._id}`} type="submit" onClick={handleRmFavorite} className="px-4 py-2 text-gray-800 uppercase bg-transparent border-2 border-gray-800 dark:text-white hover:bg-gray-800 hover:text-white text-md">Remove Favorite <FontAwesomeIcon icon={faStarActive}/></button>
+                            <button action={`${dataHH._id}`} type="submit" onClick={handleRmFavorite} className="px-4 py-2 md:text-gray-800 text-white uppercase bg-transparent border-2 border-gray-800 dark:text-white hover:bg-gray-800 hover:text-white text-md">Remove Favorite <FontAwesomeIcon icon={faStarActive}/></button>
                             : 
-                            <button action={`${dataHH._id}`} type="submit" onClick={handleAddToFavorite} className="px-4 py-2 text-gray-800 uppercase bg-transparent border-2 border-gray-800 dark:text-white hover:bg-gray-800 hover:text-white text-md">Add Favorite <FontAwesomeIcon icon={faStarInactive}/></button>
+                            <button action={`${dataHH._id}`} type="submit" onClick={handleAddToFavorite} className="px-4 py-2 md:text-gray-800 text-white uppercase bg-transparent border-2 border-gray-800 dark:text-white hover:bg-gray-800 hover:text-white text-md">Add Favorite <FontAwesomeIcon icon={faStarInactive}/></button>
                             } 
                         
                         </div>
                         {/* DISPLAY REVIEWS & IMAGE*/}
-                        <div  className="flex bg-gray-800 justify-around rounded-2xl w-3/5 min-h-0 p-6 flex-wrap mt-3 text-white">
-                            <div className="flex flex-wrap flex-col w-64 h-64 mx-3 my-3 space-y-2">
-                                <h2 className="flex justify-center text-white pb-2 text-2xl">Detailed Reviews</h2>  
+                        <div  className="flex bg-gray-800 justify-center md:justify-around md:rounded-2xl md:w-3/5 min-h-0 md:p-6 flex-wrap md:mt-3 text-white">
+                            <div className="flex flex-wrap flex-col w-64 h-48 md:h-64 w-full md:mx-3 my-3 space-y-2">
+                                {/* <h2 className="flex justify-center text-white pb-2 text-2xl">Detailed Reviews</h2>   */}
                                 <div className="star-rating flex items-center space-x-1">
 
                                     <span className="">{String(dataHH.ovRatingAvg).length === 1 ? `${dataHH.ovRatingAvg}.0` : dataHH.ovRatingAvg}</span>
@@ -351,16 +351,16 @@ export default function HHPostText(props){
                                     })}
                                 </div>
                             </div>
-                            {dataHH.images[0] != undefined ? <div className="flex w-64 h-64 mx-3 my-3 border-black border rounded">
+                            {dataHH.images[0] != undefined ? <div className="flex w-64 h-64 mx-3 md:my-3 border-black border rounded">
                                 <img src={dataHH.images[0]} className="object-contain" alt="Picture of happy hour"/>
                             </div>  : <div className="flex items-center justify-center bg-gray-700 border-black border rounded w-64 h-64 my-3 p-1 "><CloudinaryUploadWidget name={props.postID.id} style="text-gray-200" text="Add First Photo!"/></div>}
 
                         </div>
                     </div>
                     {/* CONTACT INFO */}
-                    <div className="flex flex-wrap w-3/5 justify-center gap-2 my-2">
+                    <div className="flex flex-wrap md:w-3/5 justify-center gap-2 my-2">
 
-                        <div className="flex flex-col rounded-2xl bg-gray-800 text-white py-2 px-4 my-2 mx-1">
+                        <div className="flex flex-col rounded-2xl bg-gray-800 text-white py-2 px-4 md:my-2 mx-1">
                             <div className="flex justify-center w-64 pb-2 text-lg">Hours</div>
                             {dataHH.monday && <div>Monday: {handleTime(dataHH.startTime)} - {handleTime(dataHH.endTime)}</div>}
                             {dataHH.tuesday && <div>Tuesday: {handleTime(dataHH.startTime)} - {handleTime(dataHH.endTime)}</div>}
@@ -370,9 +370,9 @@ export default function HHPostText(props){
                             {dataHH.saturday && <div>Saturday: {handleTime(dataHH.startTime)} - {handleTime(dataHH.endTime)}</div>}
                             {dataHH.sunday && <div>Sunday: {handleTime(dataHH.startTime)} - {handleTime(dataHH.endTime)}</div>}
                         </div>
-                        <div className="flex flex-col rounded-2xl bg-gray-800 text-white py-2 px-4 my-2 w-64">
-                            <span className="self-center pb-2 text-lg">Contact Info:</span>
-                            <div className="self-center">{dataHH.address}, <br />{dataHH.city} {dataHH.state} {dataHH.zipcode}</div>
+                        <div className="flex flex-col rounded-2xl bg-gray-800 text-white py-2 md:px-4 md:my-2 w-64">
+                            <span className="self-center pb-2 text-lg">Contact Info</span>
+                            <div className="md:self-center">{dataHH.address}, <br />{dataHH.city} {dataHH.state} {dataHH.zipcode}</div>
                             <div><a href={dataHH.website}>Website & Menu</a></div>
                             <div>{formatPhoneNumber(dataHH.phone)}</div>
                         </div>
@@ -382,13 +382,13 @@ export default function HHPostText(props){
 
                     {/* ADD REVIEW */}
                    {review !== false &&  
-                   <div id="review" className="flex flex-col rounded-2xl w-2/5 shadow-xl bg-gray-800 p-6">
+                   <div id="review" className="flex flex-col rounded-2xl md:w-2/5 shadow-xl bg-gray-800 p-6">
 
                         <h2 className="card-title self-center mb-4 text-white">Review Here!</h2>
 
                         <div className="flex flex-col">
                             <div className="flex justify-center flex-wrap">
-                                <div className="flex flex-col mx-1 p-1 w-24 items-center">
+                                <div className="flex flex-col mx-1 p-1 md:w-24 w-36 items-center">
                                     <label htmlFor="worth" className="text-white">Worth It</label>
                                     <div className="star-rating">
                                         {[...Array(4)].map((star, index) => {
@@ -426,7 +426,7 @@ export default function HHPostText(props){
                                         })}
                                     </div>
                                 </div>
-                                <div className="flex flex-col p-1 mx-1 w-24 items-center">
+                                <div className="flex flex-col p-1 mx-1 md:w-24 w-36 items-center">
                                     <label htmlFor="ambiance" className="text-white">Ambiance</label>
                                     <div className="star-rating">
                                         {[...Array(4)].map((star, index) => {
@@ -464,7 +464,7 @@ export default function HHPostText(props){
                                 </div>        
                             </div>
                             <div className="flex justify-center p-1 ">
-                            <div className="flex flex-col items-center w-24">
+                            <div className="flex flex-col items-center md:w-24 w-36">
                                     <label htmlFor="overall" className="text-white">Overall</label>
                                     <div className="star-rating">
                                         {[...Array(4)].map((star, index) => {
@@ -485,17 +485,17 @@ export default function HHPostText(props){
                             </div>
                             </div>
                             {/* UPLOAD PHOTO */}
-                            <div className="flex justify-center">
-                            <CloudinaryUploadWidget name={props.postID.id}/>
+                            <div className="self-center w-24 h-8 text-center m-4 border border-2 border-gray-400">
+                            <CloudinaryUploadWidget name={props.postID.id} text="Add Photo" style="text-white"/>
                             </div>
                         </div>
                         
-                            <button onClick={handleReviewSubmit} className="self-center w-1/3 bg-green-400 px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-300">Submit Review</button>
+                            <button onClick={handleReviewSubmit} className="self-center md:w-1/3 w-48 bg-green-400 px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-300">Submit Review</button>
                             
                 </div> }
                 <div className="flex flex-wrap gap-4 m-2 justify-center">
-                    <div className="px-4 py-2 text-gray-800 uppercase bg-transparent border-2 border-gray-800 dark:text-white hover:bg-gray-800 hover:text-white text-md"><Link to ={`/feed`}>Feed</Link></div>
-                    <div className="px-4 py-2 text-gray-800 uppercase bg-transparent border-2 border-gray-800 dark:text-white hover:bg-gray-800 hover:text-white text-md"><Link to ={`/feed`}>Dashboard</Link></div>
+                    <div className="px-4 py-2 md:text-gray-800 text-white uppercase bg-transparent border-2 md:border-gray-800 border-sky-400 dark:text-white hover:bg-gray-800 hover:text-white text-md"><Link to ={`/feed`}>Feed</Link></div>
+                    <div className="px-4 py-2 md:text-gray-800 text-white uppercase bg-transparent border-2 md:border-gray-800 border-sky-400 dark:text-white hover:bg-gray-800 hover:text-white text-md"><Link to ={`/feed`}>Dashboard</Link></div>
                 </div>
                 </div>
 
