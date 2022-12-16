@@ -15,19 +15,6 @@ export default function HHFeedText(){
     const [dataHH, setDataHH] = React.useState([{}])
     const [userData, setUserData] = React.useState([{}])
     const [isLoading, setLoading] = React.useState(true);
-    
-    
-    // React.useEffect(() => {
-    //     async function getHHData(){
-            
-    //         const res = await fetch("/getHHData")
-    //         const data = await res.json()
-    //         setDataHH(data)
-            
-    //     }
-    //     getHHData()  
-                
-    // }, [])
 
     React.useEffect(() => {
         function getHHData(){
@@ -78,8 +65,6 @@ export default function HHFeedText(){
         } catch (err) {
 			console.log(err);
 		}  
-        
-        
     }
 
     const handleRmFavorite = async event => {
@@ -173,7 +158,7 @@ export default function HHFeedText(){
                         <div className="flex flex-col w-1/2  md:px-4 md:w-48 min-h-min md:mx-1">
                             
                             {/* <span>Contact Info:</span> */}
-                                <div><a href={item.website}>Website & Menu</a></div>
+                                <div><Link to={item.website}>Website & Menu</Link></div>
                                 <div>{formatPhoneNumber(item.phone)}</div>
 
                         </div>

@@ -252,8 +252,9 @@ export default function HHPostText(props){
                         <div className="flex justify-center md:justify-between pt-2 md:w-3/5 text-sm px-4">
                             {/* ADD REVIEW BUTTON. ONLY IF NO USER REVIEW */}
                             
-                            { !dataHH.ratedBy.includes(user._id) ? <button onClick={handleToggleReview} className="md:px-4 md:py-2 md:text-gray-800 text-white uppercase bg-transparent border-2 border-gray-800 dark:text-white hover:bg-gray-800 hover:text-white text-md">Add Review</button> : <div></div>}
-
+                            {authed?
+                            <div> { !dataHH.ratedBy.includes(user._id) ? <button onClick={handleToggleReview} className="md:px-4 md:py-2 md:text-gray-800 text-white uppercase bg-transparent border-2 border-gray-800 dark:text-white hover:bg-gray-800 hover:text-white text-md">Add Review</button> : <div></div>}
+                            </div> : <button className="md:px-4 md:py-2 md:text-gray-800 text-white uppercase bg-transparent border-2 border-gray-800 dark:text-white hover:bg-gray-800 hover:text-white text-md"><Link to="/login">Add Review</Link></button>}
                             {/* ADD || REMOVE FAVORITE */}
                             
                             {authed ? <div>{

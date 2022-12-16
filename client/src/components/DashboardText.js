@@ -4,6 +4,7 @@ import axios from 'axios';
 import useAuth from '../auth/useAuth';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar as faStarActive } from '@fortawesome/free-solid-svg-icons'
+import { faStar as faStarInactive } from '@fortawesome/free-regular-svg-icons'
 import { formatPhoneNumber } from 'react-phone-number-input'
 
 
@@ -61,11 +62,33 @@ export default function DashboardText(){
         getHHData()
     }
                 
-    }, [dataLoaded, update])
+    }, [dataLoaded])
 
    
    
-    
+    const handleAddToFavorite = async event => {
+        event.preventDefault();
+        const button = event.currentTarget;
+        console.log("added to favorites")
+        setUserData(prevValue => {
+            console.log(prevValue.favoritePosts, button.getAttribute('action'))
+            return {
+                ...prevValue,
+                favoritePosts: [...prevValue.favoritePosts, button.getAttribute('action')]
+            }
+        })
+        try {
+            const response = await axios({
+                method: 'put',
+                data: {
+                    post: button.getAttribute('action'),
+                },
+                url: `/addFavorite/${user._id}`
+            }) 
+        } catch (err) {
+			console.log(err);
+		}  
+    }
 
     const handleRmFavorite = async event => {
         event.preventDefault()
@@ -79,9 +102,6 @@ export default function DashboardText(){
             }
         })
         
-        setUpdate(prevValue => prevValue + 1)
-        
-        console.log("look here", dataHH)
         try {
             const response = await axios({
                 method: 'delete',
@@ -150,9 +170,12 @@ export default function DashboardText(){
                             {item.saturday && <div>Sa</div>}
                             {item.sunday && <div>Su</div>}
                         </div>
-                        
-                        <div><button action={`${item._id}`} type="submit" onClick={handleRmFavorite}>Remove Favorites <FontAwesomeIcon icon={faStarActive} className="text-sky-400"/></button></div>
-                            
+                            {
+                            userData.favoritePosts.includes(item._id) ?
+                            <div><button action={`${item._id}`} type="submit" onClick={handleRmFavorite}>Remove Favorites <FontAwesomeIcon icon={faStarActive} className="text-sky-400"/></button></div>
+                             : 
+                            <div><button action={`${item._id}`} type="submit" onClick={handleAddToFavorite}>Add To Favorites <FontAwesomeIcon icon={faStarInactive} className="text-sky-400"/></button></div>
+                            }  
   
                     </div>
                     {/* IMAGE */}

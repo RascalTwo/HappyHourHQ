@@ -204,7 +204,7 @@ export default function HHForm() {
                         value={formData.website}
                     />
                 </div>
-        <div className="flex flex-col w-96 gap-2">
+        <div className="flex flex-col w-full gap-2">
             <label htmlFor="phone" className="text-white -mt-2">Phone Number</label>
             <PhoneInput 
             placeholder="Enter Phone Number"
@@ -231,7 +231,7 @@ export default function HHForm() {
                 step="1800"
             />
             <label htmlFor="monday" className="text-white">Days Open?</label>
-            <div className="flex space-x-5 -my-2">
+            <div className="flex space-x-4 w-full -my-2">
                 <div className="flex flex-col items-center">
                     <label htmlFor="monday" className="text-white">M</label>
                     <input
@@ -317,6 +317,7 @@ export default function HHForm() {
             
             <br />
         <div className="flex justify-center">
+            
             <button className="flex w-1/2 justify-center bg-green-400 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-300">Submit</button>
         </div>
         </form>

@@ -567,11 +567,13 @@ export default function Header() {
                               <div className="px-5 pt-5 pb-6">
                                 <div className="flex items-center justify-between">
                                   <div>
+                                    <Link to='/'>
                                     <img
                                       className="h-8 w-auto"
                                       src={Logo}
                                       alt="Your Company"
                                     />
+                                    </Link>
                                   </div>
                                   <div className="-mr-2">
                                     <Popover.Button className="inline-flex items-center justify-center rounded-md bg-gray-700 p-1 sm:p-2 md:p-2 text-gray-200 hover:bg-gray-200 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-400">
