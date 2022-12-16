@@ -11,11 +11,13 @@ import {
   ChartBarIcon,
   CursorArrowRaysIcon,
   LifebuoyIcon,
+  ListBulletIcon,
   PhoneIcon,
   PlayIcon,
   ShieldCheckIcon,
   Squares2X2Icon,
   XMarkIcon,
+  
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { Link } from 'react-router-dom';
@@ -173,7 +175,9 @@ export default function Header() {
                                   </>
                                 )}
                               </Popover> */}
-                          
+                              <Link to="/feed" className="text-base font-medium text-gray-200 hover:text-gray-900">
+                                Feed
+                              </Link>
                               {/* <Link to="/dashboard" className="text-base font-medium text-gray-500 hover:text-gray-900">
                                 Dashboard
                               </Link>
@@ -284,11 +288,13 @@ export default function Header() {
                               <div className="px-5 pt-5 pb-6">
                                 <div className="flex items-center justify-between">
                                   <div>
+                                    <Link to="/">
                                     <img
                                       className="h-8 w-auto"
                                       src={Logo}
                                       alt="Your Company"
                                     />
+                                    </Link>
                                   </div>
                                   <div className="-mr-2">
                                     <Popover.Button className="inline-flex items-center justify-center rounded-md bg-gray-700 p-1 sm:p-2 md:p-2 text-gray-200 hover:bg-gray-200 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-400">
@@ -311,6 +317,14 @@ export default function Header() {
                                     ))}
                                   </nav>
                                 </div> */}
+                                <div className="mt-6">
+                                  <nav className="grid gap-y-8">
+                                      <Link to="/feed" className="-m-3 flex items-center rounded-md p-3 hover:bg-gray-50">
+                                        <ListBulletIcon className="h-6 w-6 flex-shrink-0 text-sky-400" aria-hidden="true" />
+                                        <span className="ml-3 text-base font-medium text-gray-300">Feed</span>
+                                      </Link>
+                                  </nav>
+                                </div>
                               </div>
                               <div className="space-y-6 py-6 px-5">
                                 {/* <div className="grid grid-cols-2 gap-y-4 gap-x-8">
