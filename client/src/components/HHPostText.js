@@ -255,12 +255,14 @@ export default function HHPostText(props){
                             { !dataHH.ratedBy.includes(user._id) ? <button onClick={handleToggleReview} className="md:px-4 md:py-2 md:text-gray-800 text-white uppercase bg-transparent border-2 border-gray-800 dark:text-white hover:bg-gray-800 hover:text-white text-md">Add Review</button> : <div></div>}
 
                             {/* ADD || REMOVE FAVORITE */}
-                            {
+                            
+                            {authed ? <div>{
                             userData.favoritePosts.includes(dataHH._id) ?
-                            <button action={`${dataHH._id}`} type="submit" onClick={handleRmFavorite} className="px-4 py-2 md:text-gray-800 text-white uppercase bg-transparent border-2 border-gray-800 dark:text-white hover:bg-gray-800 hover:text-white text-md">Remove Favorite <FontAwesomeIcon icon={faStarActive}/></button>
-                            : 
-                            <button action={`${dataHH._id}`} type="submit" onClick={handleAddToFavorite} className="px-4 py-2 md:text-gray-800 text-white uppercase bg-transparent border-2 border-gray-800 dark:text-white hover:bg-gray-800 hover:text-white text-md">Add Favorite <FontAwesomeIcon icon={faStarInactive}/></button>
-                            } 
+                            <div><button action={`${dataHH._id}`} type="submit" onClick={handleRmFavorite} className="px-4 py-2 md:text-gray-800 text-white uppercase bg-transparent border-2 border-gray-800 dark:text-white hover:bg-gray-800 hover:text-white text-md">Remove Favorites <FontAwesomeIcon icon={faStarActive} /></button></div>
+                             : 
+                            <div><button action={`${dataHH._id}`} type="submit" onClick={handleAddToFavorite} className="px-4 py-2 md:text-gray-800 text-white uppercase bg-transparent border-2 border-gray-800 dark:text-white hover:bg-gray-800 hover:text-white text-md">Add To Favorites <FontAwesomeIcon icon={faStarInactive} /></button></div>
+                            }
+                            </div> : <div className="px-4 py-2 md:text-gray-800 text-white uppercase bg-transparent border-2 border-gray-800 dark:text-white hover:bg-gray-800 hover:text-white text-md"><Link to="/login">Add To Favorites <FontAwesomeIcon icon={faStarInactive} /></Link></div>}
                         
                         </div>
                         {/* DISPLAY REVIEWS & IMAGE*/}

@@ -12,7 +12,7 @@ function Dashboard() {
 	return (
 		<div className='flex flex-col h-screen '>
 			<Header />
-			<div className='flex-grow bg-gray-200'>
+			<div className='flex-grow bg-gray-800'>
 				<DashboardText />
 			</div>
 			

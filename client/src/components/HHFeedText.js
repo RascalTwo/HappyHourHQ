@@ -113,9 +113,7 @@ export default function HHFeedText(){
         }
     }
 
-    function handleHHClick(){
-
-    }
+    
 
     if (isLoading) {
         return <div>Loading....</div>
@@ -126,26 +124,26 @@ export default function HHFeedText(){
         <div>
             {dataHH.map((item, index) => 
             
-            <div className="flex justify-center py-2" >
-                <div className="flex justify-around bg-gray-50 flex-wrap border-black border rounded w-4/6 my-2" key={index}>
-                    <div className="flex-col px-4 mx-1 border-black border w-48 min-h-min rounded">
-                    <Link to ={`/HHPost/${item._id}`}><div className="text-lg font-bold">{item.name}</div></Link> 
-                        <div className="star-rating">
-                            <span>{item.ovRatingAvg}</span>
+            <div className="flex justify-center text-gray-50 py-2" >
+                <div className="flex md:justify-around bg-gray-700 flex-wrap border-black border rounded mx-6 md:w-4/6 my-2 space-y-2 " key={index}>
+                    <div className="flex justify-between p-0.5 space-x-0.5 flex-grow">
+                    <div className="flex-col md:px-4 md:mx-1 w-1/2 md:w-48 md:min-h-min">
+                    <Link to ={`/HHPost/${item._id}`}><h1 className="text-xl font-medium">{item.name}</h1></Link> 
+                        <div className="star-rating flex items-center">
+                            <span className="pr-1">{String(item.ovRatingAvg).length === 1 ? `${item.ovRatingAvg}.0` : item.ovRatingAvg}</span>
                             {[...Array(4)].map((star, index) => {
                             index += 1;
                             return (
-                                <button
+                                <div
                                 type="button"
                                 key={index}
-                                className={item.ovRatingAvg <= index-1 || item.ovRatingAvg == undefined ? "text-gray-300" : "on"}
+                                className={item.ovRatingAvg <= index-1 || item.ovRatingAvg == undefined ? "text-gray-300" : "text-green-400"}
                                 >
                                 <span className="star">&#9733;</span>
-                                </button>
+                                </div> 
                             );
                             })}
-                            <span className="text-sm text-black text-opacity-50">({item.ratedBy.length})</span>
-                            
+                            <span className="text-sm text-sky-400 pl-1">({item.ratedBy.length})</span> 
                         </div>
                         <div>{handleTime(item.startTime)} - {handleTime(item.endTime)}</div>
                         <div className="flex space-x-1">
@@ -159,31 +157,29 @@ export default function HHFeedText(){
                         </div>
                         {authed ? <div>{
                             userData.favoritePosts.includes(item._id) ?
-                            <div><button action={`${item._id}`} type="submit" onClick={handleRmFavorite}>Remove Favorites <FontAwesomeIcon icon={faStarActive} /></button></div>
+                            <div><button action={`${item._id}`} type="submit" onClick={handleRmFavorite}>Remove Favorites <FontAwesomeIcon icon={faStarActive} className="text-sky-400"/></button></div>
                              : 
-                            <div><button action={`${item._id}`} type="submit" onClick={handleAddToFavorite}>Add To Favorites <FontAwesomeIcon icon={faStarInactive} /></button></div>
+                            <div><button action={`${item._id}`} type="submit" onClick={handleAddToFavorite}>Add To Favorites <FontAwesomeIcon icon={faStarInactive} className="text-sky-400"/></button></div>
                             }
-                        </div> : <div><Link to="/login">Add To Favorites <FontAwesomeIcon icon={faStarInactive} /></Link></div>}
+                        </div> : <div><Link to="/login">Add To Favorites <FontAwesomeIcon icon={faStarInactive}/></Link></div>}
                     </div>
-                    <div className="flex flex-col border border-black rounded px-4 w-48 min-h-min mx-1">
-                        
-                        <span>Contact Info:</span>
-                        <div>{item.address}, <br />{item.city} {item.state} {item.zipcode}</div>
-                        <div><a href={item.website}>Website & Menu</a></div>
-                        <div>{formatPhoneNumber(item.phone)}</div>
-                            
-                    </div>
-                        
-                            {console.log(item.images)}
+                    {/* IMAGE */}
+                    {console.log(item.images)}
                             {item.images.length > 0 ? <div className="flex w-48 h-48 mx-1 border-black border rounded">
                             <img src={item.images[0]} className="object-contain"/>
-                            </div>  : <div className="flex w-48 h-48 items-center justify-center mx-1 border-black border rounded">No Photo Yet</div>}
-                        
+                            </div>  : <div className="flex w-1/2 h-min-min md:w-48 md:h-48 items-center justify-center md:mx-1 border-black border rounded">No Photo Yet</div>}
                     </div>
-                    
-                        
-                        
-                        
+                    <div className="flex justify-between p-0.5 space-x-0.5 flex-grow">        
+                        <div className="flex flex-col w-1/2  md:px-4 md:w-48 min-h-min md:mx-1">
+                            
+                            {/* <span>Contact Info:</span> */}
+                                <div><a href={item.website}>Website & Menu</a></div>
+                                <div>{formatPhoneNumber(item.phone)}</div>
+
+                        </div>
+                        <div className="flex w-1/2 flex-col  md:px-4 md:w-48 min-h-min md:mx-1">{item.address}, <br />{item.city} {item.state} {item.zipcode}</div>
+                    </div>
+                    </div>
                 </div>
               
         )}

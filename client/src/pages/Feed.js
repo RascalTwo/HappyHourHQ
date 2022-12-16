@@ -9,7 +9,7 @@ function Dashboard() {
 	const { user } = useAuth();
 
 	return (
-		<div className='flex flex-col min-h-screen bg-gray-200'>
+		<div className='flex flex-col min-h-screen bg-gray-800 md:bg-gray-200'>
 			<Header />
 			<div className='flex-grow'>
             <HHFeedText />
