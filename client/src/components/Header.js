@@ -20,7 +20,8 @@ import {
   
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+
 const solutions = [
   {
     name: 'Dashboard',
@@ -85,6 +86,8 @@ const solutions = [
 
 export default function Header() {
 	const { authed, handleLogout } = useAuth();
+  const location = useLocation();
+  console.log(location.pathname, (location.pathname == '/feed'))
 	return (
 		<div>
 {/* HEADER WITHOUT AUTHENTICATION */}
@@ -457,15 +460,11 @@ export default function Header() {
                                 )}
                               </Popover> */}
                   
-                              <Link to="/dashboard" className="text-base font-medium text-gray-200 hover:text-gray-900">
-                                Dashboard
-                              </Link>
-                              <Link to="/feed" className="text-base font-medium text-gray-200 hover:text-gray-900">
-                                Feed
-                              </Link>
-                              <Link to="/addhappyhour" className="text-base font-medium text-gray-200 hover:text-gray-900">
-                                Add Happy Hour
-                              </Link>
+                              {location.pathname === '/dashboard' ? <Link to="/dashboard" className="text-base font-medium text-gray-200 p-1 px-4 rounded rounded border-2 border-green-400 hover:text-gray-900">Dashboard</Link> : <Link to="/dashboard" className="text-base font-medium text-gray-200 hover:text-gray-900">Dashboard</Link>}
+                              
+                              {location.pathname === '/feed' ? <Link to="/feed" className="text-base font-medium text-gray-200 p-1 px-4 rounded border-2 border-green-400 hover:text-gray-900">Feed</Link> : <Link to="/feed" className="text-base font-medium text-gray-200 hover:text-gray-900">Feed</Link>}
+                              
+                              {location.pathname === '/addhappyhour' ? <Link to="/addhappyhour" className="text-base font-medium text-gray-200 p-1 px-4 rounded border-2 border-green-400 rounded hover:text-gray-900">Add Happy Hour</Link> : <Link to="/addhappyhour" className="text-base font-medium text-gray-200 hover:text-gray-900">Add Happy Hour</Link>}
                   
                               {/* <Popover className="relative">
                                 {({ open }) => (
