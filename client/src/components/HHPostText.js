@@ -5,8 +5,9 @@ import useAuth from '../auth/useAuth';
 import CloudinaryUploadWidget from "./CloudinaryUploadWidget";
 import { formatPhoneNumber } from 'react-phone-number-input'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar as faStarActive } from '@fortawesome/free-solid-svg-icons'
+import { faStar as faStarActive, faCheck, faX } from '@fortawesome/free-solid-svg-icons'
 import { faStar as faStarInactive } from '@fortawesome/free-regular-svg-icons'
+import HHType from "./HHType";
 
 
 
@@ -98,22 +99,6 @@ export default function HHPostText(props){
     }, [update])
 
     console.log(dataHH)
-    
-    // function handleClick(index){
-
-    //     setDataHH(prevValue => ({
-    //         ...prevValue,
-    //         rating: [...prevValue.rating, index],
-    //     }),
-    //     )
-
-    //     setUpdate(prevValue => prevValue + 1)
-
-
-    //     console.log(dataHH.ratingAvg)
-    //     console.log(dataHH)
-
-    // }
 
     const handleRmFavorite = async event => {
         event.preventDefault()
@@ -268,8 +253,7 @@ export default function HHPostText(props){
                         </div>
                         {/* DISPLAY REVIEWS & IMAGE*/}
                         <div  className="flex bg-gray-800 justify-center md:justify-around md:rounded-2xl md:w-3/5 min-h-0 md:p-6 flex-wrap md:mt-3 text-white">
-                            <div className="flex flex-wrap flex-col w-64 h-48 md:h-64 w-full md:mx-3 my-3 space-y-2">
-                                {/* <h2 className="flex justify-center text-white pb-2 text-2xl">Detailed Reviews</h2>   */}
+                            <div className="flex sm:flex-wrap flex-col w-64 h-48 md:h-64 w-full md:mx-3 my-3 space-y-2">
                                 <div className="star-rating flex items-center space-x-1">
 
                                     <span className="">{String(dataHH.ovRatingAvg).length === 1 ? `${dataHH.ovRatingAvg}.0` : dataHH.ovRatingAvg}</span>
@@ -353,17 +337,23 @@ export default function HHPostText(props){
                                     );
                                     })}
                                 </div>
+                                
+                                <div className="sm:visible invisible"><HHType drinks={dataHH.drinks} food={dataHH.food}/></div>
+
                             </div>
                             {dataHH.images[0] != undefined ? <div className="flex w-64 h-64 mx-3 md:my-3 border-black border rounded">
                                 <img src={dataHH.images[0]} className="object-contain" alt="Picture of happy hour"/>
-                            </div>  : <div className="flex items-center justify-center bg-gray-700 border-black border rounded w-64 h-64 my-3 p-1 "><CloudinaryUploadWidget name={props.postID.id} style="text-gray-200" text="Add First Photo!"/></div>}
-
+                            </div>  : <div className="flex items-center justify-center bg-gray-700 border-black border rounded w-64 h-64 my-3 p-1 "><CloudinaryUploadWidget name={props.postID.id} style="text-gray-200" text="Add First Photo!"/></div>} 
+                        </div>
+                        <div className="flex justify-center space-x-4 text-white sm:hidden">
+                            <span className="flex justify-center items-center">Drinks {dataHH.drinks ? <FontAwesomeIcon className="pl-1 text-green-400" icon={faCheck}/> : <FontAwesomeIcon className="pl-1.5 text-red-400 text-xs" icon={faX}/>}</span>
+                            <span className="flex justify-center items-center">Food {dataHH.food ? <FontAwesomeIcon className="pl-1 text-green-400" icon={faCheck}/> : <FontAwesomeIcon className="pl-1.5 text-red-400 text-xs" icon={faX}/>}</span>
                         </div>
                     </div>
                     {/* CONTACT INFO */}
-                    <div className="flex flex-wrap md:w-3/5 justify-center gap-2 my-2">
+                    <div className="flex flex-col sm:flex-wrap sm:flex-row sm:w-3/5 justify-center gap-2 my-2">
 
-                        <div className="flex flex-col rounded-2xl bg-gray-800 text-white py-2 px-4 md:my-2 mx-1">
+                        <div className="flex flex-col sm:w-1/3 rounded-2xl bg-gray-800 text-white py-2 sm:px-4 md:my-2 mx-1">
                             <div className="flex justify-center w-64 pb-2 text-lg">Hours</div>
                             {dataHH.monday && <div>Monday: {handleTime(dataHH.startTime)} - {handleTime(dataHH.endTime)}</div>}
                             {dataHH.tuesday && <div>Tuesday: {handleTime(dataHH.startTime)} - {handleTime(dataHH.endTime)}</div>}
@@ -373,7 +363,7 @@ export default function HHPostText(props){
                             {dataHH.saturday && <div>Saturday: {handleTime(dataHH.startTime)} - {handleTime(dataHH.endTime)}</div>}
                             {dataHH.sunday && <div>Sunday: {handleTime(dataHH.startTime)} - {handleTime(dataHH.endTime)}</div>}
                         </div>
-                        <div className="flex flex-col rounded-2xl bg-gray-800 text-white py-2 md:px-4 md:my-2 w-64">
+                        <div className="flex flex-col sm:w-1/3 rounded-2xl bg-gray-800 text-white py-2 md:px-4 md:my-2 w-64">
                             <span className="self-center pb-2 text-lg">Contact Info</span>
                             <div className="">{dataHH.address}, <br />{dataHH.city} {dataHH.state} {dataHH.zipcode}</div>
                             <div><a href={dataHH.website}>Website & Menu</a></div>

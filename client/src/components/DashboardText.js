@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar as faStarActive, faCheck, faX } from '@fortawesome/free-solid-svg-icons'
 import { faStar as faStarInactive } from '@fortawesome/free-regular-svg-icons'
 import { formatPhoneNumber } from 'react-phone-number-input'
+import HHType from "./HHType";
 
 
 export default function DashboardText(){
@@ -175,10 +176,7 @@ export default function DashboardText(){
                             </div>
                         </div>
                         </div>
-                        <div className="flex space-x-4 text-sm">
-                            <span className="flex justify-center items-center gap-1">Drinks {item.drinks ? <FontAwesomeIcon className="text-green-400" icon={faCheck}/> : <FontAwesomeIcon className="text-red-400 text-xs" icon={faX}/>}</span>
-                            <span className="flex justify-center items-center gap-1.5">Food {item.food ? <FontAwesomeIcon className="text-green-400" icon={faCheck}/> : <FontAwesomeIcon className="text-red-400 text-xs" icon={faX}/>}</span>
-                        </div>
+                        <HHType drinks={item.drinks} food={item.food}/>
                         {
                             userData.favoritePosts.includes(item._id) ?
                             <div><button action={`${item._id}`} type="submit" onClick={handleRmFavorite}>Remove Favorites <FontAwesomeIcon icon={faStarActive} className="text-sky-400"/></button></div>
