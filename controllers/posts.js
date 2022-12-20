@@ -31,7 +31,9 @@ module.exports = {
             sunday: req.body.sunday,
             startTime: req.body.startTime,
             endTime: req.body.endTime,
-            ratingAvg: 0
+            ratingAvg: 0,
+            drinks: req.body.drinks,
+            food: req.body.food
           });
           console.log("HH has been added!");
           res.status(201).json({

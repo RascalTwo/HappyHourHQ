@@ -32,6 +32,8 @@ const HHSchema = new mongoose.Schema({
 		tasteRatingAvg:{type: Number},
 		ratedBy: {type: Array},
 		images: {type: Array},
+		drinks: {type: Boolean},
+		food: {type: Boolean},
 		
 		
 		

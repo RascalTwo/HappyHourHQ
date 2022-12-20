@@ -4,7 +4,7 @@ import axios from 'axios';
 import useAuth from '../auth/useAuth';
 import { formatPhoneNumber } from 'react-phone-number-input'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar as faStarActive } from '@fortawesome/free-solid-svg-icons'
+import { faStar as faStarActive, faCheck, faX } from '@fortawesome/free-solid-svg-icons'
 import { faStar as faStarInactive } from '@fortawesome/free-regular-svg-icons'
 
 export default function HHFeedText(){
@@ -32,7 +32,7 @@ export default function HHFeedText(){
                 
     }, [])
     
-   
+   console.log(dataHH)
     function getUserData(){
         fetch('/getUserData', {credentials: 'include'})
             .then((response) => response.json())
@@ -113,33 +113,41 @@ export default function HHFeedText(){
             <div className="flex justify-center text-gray-50 py-2" >
                 <div className="flex sm:justify-around bg-gray-700 flex-wrap border-black border rounded mx-6 sm:w-4/6 my-2 space-y-2 " key={index}>
                     <div className="flex justify-between sm:w-1/4 p-0.5 sm:p-2 space-x-0.5 flex-grow">
-                    <div className="flex-col sm:pl-2 sm:mx-1 w-1/2 sm:w-1/3 sm:min-h-min">
-                    <Link to ={`/HHPost/${item._id}`}><h1 className="text-xl sm:text-2xl font-medium sm:pb-2">{item.name}</h1></Link> 
-                        <div className="star-rating flex items-center">
-                            {item.ovRatingAvg != null ? <div>{String(item.ovRatingAvg).length === 1 ? <div className="pr-1">{item.ovRatingAvg}.0</div> : <div className="pr-1">{item.ovRatingAvg}</div>}</div> : <div className="hidden"></div>}
-                            {[...Array(4)].map((star, index) => {
-                            index += 1;
-                            return (
-                                <div
-                                type="button"
-                                key={index}
-                                className={item.ovRatingAvg <= index-1 || item.ovRatingAvg == undefined ? "text-gray-300" : "text-green-400"}
-                                >
-                                <span className="star text-lg">&#9733;</span>
-                                </div> 
-                            );
-                            })}
-                            <span className="text-sm text-sky-400 pl-1">({item.ratedBy.length})</span> 
+                    <div className="flex-col flex justify-between sm:pl-2 sm:mx-1 w-1/2 sm:w-1/3 sm:min-h-min">
+                    <div>
+                        <Link to ={`/HHPost/${item._id}`}><span className="text-xl sm:text-2xl font-medium sm:pb-2">{item.name}</span></Link> 
+                            <div className="star-rating flex items-center">
+                                {item.ovRatingAvg != null ? <div>{String(item.ovRatingAvg).length === 1 ? <div className="pr-1">{item.ovRatingAvg}.0</div> : <div className="pr-1">{item.ovRatingAvg}</div>}</div> : <div className="hidden"></div>}
+                                {[...Array(4)].map((star, index) => {
+                                index += 1;
+                                return (
+                                    <div
+                                    type="button"
+                                    key={index}
+                                    className={item.ovRatingAvg <= index-1 || item.ovRatingAvg == undefined ? "text-gray-300" : "text-green-400"}
+                                    >
+                                    <span className="star text-lg">&#9733;</span>
+                                    </div> 
+                                );
+                                })}
+                                <span className="text-sm text-sky-400 pl-1">({item.ratedBy.length})</span> 
+                            </div>
+                            <div>
+                            <div>{handleTime(item.startTime)} - {handleTime(item.endTime)}</div>
+                            <div className="flex space-x-1">
+                                {item.monday && <div>M</div>}
+                                {item.tuesday && <div>T</div>}
+                                {item.wednesday && <div>W</div>}
+                                {item.thursday && <div>Th</div>}
+                                {item.friday && <div>F</div>}
+                                {item.saturday && <div>Sa</div>}
+                                {item.sunday && <div>Su</div>}
+                            </div>
                         </div>
-                        <div>{handleTime(item.startTime)} - {handleTime(item.endTime)}</div>
-                        <div className="flex space-x-1">
-                            {item.monday && <div>M</div>}
-                            {item.tuesday && <div>T</div>}
-                            {item.wednesday && <div>W</div>}
-                            {item.thursday && <div>Th</div>}
-                            {item.friday && <div>F</div>}
-                            {item.saturday && <div>Sa</div>}
-                            {item.sunday && <div>Su</div>}
+                        </div>
+                        <div className="flex space-x-4 text-sm">
+                            <span className="flex justify-center items-center gap-1">Drinks {item.drinks ? <FontAwesomeIcon className="text-green-400" icon={faCheck}/> : <FontAwesomeIcon className="text-red-400 text-xs" icon={faX}/>}</span>
+                            <span className="flex justify-center items-center gap-1.5">Food {item.food ? <FontAwesomeIcon className="text-green-400" icon={faCheck}/> : <FontAwesomeIcon className="text-red-400 text-xs" icon={faX}/>}</span>
                         </div>
                         {authed ? <div>{
                             userData.favoritePosts.includes(item._id) ?
@@ -148,6 +156,7 @@ export default function HHFeedText(){
                             <div><button action={`${item._id}`} type="submit" onClick={handleAddToFavorite}>Add To Favorites <FontAwesomeIcon icon={faStarInactive} className="text-sky-400"/></button></div>
                             }
                         </div> : <div><Link to="/login">Add To Favorites <FontAwesomeIcon icon={faStarInactive}/></Link></div>} 
+                        
                     </div>
                     {/* NON-MOBILE CONTACT INFO VIEW */}
                     <div className="sm:flex flex-col p-0.5 w-1/4 sm:w-1/4 min-h-min justify-between hidden">        

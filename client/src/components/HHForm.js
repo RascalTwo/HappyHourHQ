@@ -32,6 +32,8 @@ export default function HHForm() {
             friday: false,
             saturday: false,
             sunday: false, 
+            drinks: false,
+            food: false,
             
             
         }
@@ -82,6 +84,8 @@ export default function HHForm() {
                     saturday: formData.saturday,
                     sunday: formData.sunday,
                     user: formData.user,
+                    drinks: formData.drinks,
+                    food: formData.food
 				},
 				url: '/createHH',
 				withCredentials: true,
@@ -104,8 +108,9 @@ export default function HHForm() {
         <div className="rounded-2xl sm:w-3/5 w-4/5 shadow-xl bg-gray-800 flex flex-col p-4 sm:p-8 space-y-2">
             <h1 className='card-title self-center mb-4 text-white'>Add Happy Hour</h1>
             <form onSubmit={handleSubmit} className="flex flex-col gap-2">
-          <div className="flex justify-center flex-wrap gap-16">
+          <div className="flex justify-center flex-wrap gap-4 sm:gap-16">
             <div className="flex flex-col w-96 gap-2"> 
+                <label htmlFor="name" className="text-white">Name</label>
                     <input className="input input-bordered w-full max-w-xs"
                         type="text"
                         placeholder="Restaurant Name"
@@ -205,7 +210,7 @@ export default function HHForm() {
                     />
                 </div>
         <div className="flex flex-col w-96 gap-2">
-            <label htmlFor="phone" className="text-white -mt-2">Phone Number</label>
+            <label htmlFor="phone" className="text-white -mt-2 md:mt-0">Phone Number</label>
             <PhoneInput 
             placeholder="Enter Phone Number"
             defaultCountry="US"
@@ -230,7 +235,29 @@ export default function HHForm() {
                 value={formData.endTime}
                 step="1800"
             />
-            <label htmlFor="monday" className="text-white">Days Open?</label>
+                <label htmlFor="drinks" className="text-white my-2">Happy Hour Type</label>
+                <div className="flex space-x-4 sm:space-x-4 w-full -my-2">
+                    <input
+                            type ="checkbox"
+                            id="drinks"
+                            checked={formData.drinks}
+                            onChange={handleChange}
+                            name="drinks"
+                            className="w-6 h-6"
+                        />
+                        <label htmlFor="drinks" className="text-white">Drinks</label>
+                    
+                    <input
+                            type ="checkbox"
+                            id="food"
+                            checked={formData.food}
+                            onChange={handleChange}
+                            name="food"
+                            className="w-6 h-6"
+                        />
+                    <label htmlFor="food" className="text-white">Food</label>
+                </div>
+            <label htmlFor="monday" className="text-white mt-2">Days Open?</label>
             <div className="flex space-x-4 sm:space-x-4 w-full -my-2">
                 <div className="flex flex-col items-center">
                     <label htmlFor="monday" className="text-white">M</label>
@@ -310,11 +337,8 @@ export default function HHForm() {
                     />
                 </div>
             </div>
-            
-          </div>
+            </div>
         </div>  
-            
-            
             <br />
         <div className="flex justify-center">
             

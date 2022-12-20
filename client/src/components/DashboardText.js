@@ -3,7 +3,7 @@ import { Link, useNavigate, } from 'react-router-dom';
 import axios from 'axios';
 import useAuth from '../auth/useAuth';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar as faStarActive } from '@fortawesome/free-solid-svg-icons'
+import { faStar as faStarActive, faCheck, faX } from '@fortawesome/free-solid-svg-icons'
 import { faStar as faStarInactive } from '@fortawesome/free-regular-svg-icons'
 import { formatPhoneNumber } from 'react-phone-number-input'
 
@@ -138,85 +138,94 @@ export default function DashboardText(){
         
         <div>
             
-        {dataHH.map((item, index) => 
-        
-        <div className="flex justify-center text-gray-50 p-2" >
-            <div className="flex sm:justify-around bg-gray-700 flex-wrap border-black border rounded mx-6 sm:w-4/6 my-2 space-y-2 " key={index}>
-                <div className="flex justify-between sm:w-1/4 p-0.5 sm:p-2 space-x-0.5 flex-grow">
-                <div className="flex-col sm:pl-2 sm:mx-1 w-1/2 sm:w-1/3 sm:min-h-min">
-                <Link to ={`/HHPost/${item._id}`}><h1 className="text-xl sm:text-2xl font-medium sm:pb-2">{item.name}</h1></Link> 
-                    <div className="star-rating flex items-center">
-                        <span className="pr-1">{String(item.ovRatingAvg).length === 1 ? `${item.ovRatingAvg}.0` : item.ovRatingAvg}</span>
-                        {[...Array(4)].map((star, index) => {
-                        index += 1;
-                        return (
-                            <div
-                            type="button"
-                            key={index}
-                            className={item.ovRatingAvg <= index-1 || item.ovRatingAvg == undefined ? "text-gray-300" : "text-green-400"}
-                            >
-                            <span className="star text-lg">&#9733;</span>
-                            </div> 
-                        );
-                        })}
-                        <span className="text-sm text-sky-400 pl-1">({item.ratedBy.length})</span> 
-                    </div>
-                    <div>{handleTime(item.startTime)} - {handleTime(item.endTime)}</div>
-                    <div className="flex space-x-1">
-                        {item.monday && <div>M</div>}
-                        {item.tuesday && <div>T</div>}
-                        {item.wednesday && <div>W</div>}
-                        {item.thursday && <div>Th</div>}
-                        {item.friday && <div>F</div>}
-                        {item.saturday && <div>Sa</div>}
-                        {item.sunday && <div>Su</div>}
-                    </div>
-                    {
-                        userData.favoritePosts.includes(item._id) ?
-                        <div><button action={`${item._id}`} type="submit" onClick={handleRmFavorite}>Remove Favorites <FontAwesomeIcon icon={faStarActive} className="text-sky-400"/></button></div>
-                         : 
-                        <div><button action={`${item._id}`} type="submit" onClick={handleAddToFavorite}>Add To Favorites <FontAwesomeIcon icon={faStarInactive} className="text-sky-400"/></button></div>
-                        }
-                   
-                </div>
-                {/* NON-MOBILE CONTACT INFO VIEW */}
-                <div className="sm:flex flex-col p-0.5 w-1/4 sm:w-1/4 min-h-min justify-between hidden">        
-                    <div className="flex flex-col">
+            {dataHH.map((item, index) => 
+            
+            <div className="flex justify-center text-gray-50 py-2" >
+                <div className="flex sm:justify-around bg-gray-700 flex-wrap border-black border rounded mx-6 sm:w-4/6 my-2 space-y-2 " key={index}>
+                    <div className="flex justify-between sm:w-1/4 p-0.5 sm:p-2 space-x-0.5 flex-grow">
+                    <div className="flex-col flex justify-between sm:pl-2 sm:mx-1 w-1/2 sm:w-1/3 sm:min-h-min">
+                    <div>
+                        <Link to ={`/HHPost/${item._id}`}><span className="text-xl sm:text-2xl font-medium sm:pb-2">{item.name}</span></Link> 
+                            <div className="star-rating flex items-center">
+                                {item.ovRatingAvg != null ? <div>{String(item.ovRatingAvg).length === 1 ? <div className="pr-1">{item.ovRatingAvg}.0</div> : <div className="pr-1">{item.ovRatingAvg}</div>}</div> : <div className="hidden"></div>}
+                                {[...Array(4)].map((star, index) => {
+                                index += 1;
+                                return (
+                                    <div
+                                    type="button"
+                                    key={index}
+                                    className={item.ovRatingAvg <= index-1 || item.ovRatingAvg == undefined ? "text-gray-300" : "text-green-400"}
+                                    >
+                                    <span className="star text-lg">&#9733;</span>
+                                    </div> 
+                                );
+                                })}
+                                <span className="text-sm text-sky-400 pl-1">({item.ratedBy.length})</span> 
+                            </div>
+                            <div>
+                            <div>{handleTime(item.startTime)} - {handleTime(item.endTime)}</div>
+                            <div className="flex space-x-1">
+                                {item.monday && <div>M</div>}
+                                {item.tuesday && <div>T</div>}
+                                {item.wednesday && <div>W</div>}
+                                {item.thursday && <div>Th</div>}
+                                {item.friday && <div>F</div>}
+                                {item.saturday && <div>Sa</div>}
+                                {item.sunday && <div>Su</div>}
+                            </div>
+                        </div>
+                        </div>
+                        <div className="flex space-x-4 text-sm">
+                            <span className="flex justify-center items-center gap-1">Drinks {item.drinks ? <FontAwesomeIcon className="text-green-400" icon={faCheck}/> : <FontAwesomeIcon className="text-red-400 text-xs" icon={faX}/>}</span>
+                            <span className="flex justify-center items-center gap-1.5">Food {item.food ? <FontAwesomeIcon className="text-green-400" icon={faCheck}/> : <FontAwesomeIcon className="text-red-400 text-xs" icon={faX}/>}</span>
+                        </div>
+                        {
+                            userData.favoritePosts.includes(item._id) ?
+                            <div><button action={`${item._id}`} type="submit" onClick={handleRmFavorite}>Remove Favorites <FontAwesomeIcon icon={faStarActive} className="text-sky-400"/></button></div>
+                             : 
+                            <div><button action={`${item._id}`} type="submit" onClick={handleAddToFavorite}>Add To Favorites <FontAwesomeIcon icon={faStarInactive} className="text-sky-400"/></button></div>
+                            }
+                         
                         
-                        <span className="text-lg pb-4">Contact Info:</span>
-                        <div className="flex flex-col">{item.address}, <br />{item.city} {item.state} {item.zipcode}</div>
-                        <div>{formatPhoneNumber(item.phone)}</div>
-
                     </div>
-                    <div className="flex">
-                        <div className="px-2 py-1 text-white uppercase bg-transparent border-2 border-sky-400 dark:text-white hover:bg-gray-800 hover:text-white text-md"><Link to={item.website}>Website & Menu</Link></div>
-                    </div>
-                </div> 
-                
-                {/* IMAGE */}
-                {console.log(item.images)}
-                
-                {item.images.length > 0 ? <div className="flex w-1/2  mx-1 border-black border rounded">
-                    <img src={item.images[0]} className="object-contain"/>
-                </div>  : <div className="flex w-1/2 sm:w-1/4 sm:h-44 items-center justify-center sm:p-3 sm:mx-1 border-black border rounded">No Photo Yet</div>}                           
-                </div>
-              
-                {/* MOBILE CONTACT INFO VIEW */}
-                <div className="sm:hidden flex justify-between p-0.5 space-x-0.5 flex-grow">        
-                    <div className="flex flex-col w-1/2 sm:px-4 sm:w-48 sm:mx-1">
-                        
-                        {/* <span>Contact Info:</span> */}
-                            <div ><Link to={item.website} >Website & Menu</Link></div>
+                    {/* NON-MOBILE CONTACT INFO VIEW */}
+                    <div className="sm:flex flex-col p-0.5 w-1/4 sm:w-1/4 min-h-min justify-between hidden">        
+                        <div className="flex flex-col">
+                            
+                            <span className="text-lg pb-4">Contact Info:</span>
+                            <div className="flex flex-col">{item.address}, <br />{item.city} {item.state} {item.zipcode}</div>
                             <div>{formatPhoneNumber(item.phone)}</div>
 
+                        </div>
+                        <div className="flex">
+                            <div className="px-2 py-1 text-white uppercase bg-transparent border-2 border-sky-400 dark:text-white hover:bg-gray-800 hover:text-white text-md"><Link to={item.website}>Website & Menu</Link></div>
+                        </div>
+                    </div> 
+                    
+                    {/* IMAGE */}
+                    {console.log(item.images)}
+                    
+                    {item.images.length > 0 ? <div className="flex w-1/2  mx-1 border-black border rounded">
+                        <img src={item.images[0]} className="object-contain"/>
+                    </div>  : <div className="flex w-1/2 sm:w-1/4 sm:h-44 items-center justify-center sm:p-3 sm:mx-1 border-black border rounded">No Photo Yet</div>}                           
                     </div>
-                    <div className="flex w-1/2 flex-col  sm:px-4 sm:w-48 sm:mx-1">{item.address}, <br />{item.city} {item.state} {item.zipcode}</div>
+                  
+                    {/* MOBILE CONTACT INFO VIEW */}
+                    <div className="sm:hidden flex justify-between p-0.5 space-x-0.5 flex-grow">        
+                        <div className="flex flex-col w-1/2 sm:px-4 sm:w-48 sm:mx-1">
+                            
+                            {/* <span>Contact Info:</span> */}
+                                <div ><Link to={item.website} >Website & Menu</Link></div>
+                                <div>{formatPhoneNumber(item.phone)}</div>
+
+                        </div>
+                        <div className="flex w-1/2 flex-col  sm:px-4 sm:w-48 sm:mx-1">{item.address}, <br />{item.city} {item.state} {item.zipcode}</div>
+                    </div>
+                   
+                    </div>
                 </div>
-               
-                </div>
-            </div>
-          
-    )}
-    </div>
+              
+        )}
+        </div>
     )
 }
