@@ -101,7 +101,7 @@ export default function HHForm() {
     return (
     
     <div className="flex flex-col items-center my-6">
-        <div className="rounded-2xl w-4/5 shadow-xl bg-gray-800 flex flex-col p-8 space-y-2">
+        <div className="rounded-2xl sm:w-3/5 w-4/5 shadow-xl bg-gray-800 flex flex-col p-4 sm:p-8 space-y-2">
             <h1 className='card-title self-center mb-4 text-white'>Add Happy Hour</h1>
             <form onSubmit={handleSubmit} className="flex flex-col gap-2">
           <div className="flex justify-center flex-wrap gap-16">
@@ -204,7 +204,7 @@ export default function HHForm() {
                         value={formData.website}
                     />
                 </div>
-        <div className="flex flex-col w-full gap-2">
+        <div className="flex flex-col w-96 gap-2">
             <label htmlFor="phone" className="text-white -mt-2">Phone Number</label>
             <PhoneInput 
             placeholder="Enter Phone Number"
@@ -231,7 +231,7 @@ export default function HHForm() {
                 step="1800"
             />
             <label htmlFor="monday" className="text-white">Days Open?</label>
-            <div className="flex space-x-4 w-full -my-2">
+            <div className="flex space-x-4 sm:space-x-4 w-full -my-2">
                 <div className="flex flex-col items-center">
                     <label htmlFor="monday" className="text-white">M</label>
                     <input

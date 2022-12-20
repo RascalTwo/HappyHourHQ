@@ -253,7 +253,7 @@ export default function HHPostText(props){
                             {/* ADD REVIEW BUTTON. ONLY IF NO USER REVIEW */}
                             
                             {authed?
-                            <div> { !dataHH.ratedBy.includes(user._id) ? <button onClick={handleToggleReview} className="md:px-4 md:py-2 md:text-gray-800 text-white uppercase bg-transparent border-2 border-gray-800 dark:text-white hover:bg-gray-800 hover:text-white text-md">Add Review</button> : <div></div>}
+                            <div className="flex items-center"> { !dataHH.ratedBy.includes(user._id) ? <button onClick={handleToggleReview} className="md:px-4 md:py-2 md:text-gray-800 text-white uppercase bg-transparent border-2 border-gray-800 dark:text-white hover:bg-gray-800 hover:text-white text-md">Add Review</button> : <div></div>}
                             </div> : <button className="md:px-4 md:py-2 md:text-gray-800 text-white uppercase bg-transparent border-2 border-gray-800 dark:text-white hover:bg-gray-800 hover:text-white text-md"><Link to="/login">Add Review</Link></button>}
                             {/* ADD || REMOVE FAVORITE */}
                             
@@ -375,7 +375,7 @@ export default function HHPostText(props){
                         </div>
                         <div className="flex flex-col rounded-2xl bg-gray-800 text-white py-2 md:px-4 md:my-2 w-64">
                             <span className="self-center pb-2 text-lg">Contact Info</span>
-                            <div className="md:self-center">{dataHH.address}, <br />{dataHH.city} {dataHH.state} {dataHH.zipcode}</div>
+                            <div className="">{dataHH.address}, <br />{dataHH.city} {dataHH.state} {dataHH.zipcode}</div>
                             <div><a href={dataHH.website}>Website & Menu</a></div>
                             <div>{formatPhoneNumber(dataHH.phone)}</div>
                         </div>
