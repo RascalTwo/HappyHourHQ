@@ -173,7 +173,7 @@ export default function HHFeedText(){
                     {/* IMAGE */}
                     {console.log(item.images)}
                     
-                    {item.images.length > 0 ? <div className="flex  mx-1 h-36 w-48 sm:h-40 sm:w-52 md:h-48 md:w-64">
+                    {item.images.length > 0 ? <div className="flex p-1 sm:p-0 h-36 w-48 sm:h-40 sm:w-52 md:h-48 md:w-64">
                         <img src={item.images[0]} className="object-fill h-36 w-48 sm:h-40 sm:w-52 md:h-48 md:w-64"/>
                     </div>  : <div className="flex h-36 w-48 sm:h-40 sm:w-52 md:h-48 md:w-64 items-center justify-center sm:p-3 sm:mx-1 border-black border rounded">No Photo Yet</div>}                           
                     </div>
