@@ -341,8 +341,8 @@ export default function HHPostText(props){
                                 <div className="sm:visible invisible star-rating p-1"><HHType drinks={dataHH.drinks} food={dataHH.food}/></div>
 
                             </div>
-                            {authed ? <div>{dataHH.images[0] != undefined ? <div className="flex w-80 h-60 border border-black mx-3 md:my-3">
-                                <img src={dataHH.images[0]} className="object-scale-down" alt="Picture of happy hour"/>
+                            {authed ? <div>{dataHH.images[0] != undefined ? <div className="flex w-80 h-60 bg-gray-700 bg-opacity-40 mx-3 md:my-3">
+                                <img src={dataHH.images[0]} className="object-scale-down w-80 h-60" alt="Picture of happy hour"/>
                             </div>  : <div className="flex items-center justify-center bg-gray-700 border-black border rounded w-64 h-64 my-3 p-1 "><CloudinaryUploadWidget name={props.postID.id} style="text-gray-200" text="Add First Photo!"/></div>} </div> : <div className="flex items-center justify-center bg-gray-700 border-black border rounded w-64 h-64 my-3 p-1 "><Link to="/login" className="text-gray-200">Add First Photo!</Link></div>}
                         </div>
                         <div className="flex justify-center space-x-4 text-white mt-3 sm:hidden">

@@ -112,8 +112,8 @@ export default function HHFeedText(){
             {dataHH.map((item, index) => 
             
             <div className="flex justify-center text-gray-50 py-2" >
-                <div className="flex sm:justify-around bg-gray-700 flex-wrap border-black border rounded mx-6 sm:w-4/6 my-2 space-y-2 " key={index}>
-                    <div className="flex justify-between sm:w-1/4 p-0.5 sm:p-2 space-x-0.5 flex-grow">
+                <div className="flex sm:justify-around bg-gray-700 flex-wrap border-black border rounded mx-4 sm:w-4/6 my-2 space-y-2 " key={index}>
+                    <div className="flex justify-between sm:w-1/4 p-1.5 sm:p-1 space-x-0.5 flex-grow">
                     <div className="flex-col flex justify-between sm:pl-2 sm:mx-1 w-1/2 sm:w-1/3 sm:min-h-min">
                     <div>
                         <Link to ={`/HHPost/${item._id}`}><span className="text-xl sm:text-2xl font-medium sm:pb-2">{item.name}</span></Link> 
@@ -173,13 +173,13 @@ export default function HHFeedText(){
                     {/* IMAGE */}
                     {console.log(item.images)}
                     
-                    {item.images.length > 0 ? <div className="flex p-1 sm:p-0 h-36 w-48 sm:h-40 sm:w-52 md:h-48 md:w-64">
-                        <img src={item.images[0]} className="object-fill h-36 w-48 sm:h-40 sm:w-52 md:h-48 md:w-64"/>
+                    {item.images.length > 0 ? <div className="flex sm:p-0 h-36 w-48 sm:h-40 sm:w-52 md:h-48 md:w-64 bg-gray-800 bg-opacity-40">
+                        <img src={item.images[0]} className="object-contain h-36 w-48 sm:h-40 sm:w-52 md:h-48 md:w-64"/>
                     </div>  : <div className="flex h-36 w-48 sm:h-40 sm:w-52 md:h-48 md:w-64 items-center justify-center sm:p-3 sm:mx-1 border-black border rounded">No Photo Yet</div>}                           
                     </div>
                   
                     {/* MOBILE CONTACT INFO VIEW */}
-                    <div className="sm:hidden flex justify-between p-0.5 space-x-0.5 flex-grow">        
+                    <div className="sm:hidden flex justify-between p-1.5 space-x-0.5 flex-grow">        
                         <div className="flex flex-col w-1/2 sm:px-4 sm:w-48 sm:mx-1">
                             
                             {/* <span>Contact Info:</span> */}
