@@ -196,16 +196,16 @@ export default function DashboardText(){
 
                         </div>
                         <div className="flex">
-                            <div className="px-2 py-1 text-white uppercase bg-transparent border-2 border-sky-400 dark:text-white hover:bg-gray-800 hover:text-white text-md"><Link to={item.website}>Website & Menu</Link></div>
+                            <div className="px-2 py-1 text-white uppercase bg-transparent border-2 border-sky-400 dark:text-white hover:bg-gray-800 hover:text-white text-md"><a href={item.website}>Website & Menu</a></div>
                         </div>
                     </div> 
                     
                     {/* IMAGE */}
                     {console.log(item.images)}
                     
-                    {item.images.length > 0 ? <div className="flex w-1/2  mx-1 border-black border rounded">
-                        <img src={item.images[0]} className="object-contain"/>
-                    </div>  : <div className="flex w-1/2 sm:w-1/4 sm:h-44 items-center justify-center sm:p-3 sm:mx-1 border-black border rounded">No Photo Yet</div>}                           
+                    {item.images.length > 0 ? <div className="flex h-36 w-48 sm:h-40 sm:w-52 md:h-48 md:w-64  mx-1">
+                        <img src={item.images[0]} className="object-fill h-36 w-48 sm:h-40 sm:w-52 md:h-48 md:w-64"/>
+                    </div>  : <div className="flex h-36 w-48 sm:h-40 sm:w-52 md:h-48 md:w-64 items-center justify-center sm:p-3 sm:mx-1 border-black border rounded">No Photo Yet</div>}                           
                     </div>
                   
                     {/* MOBILE CONTACT INFO VIEW */}
@@ -213,7 +213,7 @@ export default function DashboardText(){
                         <div className="flex flex-col w-1/2 sm:px-4 sm:w-48 sm:mx-1">
                             
                             {/* <span>Contact Info:</span> */}
-                                <div ><Link to={item.website} >Website & Menu</Link></div>
+                                <div><a href={item.website}>Website & Menu</a></div>
                                 <div>{formatPhoneNumber(item.phone)}</div>
 
                         </div>

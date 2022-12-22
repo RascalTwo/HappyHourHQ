@@ -341,9 +341,9 @@ export default function HHPostText(props){
                                 <div className="sm:visible invisible"><HHType drinks={dataHH.drinks} food={dataHH.food}/></div>
 
                             </div>
-                            {dataHH.images[0] != undefined ? <div className="flex w-64 h-64 mx-3 md:my-3 border-black border rounded">
-                                <img src={dataHH.images[0]} className="object-contain" alt="Picture of happy hour"/>
-                            </div>  : <div className="flex items-center justify-center bg-gray-700 border-black border rounded w-64 h-64 my-3 p-1 "><CloudinaryUploadWidget name={props.postID.id} style="text-gray-200" text="Add First Photo!"/></div>} 
+                            {authed ? <div>{dataHH.images[0] != undefined ? <div className="flex w-80 h-60 border border-black mx-3 md:my-3">
+                                <img src={dataHH.images[0]} className="object-scale-down" alt="Picture of happy hour"/>
+                            </div>  : <div className="flex items-center justify-center bg-gray-700 border-black border rounded w-64 h-64 my-3 p-1 "><CloudinaryUploadWidget name={props.postID.id} style="text-gray-200" text="Add First Photo!"/></div>} </div> : <div className="flex items-center justify-center bg-gray-700 border-black border rounded w-64 h-64 my-3 p-1 "><Link to="/login" className="text-gray-200">Add First Photo!</Link></div>}
                         </div>
                         <div className="flex justify-center space-x-4 text-white sm:hidden">
                             <span className="flex justify-center items-center">Drinks {dataHH.drinks ? <FontAwesomeIcon className="pl-1 text-green-400" icon={faCheck}/> : <FontAwesomeIcon className="pl-1.5 text-red-400 text-xs" icon={faX}/>}</span>
