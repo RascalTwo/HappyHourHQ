@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar as faStarActive, faCheck, faX } from '@fortawesome/free-solid-svg-icons'
 import { faStar as faStarInactive } from '@fortawesome/free-regular-svg-icons'
 import HHType from "./HHType";
-
+import StarRating from "./StarRating";
 
 
 
@@ -254,96 +254,41 @@ export default function HHPostText(props){
                         {/* DISPLAY REVIEWS & IMAGE*/}
                         <div  className="flex bg-gray-800 justify-center md:justify-around md:rounded-2xl md:w-3/5 min-h-0 md:p-6 flex-wrap md:mt-3 text-white">
                             <div className="flex sm:flex-wrap flex-col w-64 h-48 md:h-64 w-full md:mx-3 mt-3 space-y-2">
-                                <div className="star-rating flex items-center space-x-1">
-
-                                    <span className="">{String(dataHH.ovRatingAvg).length === 1 ? `${dataHH.ovRatingAvg}.0` : dataHH.ovRatingAvg}</span>
-                                    <span className="text-xl">Overall</span>
-                                    {[...Array(4)].map((star, index) => {
-                                    index += 1;
-                                    return (
-                                        <div
-                                        type="button"
-                                        key={index}
-                                        className={dataHH.ovRatingAvg == null || Math.round(dataHH.ovRatingAvg) <= index-1? "text-gray-300" : "text-green-400"}
-                                        >
-                                        <span className="text-xl -mr-1">&#9733;</span>
-                                        </div>
-                                    );
-                                    })}
-                                    <span className="text-sm text-sky-400  pl-1">({dataHH.ratedBy.length})</span>
-                                </div>
-
-                                <div className="star-rating flex items-center space-x-1">
-                                    <span>{String(dataHH.tasteRatingAvg).length === 1 ? `${dataHH.tasteRatingAvg}.0` : dataHH.tasteRatingAvg}</span>
-                                    <span className="text-lg">Taste</span>
-                                    {[...Array(4)].map((star, index) => {
-                                    index += 1;
-                                    return (
-                                        <button
-                                        type="button"
-                                        key={index}
-                                        className={dataHH.tasteRatingAvg == null || Math.round(dataHH.tasteRatingAvg) <= index-1 ? "text-gray-300" : "text-green-400"}
-                                        >
-                                        <span className="text-xl -mr-1">&#9733;</span>
-                                        </button>
-                                    );
-                                    })}
-                                </div>
-                                <div className="star-rating flex items-center space-x-1">
-                                    <span>{String(dataHH.ambRatingAvg).length === 1 ? `${dataHH.ambRatingAvg}.0` : dataHH.ambRatingAvg}</span>
-                                    <span className="text-lg">Ambiance</span>
-                                    {[...Array(4)].map((star, index) => {
-                                    index += 1;
-                                    return (
-                                        <button
-                                        type="button"
-                                        key={index}
-                                        className={dataHH.ambRatingAvg == null || Math.round(dataHH.ambRatingAvg) <= index-1 ? "text-gray-300" : "text-green-400"}
-                                        >
-                                        <span className="text-xl -mr-1">&#9733;</span>
-                                        </button>
-                                    );
-                                    })}
-                                </div>
-                                <div className="star-rating flex items-center space-x-1">
-                                    <span>{String(dataHH.worthRatingAvg).length === 1 ? `${dataHH.worthRatingAvg}.0` : dataHH.worthRatingAvg}</span>
-                                    <span className="text-lg">Worth It</span>
-                                    {[...Array(4)].map((star, index) => {
-                                    index += 1;
-                                    return (
-                                        <button
-                                        type="button"
-                                        key={index}
-                                        className={dataHH.worthRatingAvg == null ||Math.round(dataHH.worthRatingAvg) <= index-1 ? "text-gray-300" : "text-green-400"}
-                                        >
-                                        <span className="text-xl -mr-1">&#9733;</span>
-                                        </button>
-                                    );
-                                    })}
-                                </div>
-                                <div className="star-rating flex items-center space-x-1">
-                                    <span>{String(dataHH.sizeRatingAvg).length === 1 ? `${dataHH.sizeRatingAvg}.0` : dataHH.sizeRatingAvg}</span>
-                                    <span className="text-lg">Portions</span>
-                                    {[...Array(4)].map((star, index) => {
-                                    index += 1;
-                                    return (
-                                        <button
-                                        type="button"
-                                        key={index}
-                                        className={dataHH.sizeRatingAvg == null ||Math.round(dataHH.sizeRatingAvg) <= index-1 ? "text-gray-300" : "text-green-400"}
-                                        >
-                                        <span className="text-xl -mr-1">&#9733;</span>
-                                        </button>
-                                    );
-                                    })}
-                                </div>
                                 
-                                <div className="sm:visible invisible star-rating p-1"><HHType drinks={dataHH.drinks} food={dataHH.food}/></div>
+                            <div className="flex items-center">
+                                <span className="pr-1 items-center">{String(dataHH.ovRatingAvg).length === 1 ? `${dataHH.ovRatingAvg}.0` : dataHH.ovRatingAvg}</span>
+                                <StarRating rating={dataHH.ovRatingAvg} name="Overall" nameStyle="text-xl"/>
+                                <span className="text-sm text-sky-400  pl-1.5">({dataHH.ratedBy.length})</span>
+                            </div>   
+  
+                            <div className="flex items-center">
+                                <span className="pr-1 items-center">{String(dataHH.tasteRatingAvg).length === 1 ? `${dataHH.tasteRatingAvg}.0` : dataHH.tasteRatingAvg}</span>
+                                <StarRating rating={dataHH.tasteRatingAvg} name="Taste" />
+                            </div>
+
+                            <div className="flex items-center">
+                                <span className="pr-1 items-center">{String(dataHH.ambRatingAvg).length === 1 ? `${dataHH.ambRatingAvg}.0` : dataHH.ambRatingAvg}</span>
+                                <StarRating rating={dataHH.ambRatingAvg} name="Ambiance" />
+                            </div>
+                            <div className="flex items-center">
+                                <span className="pr-1 items-center">{String(dataHH.worthRatingAvg).length === 1 ? `${dataHH.worthRatingAvg}.0` : dataHH.worthRatingAvg}</span>
+                                <StarRating rating={dataHH.worthRatingAvg} name="Worth It" />
+                            </div>
+                            <div className="flex items-center">
+                                <span className="pr-1 items-center">{String(dataHH.sizeRatingAvg).length === 1 ? `${dataHH.sizeRatingAvg}.0` : dataHH.sizeRatingAvg}</span>
+                                <StarRating rating={dataHH.sizeRatingAvg} name="Portions" />
+                            </div>
+                            
+                            
+                            <div className="sm:visible invisible star-rating p-1"><HHType drinks={dataHH.drinks} food={dataHH.food}/></div>
 
                             </div>
-                            {authed ? <div>{dataHH.images[0] != undefined ? <div className="flex w-80 h-60 bg-gray-700 bg-opacity-40 mx-3 md:my-3">
+                             {authed ? <div>{dataHH.images[0] !== undefined ? <div className="flex w-80 h-60 bg-gray-700 bg-opacity-40 mx-3 md:my-3">
                                 <img src={dataHH.images[0]} className="object-scale-down w-80 h-60" alt="Picture of happy hour"/>
-                            </div>  : <div className="flex items-center justify-center bg-gray-700 border-black border rounded w-64 h-64 my-3 p-1 "><CloudinaryUploadWidget name={props.postID.id} style="text-gray-200" text="Add First Photo!"/></div>} </div> : <div className="flex items-center justify-center bg-gray-700 border-black border rounded w-64 h-64 my-3 p-1 "><Link to="/login" className="text-gray-200">Add First Photo!</Link></div>}
+                            </div>  : <div className="flex items-center justify-center bg-gray-700 border-black border rounded w-64 h-64 my-3 p-1 "><CloudinaryUploadWidget name={props.postID.id} style="text-gray-200" text="Add First Photo!"/></div>} </div> : <div>{dataHH.images[0] !== undefined ? <div className="flex w-80 h-60 bg-gray-700 bg-opacity-40 mx-3 md:my-3">
+                                <img src={dataHH.images[0]} className="object-scale-down w-80 h-60" alt="Picture of happy hour"/>
+                            </div>  : <div className="flex items-center justify-center bg-gray-700 border-black border rounded w-64 h-64 my-3 p-1 "><Link to="/login" className="text-gray-200">Add First Photo!</Link></div>}</div>}
+
                         </div>
                         <div className="flex justify-center space-x-4 text-white mt-3 sm:hidden">
                             <span className="flex justify-center items-center">Drinks {dataHH.drinks ? <FontAwesomeIcon className="pl-1 text-green-400" icon={faCheck}/> : <FontAwesomeIcon className="pl-1.5 text-red-400 text-xs" icon={faX}/>}</span>
@@ -454,6 +399,7 @@ export default function HHPostText(props){
                                         );
                                         })}
                                     </div>
+                                    
                                 </div>        
                             </div>
                             <div className="flex justify-center p-1 ">

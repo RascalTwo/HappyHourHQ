@@ -123,7 +123,6 @@ export default function HHFeedText(){
                                 index += 1;
                                 return (
                                     <div
-                                    type="button"
                                     key={index}
                                     className={item.ovRatingAvg <= index-1 || item.ovRatingAvg == undefined ? "text-gray-300" : "text-green-400"}
                                     >

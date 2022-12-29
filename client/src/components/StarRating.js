@@ -1,26 +1,24 @@
-import React, { useState } from "react";
 
-const StarRating = () => {
-    const [rating, setRating] = useState(0);
-    const [hover, setHover] = useState(0);
+import React from "react";
+
+const StarRating = (props) => {
     return (
-      <div className="star-rating">
-        {[...Array(5)].map((star, index) => {
+  <div className="star-rating flex items-center space-x-1">
+    <span className={props.nameStyle == undefined ? "text-lg" : props.nameStyle}>{props.name}</span>
+      
+        {[...Array(4)].map((star, index) => {
           index += 1;
           return (
-            <button
-              type="button"
+            <div
               key={index}
-              className={index <= (hover || rating) ? "on" : "off"}
-              onClick={() => setRating(index)}
-              onMouseEnter={() => setHover(index)}
-              onMouseLeave={() => setHover(rating)}
+              className={props.rating == null ||Math.round(props.rating) <= index-1 ? "text-gray-300" : "text-green-400"}
             >
-              <span className="star">&#9733;</span>
-            </button>
+              <span className={props.starStyle == undefined ? "text-xl -mr-1" : props.starStyle}>&#9733;</span>
+            </div>
           );
         })}
-      </div>
+      
+    </div>
     );
   };
 
