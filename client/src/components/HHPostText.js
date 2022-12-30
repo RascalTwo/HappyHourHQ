@@ -9,7 +9,7 @@ import { faStar as faStarActive, faCheck, faX } from '@fortawesome/free-solid-sv
 import { faStar as faStarInactive } from '@fortawesome/free-regular-svg-icons'
 import HHType from "./HHType";
 import StarRating from "./StarRating";
-
+import ImageModal from "./ImageModal";
 
 
 export default function HHPostText(props){
@@ -284,9 +284,9 @@ export default function HHPostText(props){
 
                             </div>
                              {authed ? <div>{dataHH.images[0] !== undefined ? <div className="flex w-80 h-60 bg-gray-700 bg-opacity-40 mx-3 md:my-3">
-                                <img src={dataHH.images[0]} className="object-scale-down w-80 h-60" alt="Picture of happy hour"/>
+                             <label htmlFor="my-modal"><img src={dataHH.images[0]} className="object-scale-down w-80 h-60" alt="Picture of happy hour"/></label>
                             </div>  : <div className="flex items-center justify-center bg-gray-700 border-black border rounded w-64 h-64 my-3 p-1 "><CloudinaryUploadWidget name={props.postID.id} style="text-gray-200" text="Add First Photo!"/></div>} </div> : <div>{dataHH.images[0] !== undefined ? <div className="flex w-80 h-60 bg-gray-700 bg-opacity-40 mx-3 md:my-3">
-                                <img src={dataHH.images[0]} className="object-scale-down w-80 h-60" alt="Picture of happy hour"/>
+                            <label htmlFor="my-modal"><img src={dataHH.images[0]} className="object-scale-down w-80 h-60" alt="Picture of happy hour"/></label>
                             </div>  : <div className="flex items-center justify-center bg-gray-700 border-black border rounded w-64 h-64 my-3 p-1 "><Link to="/login" className="text-gray-200">Add First Photo!</Link></div>}</div>}
 
                         </div>
@@ -315,7 +315,7 @@ export default function HHPostText(props){
                             <div>{formatPhoneNumber(dataHH.phone)}</div>
                         </div>
                     </div>
-                    
+                    <ImageModal images={dataHH.images}/>
                     
 
                     {/* ADD REVIEW */}
