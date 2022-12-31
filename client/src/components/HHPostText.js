@@ -283,8 +283,8 @@ export default function HHPostText(props){
                             <div className="sm:visible invisible star-rating p-1"><HHType drinks={dataHH.drinks} food={dataHH.food}/></div>
 
                             </div>
-                             {authed ? <div>{dataHH.images[0] !== undefined ? <div className="flex w-80 h-60 bg-gray-700 bg-opacity-40 mx-3 md:my-3">
-                             <label htmlFor="my-modal"><img src={dataHH.images[0]} className="object-scale-down w-80 h-60" alt="Picture of happy hour"/></label>
+                             {authed ? <div>{dataHH.images[0] !== undefined ? <div className="flex w-80 h-60 bg-gray-700 bg-opacity-40 mx-3 md:my-3 relative">
+                             <label htmlFor="my-modal" className="cursor-pointer"><img src={dataHH.images[0]} className="object-scale-down w-80 h-60" alt="Picture of happy hour"/><h5 className="absolute bottom-8 left-1/4 bg-gray-700 bg-opacity-60 p-0.5 w-1/2 text-center hover:bg-opacity-80 ">See All Photos ({dataHH.images.length})</h5></label>
                             </div>  : <div className="flex items-center justify-center bg-gray-700 border-black border rounded w-64 h-64 my-3 p-1 "><CloudinaryUploadWidget name={props.postID.id} style="text-gray-200" text="Add First Photo!"/></div>} </div> : <div>{dataHH.images[0] !== undefined ? <div className="flex w-80 h-60 bg-gray-700 bg-opacity-40 mx-3 md:my-3">
                             <label htmlFor="my-modal"><img src={dataHH.images[0]} className="object-scale-down w-80 h-60" alt="Picture of happy hour"/></label>
                             </div>  : <div className="flex items-center justify-center bg-gray-700 border-black border rounded w-64 h-64 my-3 p-1 "><Link to="/login" className="text-gray-200">Add First Photo!</Link></div>}</div>}
