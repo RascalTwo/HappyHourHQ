@@ -6,7 +6,6 @@ import HHPostText from '../components/HHPostText';
 import Footer from '../components/Footer';
 
 
-
 function Dashboard() {
 	const { user } = useAuth();
     const params = useParams();

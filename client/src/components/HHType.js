@@ -10,5 +10,6 @@ export default function HHType(props) {
                 <span className="flex justify-center items-center">Food {props.food ? <FontAwesomeIcon className="pl-1 text-green-400" icon={faCheck}/> : <FontAwesomeIcon className="pl-1.5 text-red-400 text-xs" icon={faX}/>}</span>
             </div>
         </div>
+        
     )
 }
