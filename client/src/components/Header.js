@@ -15,18 +15,18 @@ import { Link, useLocation } from 'react-router-dom';
 
 const solutions = [
   {
-    name: 'Dashboard',
+    name: 'Favorites',
     description: 'Get a better understanding of where your traffic is coming from.',
     href: '/dashboard',
     icon: ChartBarIcon,
   },
   {
-    name: 'Feed',
+    name: 'Happy Hours',
     description: 'Speak directly to your customers in a more meaningful way.',
     href: "/feed",
     icon: CursorArrowRaysIcon,
   },
-  { name: 'Add Happy Hour', description: "Your customers' data will be safe and secure.", href: '/addHappyHour', icon: ShieldCheckIcon },
+  { name: 'Add Location', description: "Your customers' data will be safe and secure.", href: '/addHappyHour', icon: ShieldCheckIcon },
 ]
 
 export default function Header() {
@@ -62,7 +62,7 @@ export default function Header() {
                   <Popover.Group as="nav" className="hidden space-x-10 md:flex">
                     
                     <Link to="/feed" className="text-base font-medium text-gray-200 hover:text-gray-900">
-                      Feed
+                      Happy Hours
                     </Link>
                     
                   </Popover.Group>
@@ -114,7 +114,7 @@ export default function Header() {
                         <nav className="grid gap-y-8">
                             <Link to="/feed" className="-m-3 flex items-center rounded-md p-3 hover:bg-gray-50">
                               <ListBulletIcon className="h-6 w-6 flex-shrink-0 text-sky-400" aria-hidden="true" />
-                              <span className="ml-3 text-base font-medium text-gray-300">Feed</span>
+                              <span className="ml-3 text-base font-medium text-gray-300">Happy Hours</span>
                             </Link>
                         </nav>
                       </div>
@@ -171,11 +171,11 @@ export default function Header() {
                             <Popover.Group as="nav" className="hidden space-x-10 md:flex">
 
                   
-                              {location.pathname === '/dashboard' ? <Link to="/dashboard" className="text-base font-medium text-gray-200 p-1 px-4 rounded rounded border-2 border-green-400 hover:text-gray-900">Dashboard</Link> : <Link to="/dashboard" className="text-base font-medium text-gray-200 hover:text-gray-900">Dashboard</Link>}
+                              {location.pathname === '/dashboard' ? <Link to="/dashboard" className="text-base font-medium text-gray-200 p-1 px-4 rounded rounded border-2 border-green-400 hover:text-gray-900">Favorites</Link> : <Link to="/dashboard" className="text-base font-medium text-gray-200 hover:text-gray-900">Favorites</Link>}
                               
-                              {location.pathname === '/feed' ? <Link to="/feed" className="text-base font-medium text-gray-200 p-1 px-4 rounded border-2 border-green-400 hover:text-gray-900">Feed</Link> : <Link to="/feed" className="text-base font-medium text-gray-200 hover:text-gray-900">Feed</Link>}
+                              {location.pathname === '/feed' ? <Link to="/feed" className="text-base font-medium text-gray-200 p-1 px-4 rounded border-2 border-green-400 hover:text-gray-900">Happy Hours</Link> : <Link to="/feed" className="text-base font-medium text-gray-200 hover:text-gray-900">Happy Hours</Link>}
                               
-                              {location.pathname === '/addhappyhour' ? <Link to="/addhappyhour" className="text-base font-medium text-gray-200 p-1 px-4 rounded border-2 border-green-400 rounded hover:text-gray-900">Add Happy Hour</Link> : <Link to="/addhappyhour" className="text-base font-medium text-gray-200 hover:text-gray-900">Add Happy Hour</Link>}
+                              {location.pathname === '/addhappyhour' ? <Link to="/addhappyhour" className="text-base font-medium text-gray-200 p-1 px-4 rounded border-2 border-green-400 rounded hover:text-gray-900">Add Location</Link> : <Link to="/addhappyhour" className="text-base font-medium text-gray-200 hover:text-gray-900">Add Location</Link>}
                   
 
                             </Popover.Group>

@@ -108,7 +108,7 @@ export default function HHFeedText(){
     if (isLoading == false) return (
 
         <div>
-            <h1 className="sm:hidden text-center text-3xl text-gray-200 border-b-3xl border-b-2 border-gray-600 pb-1 mx-4">Feed</h1>
+            <h1 className="sm:hidden text-center text-3xl text-gray-200 border-b-3xl border-b-2 border-gray-600 pb-1 mx-4">Happy Hours</h1>
             {dataHH.map((item, index) => 
             
             <div className="flex justify-center text-gray-50 py-2" >

@@ -106,7 +106,7 @@ export default function HHForm() {
     
     <div className="flex flex-col items-center my-6">
         <div className="rounded-2xl sm:w-3/5 w-4/5 shadow-xl bg-gray-800 flex flex-col p-4 sm:p-8 space-y-2">
-            <h1 className='card-title self-center mb-4 text-white'>Add Happy Hour</h1>
+            <h1 className='card-title self-center mb-4 text-white'>New Happy Hour</h1>
             <form onSubmit={handleSubmit} className="flex flex-col gap-2">
           <div className="flex justify-center flex-wrap gap-4 sm:gap-16">
             <div className="flex flex-col w-96 gap-2"> 
@@ -117,6 +117,7 @@ export default function HHForm() {
                         onChange={handleChange}
                         name="name"
                         value={formData.name}
+                        required
                     />
                     <label htmlFor="address" className="text-white">Location</label>
                     <input className="input input-bordered w-full max-w-xs"
@@ -125,11 +126,12 @@ export default function HHForm() {
                         onChange={handleChange}
                         name="address"
                         value={formData.address}
+                        required
                     />
                     
                     {/* State Downdown Menu */}
                     
-                    <select id="state" name="state" value={formData.state} onChange={handleChange} className="input input-bordered w-full max-w-xs">
+                    <select id="state" name="state" value={formData.state} onChange={handleChange} className="input input-bordered w-full max-w-xs" required>
                         <option value="">Select A State</option>
                         <option value="AK">Alaska</option>
                         <option value="AL">Alabama</option>
@@ -190,6 +192,7 @@ export default function HHForm() {
                         onChange={handleChange}
                         name="city"
                         value={formData.city}
+                        required
                     />
                     <input className="input input-bordered w-full max-w-xs"
                         type="text"
@@ -199,6 +202,7 @@ export default function HHForm() {
                         value={formData.zipcode}
                         minLength={5}
                         maxLength={5}
+                        required
                     />
                     <label htmlFor="website" className="text-white">Website</label>
                     <input className="input input-bordered w-full max-w-xs"
@@ -207,6 +211,7 @@ export default function HHForm() {
                         onChange={handleChange}
                         name="website"
                         value={formData.website}
+                        required
                     />
                 </div>
         <div className="flex flex-col w-96 gap-2">
@@ -216,6 +221,7 @@ export default function HHForm() {
             defaultCountry="US"
             onChange={handlePhoneChange}
             value={formData.phone}
+            required
             className="input input-bordered w-full max-w-xs "/>
             <label htmlFor="startTime" className="text-white">Start Time</label>
             <input className="input input-bordered w-full max-w-xs"
@@ -225,6 +231,7 @@ export default function HHForm() {
                 name="startTime"
                 value={formData.startTime}
                 step="1800"
+                required
             />
             <label htmlFor="endTime" className="text-white">End Time</label>
             <input className="input input-bordered w-full max-w-xs"
@@ -234,6 +241,7 @@ export default function HHForm() {
                 name="endTime"
                 value={formData.endTime}
                 step="1800"
+                required
             />
                 <label htmlFor="drinks" className="text-white my-2">Happy Hour Type</label>
                 <div className="flex space-x-4 sm:space-x-4 w-full -my-2">
@@ -268,6 +276,7 @@ export default function HHForm() {
                         onChange={handleChange}
                         name="monday"
                         className="w-6 h-6"
+                        
                     />
                 </div>
                 <div className="flex flex-col items-center">
