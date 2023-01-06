@@ -128,7 +128,14 @@ export default function HHForm() {
                         value={formData.address}
                         required
                     />
-                    
+                    <input className="input input-bordered w-full max-w-xs"
+                        type="text"
+                        placeholder="City"
+                        onChange={handleChange}
+                        name="city"
+                        value={formData.city}
+                        required
+                    />
                     {/* State Downdown Menu */}
                     
                     <select id="state" name="state" value={formData.state} onChange={handleChange} className="input input-bordered w-full max-w-xs" required>
@@ -186,14 +193,7 @@ export default function HHForm() {
                         <option value="WV">West Virginia</option>
                         <option value="WY">Wyoming</option>
                     </select>
-                    <input className="input input-bordered w-full max-w-xs"
-                        type="text"
-                        placeholder="City"
-                        onChange={handleChange}
-                        name="city"
-                        value={formData.city}
-                        required
-                    />
+
                     <input className="input input-bordered w-full max-w-xs"
                         type="text"
                         placeholder="Zipcode"
