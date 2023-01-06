@@ -445,8 +445,8 @@ export default function HHPostText(props){
                             
                 </div> }
                 <div className="flex flex-wrap gap-4 m-2 justify-center">
-                    <div className="px-4 py-2 md:text-gray-800 text-white uppercase bg-transparent border-2 md:border-gray-800 border-sky-400 dark:text-white hover:bg-gray-800 hover:text-white text-md"><Link to ={`/feed`}>Feed</Link></div>
-                    <div className="px-4 py-2 md:text-gray-800 text-white uppercase bg-transparent border-2 md:border-gray-800 border-sky-400 dark:text-white hover:bg-gray-800 hover:text-white text-md"><Link to ={`/feed`}>Dashboard</Link></div>
+                    <div className="px-4 py-2 md:text-gray-800 text-white uppercase bg-transparent border-2 md:border-gray-800 border-sky-400 dark:text-white hover:bg-gray-800 hover:text-white text-md"><Link to ={`/feed`}>More Happy Hours</Link></div>
+                    <div className="px-4 py-2 md:text-gray-800 text-white uppercase bg-transparent border-2 md:border-gray-800 border-sky-400 dark:text-white hover:bg-gray-800 hover:text-white text-md"><Link to ={`/feed`}>Favorites</Link></div>
                 </div>
                 </div>
 
