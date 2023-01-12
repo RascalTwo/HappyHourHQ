@@ -4,8 +4,9 @@ import axios from 'axios';
 import useAuth from '../auth/useAuth';
 import { formatPhoneNumber } from 'react-phone-number-input'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar as faStarActive, faRotateRight} from '@fortawesome/free-solid-svg-icons'
+import { faStar as faStarActive, faRotateRight, faFilter} from '@fortawesome/free-solid-svg-icons'
 import { faStar as faStarInactive } from '@fortawesome/free-regular-svg-icons'
+import { Popover } from '@headlessui/react'
 
 import HHType from "./HHType";
 
@@ -232,9 +233,184 @@ export default function HHFeedText(){
     if (isLoading == false) return (
 
         <div>
-            <h1 className="sm:hidden text-center text-3xl text-gray-200 border-b-3xl border-b-2 border-gray-600 pb-1 mx-4">Happy Hours</h1>
+                <h1 className="sm:hidden text-center text-3xl text-gray-200 border-b-3xl border-b-2 border-gray-600 pb-1 mx-4">Happy Hours</h1>
+                
+                {/* MOBILE VIEW FOR FILTERS */}
+                <Popover className="sm:hidden ml-4 relative text-white">
+                    {({ open }) => (
+                        <>
+                    <Popover.Button> 
+                        Filters
+                        <FontAwesomeIcon icon={faFilter} className={open ? 'text-sky-400 pl-1' : "pl-1"}/></Popover.Button>
+
+                    <Popover.Panel className="absolute z-10">
+                        
+                        <div className=" flex flex-col bg-gray-600 p-4 px-8">
+
+                            <form onSubmit={handleSubmitFilter} className="flex flex-col sticky h-screen top-0">
+                                <div className="flex items-center gap-x-1">
+                                    <label htmlFor="drinks" className="text-white pr-2">Drinks</label>
+                                    <input
+                                        type="checkbox"
+                                        id="drinks"
+                                        name="drinks"
+                                        className="w-4 h-4"
+                                        onChange={handleFilterChange}
+                                        checked={filterData.drinks}
+                                    />
+                                </div>
+                                <div className="flex items-center gap-x-1">
+                                    <label htmlFor="food" className="text-white">Food</label>
+                                    <input
+                                        type="checkbox"
+                                        id="food"
+                                        name="food"
+                                        className="w-4 h-4"
+                                        onChange={handleFilterChange}
+                                        checked={filterData.food}
+                                    />
+                                </div>
+                                <div className="flex items-center gap-x-1">
+                                    <label htmlFor="rating1" className="text-white">Rating 1+</label>
+                                    <input
+                                        type="checkbox"
+                                        id="rating1"
+                                        name="rating1"
+                                        className="w-4 h-4"
+                                        onChange={handleFilterChange}
+                                        checked={filterData.rating1}
+                                    />
+                                </div>
+                                <div className="flex items-center gap-x-1">
+                                    <label htmlFor="rating2" className="text-white">Rating 2+</label>
+                                    <input
+                                        type="checkbox"
+                                        id="rating2"
+                                        name="rating2"
+                                        className="w-4 h-4"
+                                        onChange={handleFilterChange}
+                                        checked={filterData.rating2}
+                                    />
+                                </div>
+                                <div className="flex items-center gap-x-1">
+                                    <label htmlFor="rating3" className="text-white">Rating 3+</label>
+                                    <input
+                                        type="checkbox"
+                                        id="rating3"
+                                        name="rating3"
+                                        className="w-4 h-4"
+                                        onChange={handleFilterChange}
+                                        checked={filterData.rating3}
+                                    />
+                                </div>
+                                <div className="flex items-center gap-x-1">
+                                    <label htmlFor="rating4" className="text-white">Rating 4</label>
+                                    <input
+                                        type="checkbox"
+                                        id="rating4"
+                                        name="rating4"
+                                        className="w-4 h-4"
+                                        onChange={handleFilterChange}
+                                        checked={filterData.rating4}
+                                    />
+                                </div>
+                                <div className="flex items-center gap-x-1">
+                                    <label htmlFor="M" className="text-white">Monday</label>
+                                    <input
+                                        type="checkbox"
+                                        id="mon"
+                                        name="mon"
+                                        className="w-4 h-4"
+                                        onChange={handleFilterChange}
+                                        checked={filterData.mon}
+                                    />
+                                </div>
+                                <div className="flex items-center gap-x-1">
+                                    <label htmlFor="T" className="text-white">Tuesday</label>
+                                    <input
+                                        type="checkbox"
+                                        id="tue"
+                                        name="tue"
+                                        className="w-4 h-4"
+                                        onChange={handleFilterChange}
+                                        checked={filterData.tue}
+                                    />
+                                </div>
+                                <div className="flex items-center gap-x-1">
+                                    <label htmlFor="W" className="text-white">Wednesday</label>
+                                    <input
+                                        type="checkbox"
+                                        id="wed"
+                                        name="wed"
+                                        className="w-4 h-4"
+                                        onChange={handleFilterChange}
+                                        checked={filterData.wed}
+                                    />
+                                </div>
+                                <div className="flex items-center gap-x-1">
+                                    <label htmlFor="Th" className="text-white">Thursday</label>
+                                    <input
+                                        type="checkbox"
+                                        id="thur"
+                                        name="thur"
+                                        className="w-4 h-4"
+                                        onChange={handleFilterChange}
+                                        checked={filterData.thur}
+                                    />
+                                </div>
+                                <div className="flex items-center gap-x-1">
+                                    <label htmlFor="Fr" className="text-white">Friday</label>
+                                    <input
+                                        type="checkbox"
+                                        id="fri"
+                                        name="fri"
+                                        className="w-4 h-4"
+                                        onChange={handleFilterChange}
+                                        checked={filterData.fri}
+                                    />
+                                </div>
+                                <div className="flex items-center gap-x-1">
+                                    <label htmlFor="Sat" className="text-white">Saturday</label>
+                                    <input
+                                        type="checkbox"
+                                        id="sat"
+                                        name="sat"
+                                        className="w-4 h-4"
+                                        onChange={handleFilterChange}
+                                        checked={filterData.sat}
+                                    />
+                                </div>
+                                <div className="flex items-center gap-x-1">
+                                    <label htmlFor="Sun" className="text-white">Sunday</label>
+                                    <input
+                                        type="checkbox"
+                                        id="sun"
+                                        name="sun"
+                                        className="w-4 h-4"
+                                        onChange={handleFilterChange}
+                                        checked={filterData.sun}
+                                    />
+                                </div>
+                                <div className="flex justify-between sm:flex-wrap mt-2">
+                                    <button type="submit" className="mt-2 text-white flex justify-center items-center text-start px-3 py-0.5 text-white bg-gray-700 border-2 border-green-500 hover:bg-gray-800 text-md">Submit</button>
+                                    <button onClick={handleReset} className="mt-2 text-white flex justify-center items-center text-start px-2 py-0.5 text-white bg-gray-700 border-2 border-green-500 hover:bg-gray-800 text-md">Reset<FontAwesomeIcon icon={faRotateRight} className="text-white px-1"/></button>
+                                </div>
+                                <button onClick={handleSort} className="mt-2 text-white flex justify-center items-center text-start px-2 py-0.5 text-white bg-gray-700 border-2 border-green-500 hover:bg-gray-800 text-md">Sort By Rating</button>
+                            </form>
+
+
+                            
+                        </div>
+
+                        <img src="/solutions.jpg" alt="" />
+                    </Popover.Panel>
+                    </>
+                    )}
+                </Popover>
+            {/* END MOBILE VIEW FOR FILTERS */}
             <div className="flex">
             <div className="hidden sm:flex w-60  sm:flex-col sm:bg-gray-600 sm:p-4 sm:px-8">
+
                 <form onSubmit={handleSubmitFilter} className="flex flex-col sticky h-screen top-0">
                     <h2 className="text-white text-lg pb-2">Filters:</h2>
                     <div className="flex items-center gap-x-1">
