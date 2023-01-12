@@ -1,4 +1,4 @@
-import React, { useDebugValue } from "react";
+import React, { useRef } from "react";
 import { Link, useNavigate, } from 'react-router-dom';
 import axios from 'axios';
 import useAuth from '../auth/useAuth';
@@ -8,15 +8,27 @@ import { faStar as faStarActive, faCheck, faX } from '@fortawesome/free-solid-sv
 import { faStar as faStarInactive } from '@fortawesome/free-regular-svg-icons'
 import HHType from "./HHType";
 
+
 export default function HHFeedText(){
     const { user, authed } = useAuth();
     
     const navigate = useNavigate();
 
     const [dataHH, setDataHH] = React.useState([{}])
+    
     const [userData, setUserData] = React.useState([{}])
     const [isLoading, setLoading] = React.useState(true);
-
+    const [masterHHData, setMasterHHData] = React.useState([{}])
+    const initialFilterState = [
+        {drinks: false},
+        {food: false},
+        {rating4: false}
+    ]
+    const [filterData, setFilterData] = React.useState(initialFilterState)
+    const filterOptions = [drinksFilter, foodFilter, rating1, rating2, rating3, rating4, mon, tue, wed, thur, fri, sat, sun, finishFilter]
+    const initialRender = useRef(true)
+    let filterMaster = dataHH
+   
     React.useEffect(() => {
         function getHHData(){
             console.log("fetching data")
@@ -25,6 +37,7 @@ export default function HHFeedText(){
                 .then((data) => {
                 // API REQUEST ENDS UP HERE IF/WHEN FETCH DATA IS RETURNED
                 setDataHH(data)
+                setMasterHHData(data)
                 getUserData()
                 console.log("data fetched?")
             }); 
@@ -99,7 +112,117 @@ export default function HHFeedText(){
         }
     }
 
-    
+    function handleSort(){
+        let sorted = [...dataHH].sort((a,b) => a.ovRatingAvg > b.ovRatingAvg ? 1 : -1)
+        setDataHH(sorted)
+    }
+
+//FILTER FUNCTIONS
+
+    function handleFilterChange(event){
+        const {name, value, type, checked} = event.target
+        setFilterData(prevFormData => {
+            console.log(filterData)
+            return{
+                ...prevFormData,
+                [name]: type === "checkbox" ? checked : value,
+            }
+        })
+    }
+
+    function drinksFilter(){
+        if (filterData.drinks === true) {
+            
+            filterMaster =  filterMaster.filter(item => item.drinks === true)
+            
+        }
+    }
+
+    function foodFilter(){
+        if (filterData.food === true) {
+            filterMaster = filterMaster.filter(item => item.food === true)
+        }
+    }
+
+    function rating4(){
+        if (filterData.rating4 === true) {
+            filterMaster =  filterMaster.filter(item => item.ovRatingAvg === 4)
+        }
+    }
+
+    function rating3(){
+        if (filterData.rating3 === true) {
+            filterMaster =   filterMaster.filter(item => item.ovRatingAvg >= 3)
+        }
+    }
+
+    function rating2(){
+        if (filterData.rating2 === true) {
+            filterMaster = filterMaster.filter(item => item.ovRatingAvg >= 2)
+        }
+    }
+
+    function rating1(){
+        if (filterData.rating1 === true) {
+            filterMaster =  filterMaster.filter(item => item.ovRatingAvg >= 1)
+        }
+    }
+    function mon(){
+        if (filterData.mon === true) {
+            filterMaster =   filterMaster.filter(item => item.monday === true)
+        }
+    }
+    function tue(){
+        if (filterData.tue === true) {
+            filterMaster =   filterMaster.filter(item => item.tuesday === true)
+        }
+    }
+    function wed(){
+        if (filterData.wed === true) {
+            filterMaster =  filterMaster.filter(item => item.wednesday === true)
+        }
+    }
+    function thur(){
+        if (filterData.thur === true) {
+            filterMaster =  filterMaster.filter(item => item.thursday === true)
+        }
+    }
+    function fri(){
+        if (filterData.fri === true) {
+            filterMaster = filterMaster.filter(item => item.friday === true)
+        }
+    }
+    function sat(){
+        if (filterData.sat === true) {
+            filterMaster = filterMaster.filter(item => item.saturday === true)
+        }
+    }
+    function sun(){
+        if (filterData.sun === true) {
+           filterMaster = filterMaster.filter(item => item.sunday === true)
+        }
+    }
+
+
+    function finishFilter(){
+        console.log("finished", filterMaster)
+        setDataHH(filterMaster)
+    }
+
+// FILTER FUNCTION MAIN CALL
+    const handleSubmitFilter = async event => {
+        event.preventDefault();
+        console.log('check here', filterData)
+        filterOptions.forEach(item => item())
+        
+    }
+
+    function handleReset(){
+        setDataHH(masterHHData)
+        setFilterData(initialFilterState)
+        console.log("filterMaster", filterMaster, filterMaster.filter(item => item.drinks === true))
+        
+    }
 
     if (isLoading) {
         return <div>Loading....</div>
@@ -109,6 +232,131 @@ export default function HHFeedText(){
 
         <div>
             <h1 className="sm:hidden text-center text-3xl text-gray-200 border-b-3xl border-b-2 border-gray-600 pb-1 mx-4">Happy Hours</h1>
+            <div className="flex flex-col">
+                <form onSubmit={handleSubmitFilter} className="flex flex-col">
+                    
+                    <label htmlFor="drinks" className="text-white">Drinks</label>
+                    <input
+                        type="checkbox"
+                        id="drinks"
+                        name="drinks"
+                        className="w-6 h-6"
+                        onChange={handleFilterChange}
+                        checked={filterData.drinks}
+                    />
+                    <label htmlFor="food" className="text-white">Food</label>
+                    <input
+                        type="checkbox"
+                        id="food"
+                        name="food"
+                        className="w-6 h-6"
+                        onChange={handleFilterChange}
+                        checked={filterData.food}
+                    />
+                    <label htmlFor="rating1" className="text-white">Rating 1+</label>
+                    <input
+                        type="checkbox"
+                        id="rating1"
+                        name="rating1"
+                        className="w-6 h-6"
+                        onChange={handleFilterChange}
+                        checked={filterData.rating1}
+                    />
+                    <label htmlFor="rating2" className="text-white">Rating 2+</label>
+                    <input
+                        type="checkbox"
+                        id="rating2"
+                        name="rating2"
+                        className="w-6 h-6"
+                        onChange={handleFilterChange}
+                        checked={filterData.rating2}
+                    />
+                    <label htmlFor="rating3" className="text-white">Rating 3+</label>
+                    <input
+                        type="checkbox"
+                        id="rating3"
+                        name="rating3"
+                        className="w-6 h-6"
+                        onChange={handleFilterChange}
+                        checked={filterData.rating3}
+                    />
+                    <label htmlFor="rating4" className="text-white">Rating 4</label>
+                    <input
+                        type="checkbox"
+                        id="rating4"
+                        name="rating4"
+                        className="w-6 h-6"
+                        onChange={handleFilterChange}
+                        checked={filterData.rating4}
+                    />
+                    <label htmlFor="M" className="text-white">M</label>
+                    <input
+                        type="checkbox"
+                        id="mon"
+                        name="mon"
+                        className="w-6 h-6"
+                        onChange={handleFilterChange}
+                        checked={filterData.mon}
+                    />
+                    <label htmlFor="T" className="text-white">T</label>
+                    <input
+                        type="checkbox"
+                        id="tue"
+                        name="tue"
+                        className="w-6 h-6"
+                        onChange={handleFilterChange}
+                        checked={filterData.tue}
+                    />
+                    <label htmlFor="W" className="text-white">W</label>
+                    <input
+                        type="checkbox"
+                        id="wed"
+                        name="wed"
+                        className="w-6 h-6"
+                        onChange={handleFilterChange}
+                        checked={filterData.wed}
+                    />
+                    <label htmlFor="Th" className="text-white">Th</label>
+                    <input
+                        type="checkbox"
+                        id="thur"
+                        name="thur"
+                        className="w-6 h-6"
+                        onChange={handleFilterChange}
+                        checked={filterData.thur}
+                    />
+                    <label htmlFor="Fr" className="text-white">Fri</label>
+                    <input
+                        type="checkbox"
+                        id="fri"
+                        name="fri"
+                        className="w-6 h-6"
+                        onChange={handleFilterChange}
+                        checked={filterData.fri}
+                    />
+                    <label htmlFor="Sat" className="text-white">Sat</label>
+                    <input
+                        type="checkbox"
+                        id="sat"
+                        name="sat"
+                        className="w-6 h-6"
+                        onChange={handleFilterChange}
+                        checked={filterData.sat}
+                    />
+                    <label htmlFor="Sun" className="text-white">Sun</label>
+                    <input
+                        type="checkbox"
+                        id="sun"
+                        name="sun"
+                        className="w-6 h-6"
+                        onChange={handleFilterChange}
+                        checked={filterData.sun}
+                    />
+                    <button type="submit" className="text-white">Submit</button>
+                </form>
+                <button onClick={handleReset} className="text-white">Reset</button>
+
+            </div>
             {dataHH.map((item, index) => 
             
             <div className="flex justify-center text-gray-50 py-2" >
