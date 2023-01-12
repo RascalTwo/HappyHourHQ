@@ -232,131 +232,159 @@ export default function HHFeedText(){
 
         <div>
             <h1 className="sm:hidden text-center text-3xl text-gray-200 border-b-3xl border-b-2 border-gray-600 pb-1 mx-4">Happy Hours</h1>
-            <div className="flex flex-col">
-                <form onSubmit={handleSubmitFilter} className="flex flex-col">
-                    
-                    <label htmlFor="drinks" className="text-white">Drinks</label>
-                    <input
-                        type="checkbox"
-                        id="drinks"
-                        name="drinks"
-                        className="w-6 h-6"
-                        onChange={handleFilterChange}
-                        checked={filterData.drinks}
-                    />
-                    <label htmlFor="food" className="text-white">Food</label>
-                    <input
-                        type="checkbox"
-                        id="food"
-                        name="food"
-                        className="w-6 h-6"
-                        onChange={handleFilterChange}
-                        checked={filterData.food}
-                    />
-                    <label htmlFor="rating1" className="text-white">Rating 1+</label>
-                    <input
-                        type="checkbox"
-                        id="rating1"
-                        name="rating1"
-                        className="w-6 h-6"
-                        onChange={handleFilterChange}
-                        checked={filterData.rating1}
-                    />
-                    <label htmlFor="rating2" className="text-white">Rating 2+</label>
-                    <input
-                        type="checkbox"
-                        id="rating2"
-                        name="rating2"
-                        className="w-6 h-6"
-                        onChange={handleFilterChange}
-                        checked={filterData.rating2}
-                    />
-                    <label htmlFor="rating3" className="text-white">Rating 3+</label>
-                    <input
-                        type="checkbox"
-                        id="rating3"
-                        name="rating3"
-                        className="w-6 h-6"
-                        onChange={handleFilterChange}
-                        checked={filterData.rating3}
-                    />
-                    <label htmlFor="rating4" className="text-white">Rating 4</label>
-                    <input
-                        type="checkbox"
-                        id="rating4"
-                        name="rating4"
-                        className="w-6 h-6"
-                        onChange={handleFilterChange}
-                        checked={filterData.rating4}
-                    />
-                    <label htmlFor="M" className="text-white">M</label>
-                    <input
-                        type="checkbox"
-                        id="mon"
-                        name="mon"
-                        className="w-6 h-6"
-                        onChange={handleFilterChange}
-                        checked={filterData.mon}
-                    />
-                    <label htmlFor="T" className="text-white">T</label>
-                    <input
-                        type="checkbox"
-                        id="tue"
-                        name="tue"
-                        className="w-6 h-6"
-                        onChange={handleFilterChange}
-                        checked={filterData.tue}
-                    />
-                    <label htmlFor="W" className="text-white">W</label>
-                    <input
-                        type="checkbox"
-                        id="wed"
-                        name="wed"
-                        className="w-6 h-6"
-                        onChange={handleFilterChange}
-                        checked={filterData.wed}
-                    />
-                    <label htmlFor="Th" className="text-white">Th</label>
-                    <input
-                        type="checkbox"
-                        id="thur"
-                        name="thur"
-                        className="w-6 h-6"
-                        onChange={handleFilterChange}
-                        checked={filterData.thur}
-                    />
-                    <label htmlFor="Fr" className="text-white">Fri</label>
-                    <input
-                        type="checkbox"
-                        id="fri"
-                        name="fri"
-                        className="w-6 h-6"
-                        onChange={handleFilterChange}
-                        checked={filterData.fri}
-                    />
-                    <label htmlFor="Sat" className="text-white">Sat</label>
-                    <input
-                        type="checkbox"
-                        id="sat"
-                        name="sat"
-                        className="w-6 h-6"
-                        onChange={handleFilterChange}
-                        checked={filterData.sat}
-                    />
-                    <label htmlFor="Sun" className="text-white">Sun</label>
-                    <input
-                        type="checkbox"
-                        id="sun"
-                        name="sun"
-                        className="w-6 h-6"
-                        onChange={handleFilterChange}
-                        checked={filterData.sun}
-                    />
+            <div className="flex">
+            <div className="flex w-48  flex-col bg-gray-600 p-4 px-8">
+                <form onSubmit={handleSubmitFilter} className="flex flex-col sticky h-screen top-0">
+                    <div className="flex items-center gap-x-1">
+                        <label htmlFor="drinks" className="text-white pr-2">Drinks</label>
+                        <input
+                            type="checkbox"
+                            id="drinks"
+                            name="drinks"
+                            className="w-4 h-4"
+                            onChange={handleFilterChange}
+                            checked={filterData.drinks}
+                        />
+                    </div>
+                    <div className="flex items-center gap-x-1">
+                        <label htmlFor="food" className="text-white">Food</label>
+                        <input
+                            type="checkbox"
+                            id="food"
+                            name="food"
+                            className="w-4 h-4"
+                            onChange={handleFilterChange}
+                            checked={filterData.food}
+                        />
+                    </div>
+                    <div className="flex items-center gap-x-1">
+                        <label htmlFor="rating1" className="text-white">Rating 1+</label>
+                        <input
+                            type="checkbox"
+                            id="rating1"
+                            name="rating1"
+                            className="w-4 h-4"
+                            onChange={handleFilterChange}
+                            checked={filterData.rating1}
+                        />
+                    </div>
+                    <div className="flex items-center gap-x-1">
+                        <label htmlFor="rating2" className="text-white">Rating 2+</label>
+                        <input
+                            type="checkbox"
+                            id="rating2"
+                            name="rating2"
+                            className="w-4 h-4"
+                            onChange={handleFilterChange}
+                            checked={filterData.rating2}
+                        />
+                    </div>
+                    <div className="flex items-center gap-x-1">
+                        <label htmlFor="rating3" className="text-white">Rating 3+</label>
+                        <input
+                            type="checkbox"
+                            id="rating3"
+                            name="rating3"
+                            className="w-4 h-4"
+                            onChange={handleFilterChange}
+                            checked={filterData.rating3}
+                        />
+                    </div>
+                    <div className="flex items-center gap-x-1">
+                        <label htmlFor="rating4" className="text-white">Rating 4</label>
+                        <input
+                            type="checkbox"
+                            id="rating4"
+                            name="rating4"
+                            className="w-4 h-4"
+                            onChange={handleFilterChange}
+                            checked={filterData.rating4}
+                        />
+                    </div>
+                    <div className="flex items-center gap-x-1">
+                        <label htmlFor="M" className="text-white">Monday</label>
+                        <input
+                            type="checkbox"
+                            id="mon"
+                            name="mon"
+                            className="w-4 h-4"
+                            onChange={handleFilterChange}
+                            checked={filterData.mon}
+                        />
+                    </div>
+                    <div className="flex items-center gap-x-1">
+                        <label htmlFor="T" className="text-white">Tuesday</label>
+                        <input
+                            type="checkbox"
+                            id="tue"
+                            name="tue"
+                            className="w-4 h-4"
+                            onChange={handleFilterChange}
+                            checked={filterData.tue}
+                        />
+                    </div>
+                    <div className="flex items-center gap-x-1">
+                        <label htmlFor="W" className="text-white">Wednesday</label>
+                        <input
+                            type="checkbox"
+                            id="wed"
+                            name="wed"
+                            className="w-4 h-4"
+                            onChange={handleFilterChange}
+                            checked={filterData.wed}
+                        />
+                    </div>
+                    <div className="flex items-center gap-x-1">
+                        <label htmlFor="Th" className="text-white">Thursday</label>
+                        <input
+                            type="checkbox"
+                            id="thur"
+                            name="thur"
+                            className="w-4 h-4"
+                            onChange={handleFilterChange}
+                            checked={filterData.thur}
+                        />
+                    </div>
+                    <div className="flex items-center gap-x-1">
+                        <label htmlFor="Fr" className="text-white">Friday</label>
+                        <input
+                            type="checkbox"
+                            id="fri"
+                            name="fri"
+                            className="w-4 h-4"
+                            onChange={handleFilterChange}
+                            checked={filterData.fri}
+                        />
+                    </div>
+                    <div className="flex items-center gap-x-1">
+                        <label htmlFor="Sat" className="text-white">Saturday</label>
+                        <input
+                            type="checkbox"
+                            id="sat"
+                            name="sat"
+                            className="w-4 h-4"
+                            onChange={handleFilterChange}
+                            checked={filterData.sat}
+                        />
+                    </div>
+                    <div className="flex items-center gap-x-1">
+                        <label htmlFor="Sun" className="text-white">Sunday</label>
+                        <input
+                            type="checkbox"
+                            id="sun"
+                            name="sun"
+                            className="w-4 h-4"
+                            onChange={handleFilterChange}
+                            checked={filterData.sun}
+                        />
+                    </div>
                     <button type="submit" className="text-white">Submit</button>
+                    <button onClick={handleReset} className="text-white">Reset</button>
                 </form>
-                <button onClick={handleReset} className="text-white">Reset</button>
+                
 
             </div>
+            <div className="justify-self-center flex-grow">
             {dataHH.map((item, index) => 
             
             <div className="flex justify-center text-gray-50 py-2" >
@@ -439,10 +467,12 @@ export default function HHFeedText(){
                    
                     </div>
                 </div>
+            
               
         )}
         </div>
-        
+        </div>
+    </div>
         
     )
 }
