@@ -4,8 +4,9 @@ import axios from 'axios';
 import useAuth from '../auth/useAuth';
 import { formatPhoneNumber } from 'react-phone-number-input'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar as faStarActive, faCheck, faX } from '@fortawesome/free-solid-svg-icons'
+import { faStar as faStarActive, faRotateRight} from '@fortawesome/free-solid-svg-icons'
 import { faStar as faStarInactive } from '@fortawesome/free-regular-svg-icons'
+
 import HHType from "./HHType";
 
 
@@ -233,8 +234,9 @@ export default function HHFeedText(){
         <div>
             <h1 className="sm:hidden text-center text-3xl text-gray-200 border-b-3xl border-b-2 border-gray-600 pb-1 mx-4">Happy Hours</h1>
             <div className="flex">
-            <div className="hidden sm:flex w-48  sm:flex-col sm:bg-gray-600 sm:p-4 sm:px-8">
+            <div className="hidden sm:flex w-60  sm:flex-col sm:bg-gray-600 sm:p-4 sm:px-8">
                 <form onSubmit={handleSubmitFilter} className="flex flex-col sticky h-screen top-0">
+                    <h2 className="text-white text-lg pb-2">Filters:</h2>
                     <div className="flex items-center gap-x-1">
                         <label htmlFor="drinks" className="text-white pr-2">Drinks</label>
                         <input
@@ -378,9 +380,11 @@ export default function HHFeedText(){
                             checked={filterData.sun}
                         />
                     </div>
-                    <button type="submit" className="text-white">Submit</button>
-                    <button onClick={handleReset} className="text-white">Reset</button>
-                    <button onClick={handleSort} className="text-white">Sort By Rating</button>
+                    <div className="flex justify-between sm:flex-wrap mt-2">
+                        <button type="submit" className="mt-2 text-white flex justify-center items-center text-start px-3 py-0.5 text-white bg-gray-700 border-2 border-green-500 hover:bg-gray-800 text-md">Submit</button>
+                        <button onClick={handleReset} className="mt-2 text-white flex justify-center items-center text-start px-2 py-0.5 text-white bg-gray-700 border-2 border-green-500 hover:bg-gray-800 text-md">Reset<FontAwesomeIcon icon={faRotateRight} className="text-white px-1"/></button>
+                    </div>
+                    <button onClick={handleSort} className="mt-2 text-white flex justify-center items-center text-start px-2 py-0.5 text-white bg-gray-700 border-2 border-green-500 hover:bg-gray-800 text-md">Sort By Rating</button>
                 </form>
                 
 
