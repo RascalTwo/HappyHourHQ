@@ -233,7 +233,7 @@ export default function HHFeedText(){
         <div>
             <h1 className="sm:hidden text-center text-3xl text-gray-200 border-b-3xl border-b-2 border-gray-600 pb-1 mx-4">Happy Hours</h1>
             <div className="flex">
-            <div className="flex w-48  flex-col bg-gray-600 p-4 px-8">
+            <div className="hidden sm:flex w-48  sm:flex-col sm:bg-gray-600 sm:p-4 sm:px-8">
                 <form onSubmit={handleSubmitFilter} className="flex flex-col sticky h-screen top-0">
                     <div className="flex items-center gap-x-1">
                         <label htmlFor="drinks" className="text-white pr-2">Drinks</label>
