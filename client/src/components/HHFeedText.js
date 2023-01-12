@@ -380,6 +380,7 @@ export default function HHFeedText(){
                     </div>
                     <button type="submit" className="text-white">Submit</button>
                     <button onClick={handleReset} className="text-white">Reset</button>
+                    <button onClick={handleSort} className="text-white">Sort By Rating</button>
                 </form>
                 
 
