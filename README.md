@@ -18,7 +18,7 @@ The front-end for this app was built using React and Tailwindcss along with Axio
 The back-end for this app was built using Node, Express, Mongoose, and MongoDB along with Passport-local, Express-session, and Bcrpyt for authentication. The backend is based off of an MVC architecture with the views being in the client folder. The routes and controller handle login, logout, signup, and authenticated to check if the current user has an authenticated session stored.  
 
 ## Optimizations
-- [] Filters for sorting through the main feed
+- [X] Filters for sorting through the main feed
 - [] Improved responsiveness and mobile friendly
 - [] Incorporation of Google Maps
 - [] Reorganization of React components for more reusability
