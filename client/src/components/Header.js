@@ -39,7 +39,7 @@ export default function Header() {
 
 					{!authed && (
             <div className="relative bg-gray-800">
-						<Popover className="relative bg-gray-800">
+						<Popover className="relative z-20 bg-gray-800">
               <div className="mx-auto max-w-7xl px-4 sm:px-6">
                 <div className="flex items-center justify-between py-6 md:justify-start md:space-x-10">
                   <div className="flex justify-start lg:w-0 lg:flex-1">
@@ -146,7 +146,7 @@ export default function Header() {
 {/* HEADER WITH AUTHENTICATION */}
                     
                     {authed && (
-						<Popover className="relative bg-gray-800">
+						<Popover className="relative bg-gray-800 z-20">
                         <div className="mx-auto max-w-7xl px-4 sm:px-6">
                           <div className="flex items-center justify-between py-6 md:justify-start md:space-x-10">
                             <div className="flex justify-start lg:w-0 lg:flex-1">
