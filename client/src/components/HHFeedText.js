@@ -15,7 +15,7 @@ export default function HHFeedText(){
     const { user, authed } = useAuth();
     
     const navigate = useNavigate();
-
+    const [sortToggle, setSortToggle] = React.useState(false)
     const [dataHH, setDataHH] = React.useState([{}])
     
     const [userData, setUserData] = React.useState([{}])
@@ -28,8 +28,8 @@ export default function HHFeedText(){
     ]
     const [filterData, setFilterData] = React.useState(initialFilterState)
     const filterOptions = [drinksFilter, foodFilter, rating1, rating2, rating3, rating4, mon, tue, wed, thur, fri, sat, sun, finishFilter]
-    const initialRender = useRef(true)
-    let filterMaster = dataHH
+    const initialRender = useRef(false)
+    let filterMaster = masterHHData
    
     React.useEffect(() => {
         function getHHData(){
@@ -64,7 +64,6 @@ export default function HHFeedText(){
         const button = event.currentTarget;
         console.log("added to favorites")
         setUserData(prevValue => {
-            console.log(prevValue.favoritePosts, button.getAttribute('action'))
             return {
                 ...prevValue,
                 favoritePosts: [...prevValue.favoritePosts, button.getAttribute('action')]
@@ -114,17 +113,15 @@ export default function HHFeedText(){
         }
     }
 
-    function handleSort(){
-        let sorted = [...dataHH].sort((a,b) => a.ovRatingAvg > b.ovRatingAvg ? 1 : -1)
-        setDataHH(sorted)
-    }
+
 
 //FILTER FUNCTIONS
+
 
     function handleFilterChange(event){
         const {name, value, type, checked} = event.target
         setFilterData(prevFormData => {
-            console.log(filterData)
+            
             return{
                 ...prevFormData,
                 [name]: type === "checkbox" ? checked : value,
@@ -207,24 +204,41 @@ export default function HHFeedText(){
 
 
     function finishFilter(){
-        console.log("finished", filterMaster)
+        console.log("finished filter master", filterMaster)
         setDataHH(filterMaster)
+        
     }
 
 // FILTER FUNCTION MAIN CALL
-    const handleSubmitFilter = async event => {
+
+    const handleSort = async event => {
         event.preventDefault();
-        console.log('check here', filterData)
-        filterOptions.forEach(item => item())
+        let sorted = [...dataHH].sort((a,b) => a.ovRatingAvg > b.ovRatingAvg ? 1 : -1)
+        console.log("check sort here", sorted)
+        setDataHH(sorted)
+    }
+
+    const handleReset = async event => {
+        event.preventDefault();
+        setDataHH(masterHHData)
+        setFilterData(initialFilterState)
+        console.log("handle reset here", filterMaster, filterMaster.filter(item => item.drinks === true))
         
     }
 
-    function handleReset(){
-        setDataHH(masterHHData)
-        setFilterData(initialFilterState)
-        console.log("filterMaster", filterMaster, filterMaster.filter(item => item.drinks === true))
+    React.useEffect(() => {
         
-    }
+        if (initialRender.current){
+            console.log("CHECK ME FOR RENDER")
+            
+            filterOptions.forEach(item => item())
+        } else {
+            initialRender.current = true
+        }
+        
+    console.log("Use Effect Rendered")
+                
+    }, [filterData])
 
     if (isLoading) {
         return <div>Loading....</div>
@@ -234,7 +248,6 @@ export default function HHFeedText(){
 
         <div>
                 <h1 className="sm:hidden text-center text-3xl text-gray-200 border-b-3xl border-b-2 border-gray-600 pb-1 mx-4">Happy Hours</h1>
-                
                 {/* MOBILE VIEW FOR FILTERS */}
                 <Popover className="sm:hidden ml-4 relative text-white">
                     {({ open }) => (
@@ -247,7 +260,7 @@ export default function HHFeedText(){
                         
                         <div className=" flex flex-col bg-gray-600 p-4 px-8">
 
-                            <form onSubmit={handleSubmitFilter} className="flex flex-col sticky h-screen top-0">
+                            <form className="flex flex-col sticky h-screen top-0">
                                 <div className="flex items-center gap-x-1">
                                     <label htmlFor="drinks" className="text-white pr-2">Drinks</label>
                                     <input
@@ -391,10 +404,9 @@ export default function HHFeedText(){
                                         checked={filterData.sun}
                                     />
                                 </div>
-                                <div className="flex justify-between sm:flex-wrap mt-2">
-                                    <button type="submit" className="mt-2 text-white flex justify-center items-center text-start px-3 py-0.5 text-white bg-gray-700 border-2 border-green-500 hover:bg-gray-800 text-md">Submit</button>
+                                
                                     <button onClick={handleReset} className="mt-2 text-white flex justify-center items-center text-start px-2 py-0.5 text-white bg-gray-700 border-2 border-green-500 hover:bg-gray-800 text-md">Reset<FontAwesomeIcon icon={faRotateRight} className="text-white px-1"/></button>
-                                </div>
+                                
                                 <button onClick={handleSort} className="mt-2 text-white flex justify-center items-center text-start px-2 py-0.5 text-white bg-gray-700 border-2 border-green-500 hover:bg-gray-800 text-md">Sort By Rating</button>
                             </form>
 
@@ -411,7 +423,7 @@ export default function HHFeedText(){
             <div className="flex">
             <div className="hidden sm:flex w-60  sm:flex-col sm:bg-gray-600 sm:p-4 sm:px-8">
 
-                <form onSubmit={handleSubmitFilter} className="flex flex-col sticky h-screen top-0">
+                <form className="flex flex-col sticky h-screen top-0">
                     <h2 className="text-white text-lg pb-2">Filters:</h2>
                     <div className="flex items-center gap-x-1">
                         <label htmlFor="drinks" className="text-white pr-2">Drinks</label>
@@ -556,12 +568,13 @@ export default function HHFeedText(){
                             checked={filterData.sun}
                         />
                     </div>
-                    <div className="flex justify-between sm:flex-wrap mt-2">
-                        <button type="submit" className="mt-2 text-white flex justify-center items-center text-start px-3 py-0.5 text-white bg-gray-700 border-2 border-green-500 hover:bg-gray-800 text-md">Submit</button>
+                   
+                       
                         <button onClick={handleReset} className="mt-2 text-white flex justify-center items-center text-start px-2 py-0.5 text-white bg-gray-700 border-2 border-green-500 hover:bg-gray-800 text-md">Reset<FontAwesomeIcon icon={faRotateRight} className="text-white px-1"/></button>
-                    </div>
+    
                     <button onClick={handleSort} className="mt-2 text-white flex justify-center items-center text-start px-2 py-0.5 text-white bg-gray-700 border-2 border-green-500 hover:bg-gray-800 text-md">Sort By Rating</button>
                 </form>
+
                 
 
             </div>
