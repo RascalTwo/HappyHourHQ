@@ -4,7 +4,7 @@ import axios from 'axios';
 import useAuth from '../auth/useAuth';
 import { formatPhoneNumber } from 'react-phone-number-input'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar as faStarActive, faRotateRight, faFilter} from '@fortawesome/free-solid-svg-icons'
+import { faStar as faStarActive, faRotateRight, faFilter, faArrowUp, faArrowDown} from '@fortawesome/free-solid-svg-icons'
 import { faStar as faStarInactive } from '@fortawesome/free-regular-svg-icons'
 import { Popover } from '@headlessui/react'
 
@@ -27,7 +27,7 @@ export default function HHFeedText(){
         {rating4: false}
     ]
     const [filterData, setFilterData] = React.useState(initialFilterState)
-    const filterOptions = [drinksFilter, foodFilter, rating1, rating2, rating3, rating4, mon, tue, wed, thur, fri, sat, sun, finishFilter]
+    const filterOptions = [drinksFilter, foodFilter, rating1, rating2, rating3, rating4, mon, tue, wed, thur, fri, sat, sun, sort, finishFilter]
     const initialRender = useRef(false)
     let filterMaster = masterHHData
    
@@ -202,10 +202,17 @@ export default function HHFeedText(){
         }
     }
 
+    function sort(){
+        if (sortToggle === true){
+        let sorted = [...filterMaster].sort((a,b) => a.ovRatingAvg > b.ovRatingAvg ? 1 : -1)
+        filterMaster = sorted
+        }
+    }
 
     function finishFilter(){
         console.log("finished filter master", filterMaster)
         setDataHH(filterMaster)
+        
         
     }
 
@@ -214,8 +221,11 @@ export default function HHFeedText(){
     const handleSort = async event => {
         event.preventDefault();
         let sorted = [...dataHH].sort((a,b) => a.ovRatingAvg > b.ovRatingAvg ? 1 : -1)
-        console.log("check sort here", sorted)
+        
         setDataHH(sorted)
+        setSortToggle(prevValue => !prevValue)
+        console.log(sortToggle, sorted)
+        
     }
 
     const handleReset = async event => {
@@ -232,6 +242,7 @@ export default function HHFeedText(){
             console.log("CHECK ME FOR RENDER")
             
             filterOptions.forEach(item => item())
+            
         } else {
             initialRender.current = true
         }
@@ -407,7 +418,7 @@ export default function HHFeedText(){
                                 
                                     <button onClick={handleReset} className="mt-2 text-white flex justify-center items-center text-start px-2 py-0.5 text-white bg-gray-700 border-2 border-green-500 hover:bg-gray-800 text-md">Reset<FontAwesomeIcon icon={faRotateRight} className="text-white px-1"/></button>
                                 
-                                <button onClick={handleSort} className="mt-2 text-white flex justify-center items-center text-start px-2 py-0.5 text-white bg-gray-700 border-2 border-green-500 hover:bg-gray-800 text-md">Sort By Rating</button>
+                                    {sortToggle ? <button onClick={handleSort} className="mt-2 text-white flex justify-center items-center text-start px-2 py-0.5 text-white bg-gray-700 border-2 border-green-500 hover:bg-gray-800 text-md">Sort By Rating<FontAwesomeIcon icon={faArrowUp} className="pl-1"/></button> : <button onClick={handleSort} className="mt-2 text-white flex justify-center items-center text-start px-2 py-0.5 text-white bg-gray-700 border-2 border-green-500 hover:bg-gray-800 text-md">Sort By Rating<FontAwesomeIcon className="pl-1" icon={faArrowDown}/></button>}
                             </form>
 
 
@@ -572,7 +583,7 @@ export default function HHFeedText(){
                        
                         <button onClick={handleReset} className="mt-2 text-white flex justify-center items-center text-start px-2 py-0.5 text-white bg-gray-700 border-2 border-green-500 hover:bg-gray-800 text-md">Reset<FontAwesomeIcon icon={faRotateRight} className="text-white px-1"/></button>
     
-                    <button onClick={handleSort} className="mt-2 text-white flex justify-center items-center text-start px-2 py-0.5 text-white bg-gray-700 border-2 border-green-500 hover:bg-gray-800 text-md">Sort By Rating</button>
+                    {sortToggle ? <button onClick={handleSort} className="mt-2 text-white flex justify-center items-center text-start px-2 py-0.5 text-white bg-gray-700 border-2 border-green-500 hover:bg-gray-800 text-md">Sort By Rating<FontAwesomeIcon icon={faArrowUp} className="pl-1"/></button> : <button onClick={handleSort} className="mt-2 text-white flex justify-center items-center text-start px-2 py-0.5 text-white bg-gray-700 border-2 border-green-500 hover:bg-gray-800 text-md">Sort By Rating<FontAwesomeIcon className="pl-1" icon={faArrowDown}/></button>}
                 </form>
 
                 
