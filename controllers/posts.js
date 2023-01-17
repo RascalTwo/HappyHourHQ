@@ -62,7 +62,7 @@ module.exports = {
         console.log("Trying to get HH Data from API")
         
         try {
-          const post = await Post.find().sort({ createdAt: "desc" }).lean();
+          const post = await Post.find().sort({ ovRating: "desc" }).lean();
           res.json(post);
           console.log(post)
         } catch (err) {

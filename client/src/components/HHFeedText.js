@@ -15,7 +15,7 @@ export default function HHFeedText(){
     const { user, authed } = useAuth();
     
     const navigate = useNavigate();
-    const [sortToggle, setSortToggle] = React.useState(false)
+    const [sortToggle, setSortToggle] = React.useState(true)
     const [dataHH, setDataHH] = React.useState([{}])
     
     const [userData, setUserData] = React.useState([{}])
@@ -39,13 +39,15 @@ export default function HHFeedText(){
                 .then((data) => {
                 // API REQUEST ENDS UP HERE IF/WHEN FETCH DATA IS RETURNED
                 setDataHH(data)
+                sort()
                 setMasterHHData(data)
                 getUserData()
+                
                 console.log("data fetched?")
             }); 
         }
         getHHData()  
-                
+         
     }, [])
     
    console.log(dataHH)
