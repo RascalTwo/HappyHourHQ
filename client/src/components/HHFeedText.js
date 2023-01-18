@@ -253,7 +253,7 @@ export default function HHFeedText(){
         if (filterSearch == []){
             setDataHH(filterMaster)
         } else {
-        filterMaster = filterMaster.filter(item => item.zipcode.toString().includes(filterSearch))
+        filterMaster = filterMaster.filter(item => item.zipcode.toString().includes(filterSearch) || item.name.includes(filterSearch) || item.city.includes(filterSearch))
         setDataHH(filterMaster)
         }
         console.log(filterMaster[0].zipcode.toString().includes(filterSearch))
@@ -608,7 +608,7 @@ export default function HHFeedText(){
                                         id="filterText"
                                         name="filterText"
                                         className="input my-1 w-full input-xs max-w-xs"
-                                        placeholder="zipcode"
+                                        placeholder="City / Zip / Name"
                                         value={filterSearch}
                                         onChange={event => setFilterSearch(event.target.value)}
                                         />
