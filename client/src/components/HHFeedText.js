@@ -133,7 +133,7 @@ export default function HHFeedText(){
 
     function searchFilter(){
         if (filterSearch.length > 0){
-            filterMaster = filterMaster.filter(item => item.zipcode == filterSearch)
+            filterMaster = filterMaster.filter(item => item.zipcode.toString().includes(filterSearch) || item.name.toLowerCase().includes(filterSearch) || item.city.toLowerCase().includes(filterSearch))
         }
     }
 
@@ -253,7 +253,7 @@ export default function HHFeedText(){
         if (filterSearch == []){
             setDataHH(filterMaster)
         } else {
-        filterMaster = filterMaster.filter(item => item.zipcode.toString().includes(filterSearch) || item.name.includes(filterSearch) || item.city.includes(filterSearch))
+        filterMaster = filterMaster.filter(item => item.zipcode.toString().includes(filterSearch) || item.name.toLowerCase().includes(filterSearch) || item.city.toLowerCase().includes(filterSearch))
         setDataHH(filterMaster)
         }
         console.log(filterMaster[0].zipcode.toString().includes(filterSearch))
@@ -446,7 +446,7 @@ export default function HHFeedText(){
                                                     className="input my-1 w-full input-xs max-w-xs text-base text-black"
                                                     placeholder="City / Zip / Name"
                                                     value={filterSearch}
-                                                    onChange={event => setFilterSearch(event.target.value)}
+                                                    onChange={event => setFilterSearch(event.target.value.toLowerCase())}
                                                     />
                                 <button type="submit" onClick={handleSearch}><FontAwesomeIcon icon={faMagnifyingGlass} className="pl-1 text-xl text-sky-400 hover:text-sky-700"/></button>
                                 </div>   
@@ -621,7 +621,7 @@ export default function HHFeedText(){
                                         className="input my-1 w-full input-sm max-w-xs"
                                         placeholder="City / Zip / Name"
                                         value={filterSearch}
-                                        onChange={event => setFilterSearch(event.target.value)}
+                                        onChange={event => setFilterSearch(event.target.value.toLowerCase())}
                                         />
                     <button type="submit" onClick={handleSearch}><FontAwesomeIcon icon={faMagnifyingGlass} className="pl-1 text-sky-400 hover:text-sky-700"/></button>
                     </div>   
