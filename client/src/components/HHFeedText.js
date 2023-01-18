@@ -443,12 +443,12 @@ export default function HHFeedText(){
                                                     type="text"
                                                     id="filterText"
                                                     name="filterText"
-                                                    className="input my-1 w-full input-xs max-w-xs text-black"
+                                                    className="input my-1 w-full input-xs max-w-xs text-base text-black"
                                                     placeholder="City / Zip / Name"
                                                     value={filterSearch}
                                                     onChange={event => setFilterSearch(event.target.value)}
                                                     />
-                                <button type="submit" onClick={handleSearch}><FontAwesomeIcon icon={faMagnifyingGlass} className="pl-1 text-sky-400 hover:text-sky-700"/></button>
+                                <button type="submit" onClick={handleSearch}><FontAwesomeIcon icon={faMagnifyingGlass} className="pl-1 text-xl text-sky-400 hover:text-sky-700"/></button>
                                 </div>   
                                     <button onClick={handleReset} className="mt-2 text-white flex justify-center items-center text-start px-2 py-0.5 text-white bg-gray-700 border-2 border-green-500 hover:bg-gray-800 text-md">Reset<FontAwesomeIcon icon={faRotateRight} className="text-white px-1"/></button>
                                 
@@ -618,7 +618,7 @@ export default function HHFeedText(){
                                         type="text"
                                         id="filterText"
                                         name="filterText"
-                                        className="input my-1 w-full input-xs max-w-xs"
+                                        className="input my-1 w-full input-sm max-w-xs"
                                         placeholder="City / Zip / Name"
                                         value={filterSearch}
                                         onChange={event => setFilterSearch(event.target.value)}
