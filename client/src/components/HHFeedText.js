@@ -438,7 +438,18 @@ export default function HHFeedText(){
                                         checked={filterData.sun}
                                     />
                                 </div>
-
+                                <div className="flex">
+                                    <input
+                                                    type="text"
+                                                    id="filterText"
+                                                    name="filterText"
+                                                    className="input my-1 w-full input-xs max-w-xs"
+                                                    placeholder="City / Zip / Name"
+                                                    value={filterSearch}
+                                                    onChange={event => setFilterSearch(event.target.value)}
+                                                    />
+                                <button type="submit" onClick={handleSearch}><FontAwesomeIcon icon={faMagnifyingGlass} className="pl-1 text-sky-400 hover:text-sky-700"/></button>
+                                </div>   
                                     <button onClick={handleReset} className="mt-2 text-white flex justify-center items-center text-start px-2 py-0.5 text-white bg-gray-700 border-2 border-green-500 hover:bg-gray-800 text-md">Reset<FontAwesomeIcon icon={faRotateRight} className="text-white px-1"/></button>
                                 
                                     {sortToggle ? <button onClick={handleSort} className="mt-2 text-white flex justify-center items-center text-start px-2 py-0.5 text-white bg-gray-700 border-2 border-green-500 hover:bg-gray-800 text-md">Sort By Rating<FontAwesomeIcon icon={faArrowUp} className="pl-1"/></button> : <button onClick={handleSort} className="mt-2 text-white flex justify-center items-center text-start px-2 py-0.5 text-white bg-gray-700 border-2 border-green-500 hover:bg-gray-800 text-md">Sort By Rating<FontAwesomeIcon className="pl-1" icon={faArrowDown}/></button>}
