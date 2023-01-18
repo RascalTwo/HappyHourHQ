@@ -4,7 +4,7 @@ import axios from 'axios';
 import useAuth from '../auth/useAuth';
 import { formatPhoneNumber } from 'react-phone-number-input'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar as faStarActive, faRotateRight, faFilter, faArrowUp, faArrowDown} from '@fortawesome/free-solid-svg-icons'
+import { faStar as faStarActive, faRotateRight, faFilter, faArrowUp, faArrowDown, faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons'
 import { faStar as faStarInactive } from '@fortawesome/free-regular-svg-icons'
 import { Popover } from '@headlessui/react'
 
@@ -15,7 +15,7 @@ export default function HHFeedText(){
     const { user, authed } = useAuth();
     
     const navigate = useNavigate();
-    const [sortToggle, setSortToggle] = React.useState(true)
+    const [sortToggle, setSortToggle] = React.useState(false)
     const [dataHH, setDataHH] = React.useState([{}])
     
     const [userData, setUserData] = React.useState([{}])
@@ -27,8 +27,9 @@ export default function HHFeedText(){
         {rating4: false}
     ]
     const [filterData, setFilterData] = React.useState(initialFilterState)
-    const filterOptions = [drinksFilter, foodFilter, rating1, rating2, rating3, rating4, mon, tue, wed, thur, fri, sat, sun, sort, finishFilter]
+    const filterOptions = [searchFilter, drinksFilter, foodFilter, rating1, rating2, rating3, rating4, mon, tue, wed, thur, fri, sat, sun, sort, finishFilter]
     const initialRender = useRef(false)
+    const [filterSearch, setFilterSearch] = React.useState([])
     let filterMaster = masterHHData
    
     React.useEffect(() => {
@@ -39,7 +40,6 @@ export default function HHFeedText(){
                 .then((data) => {
                 // API REQUEST ENDS UP HERE IF/WHEN FETCH DATA IS RETURNED
                 setDataHH(data)
-                sort()
                 setMasterHHData(data)
                 getUserData()
                 
@@ -131,6 +131,12 @@ export default function HHFeedText(){
         })
     }
 
+    function searchFilter(){
+        if (filterSearch.length > 0){
+            filterMaster = filterMaster.filter(item => item.zipcode == filterSearch)
+        }
+    }
+
     function drinksFilter(){
         if (filterData.drinks === true) {
             
@@ -208,6 +214,7 @@ export default function HHFeedText(){
         if (sortToggle === true){
         let sorted = [...filterMaster].sort((a,b) => a.ovRatingAvg > b.ovRatingAvg ? 1 : -1)
         filterMaster = sorted
+        console.log("Sorted in filter HERE", filterMaster)
         }
     }
 
@@ -232,10 +239,24 @@ export default function HHFeedText(){
 
     const handleReset = async event => {
         event.preventDefault();
+        console.log("CHECK RESET", masterHHData)
         setDataHH(masterHHData)
         setFilterData(initialFilterState)
-        console.log("handle reset here", filterMaster, filterMaster.filter(item => item.drinks === true))
+        setFilterSearch("")
+        setSortToggle(false)
+        console.log("handle reset here", filterMaster)
         
+    }
+
+    const handleSearch = async event => {
+        event.preventDefault();
+        if (filterSearch == []){
+            setDataHH(filterMaster)
+        } else {
+        filterMaster = filterMaster.filter(item => item.zipcode.toString().includes(filterSearch))
+        setDataHH(filterMaster)
+        }
+        console.log(filterMaster[0].zipcode.toString().includes(filterSearch))
     }
 
     React.useEffect(() => {
@@ -417,7 +438,7 @@ export default function HHFeedText(){
                                         checked={filterData.sun}
                                     />
                                 </div>
-                                
+
                                     <button onClick={handleReset} className="mt-2 text-white flex justify-center items-center text-start px-2 py-0.5 text-white bg-gray-700 border-2 border-green-500 hover:bg-gray-800 text-md">Reset<FontAwesomeIcon icon={faRotateRight} className="text-white px-1"/></button>
                                 
                                     {sortToggle ? <button onClick={handleSort} className="mt-2 text-white flex justify-center items-center text-start px-2 py-0.5 text-white bg-gray-700 border-2 border-green-500 hover:bg-gray-800 text-md">Sort By Rating<FontAwesomeIcon icon={faArrowUp} className="pl-1"/></button> : <button onClick={handleSort} className="mt-2 text-white flex justify-center items-center text-start px-2 py-0.5 text-white bg-gray-700 border-2 border-green-500 hover:bg-gray-800 text-md">Sort By Rating<FontAwesomeIcon className="pl-1" icon={faArrowDown}/></button>}
@@ -581,11 +602,21 @@ export default function HHFeedText(){
                             checked={filterData.sun}
                         />
                     </div>
-                   
-                       
+                    <div className="flex">
+                        <input
+                                        type="text"
+                                        id="filterText"
+                                        name="filterText"
+                                        className="input my-1 w-full input-xs max-w-xs"
+                                        placeholder="zipcode"
+                                        value={filterSearch}
+                                        onChange={event => setFilterSearch(event.target.value)}
+                                        />
+                    <button type="submit" onClick={handleSearch}><FontAwesomeIcon icon={faMagnifyingGlass} className="pl-1 text-sky-400 hover:text-sky-700"/></button>
+                    </div>   
                         <button onClick={handleReset} className="mt-2 text-white flex justify-center items-center text-start px-2 py-0.5 text-white bg-gray-700 border-2 border-green-500 hover:bg-gray-800 text-md">Reset<FontAwesomeIcon icon={faRotateRight} className="text-white px-1"/></button>
     
-                    {sortToggle ? <button onClick={handleSort} className="mt-2 text-white flex justify-center items-center text-start px-2 py-0.5 text-white bg-gray-700 border-2 border-green-500 hover:bg-gray-800 text-md">Sort By Rating<FontAwesomeIcon icon={faArrowUp} className="pl-1"/></button> : <button onClick={handleSort} className="mt-2 text-white flex justify-center items-center text-start px-2 py-0.5 text-white bg-gray-700 border-2 border-green-500 hover:bg-gray-800 text-md">Sort By Rating<FontAwesomeIcon className="pl-1" icon={faArrowDown}/></button>}
+                    {sortToggle ? <button onClick={handleSort} className="mt-2 text-white flex justify-center items-center text-start px-2 py-0.5 text-white bg-gray-700 border-2 border-green-500 hover:bg-gray-800 text-md">Sort By Rating<FontAwesomeIcon icon={faArrowDown} className="pl-1"/></button> : <button onClick={handleSort} className="mt-2 text-white flex justify-center items-center text-start px-2 py-0.5 text-white bg-gray-700 border-2 border-green-500 hover:bg-gray-800 text-md">Sort By Rating<FontAwesomeIcon className="pl-1" icon={faArrowUp}/></button>}
                 </form>
 
                 
