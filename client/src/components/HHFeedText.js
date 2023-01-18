@@ -443,7 +443,7 @@ export default function HHFeedText(){
                                                     type="text"
                                                     id="filterText"
                                                     name="filterText"
-                                                    className="input my-1 w-full input-xs max-w-xs"
+                                                    className="input my-1 w-full input-xs max-w-xs text-black"
                                                     placeholder="City / Zip / Name"
                                                     value={filterSearch}
                                                     onChange={event => setFilterSearch(event.target.value)}
