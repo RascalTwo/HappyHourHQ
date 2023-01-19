@@ -6,7 +6,7 @@
 	"scripts": {
 		"start": "node server.js",
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"build": "npm --prefix client run build",
+		"build": "cd client && npm run build",
 		"dev": "nodemon server.js"
 	},
 	"author": "",
