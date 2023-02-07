@@ -2,7 +2,7 @@
 
 Web Application allowing you to find, favorite, review and add local happy hours near you.
 
-**Link to project:** <a href="https://happyhourhq.onrender.com">Happy Hour HQ</a>
+**Link to project:** <a href="https://happyhourhq.cyclic.app">Happy Hour HQ</a>
 
 <!-- ![A screenshot of the app](https://drive.google.com/file/d/1-2_qh0nSB2_kS1qBRbo0eHqOYeL-L2Kv/view?usp=sharing)  -->
 
